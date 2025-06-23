@@ -2,7 +2,7 @@ There are more complex examples and tools that leverage this package, have a loo
 
 <div class="grid cards" markdown>
 
--   :material-brain:{ .lg .middle } **GPT4-Eyes: AI Vision Assistant**
+- :material-brain:{ .lg .middle } **GPT4-Eyes: AI Vision Assistant**
 
     ***
 
@@ -10,7 +10,7 @@ There are more complex examples and tools that leverage this package, have a loo
 
     [:octicons-arrow-right-24: Learn More](https://docs.pupil-labs.com/alpha-lab/gpt4-eyes/)
 
--   :material-eye:{ .lg .middle } **Gaze Contingency for Assistive Tech**
+- :material-eye:{ .lg .middle } **Gaze Contingency for Assistive Tech**
 
     ***
 
@@ -18,7 +18,7 @@ There are more complex examples and tools that leverage this package, have a loo
 
     [:octicons-arrow-right-24: Explore Guide](https://docs.pupil-labs.com/alpha-lab/gaze-contingency-assistive/#a-practical-guide-to-implementing-gaze-contingency-for-assistive-technology)
 
--   :fontawesome-brands-python:{ .lg .middle } **Neon Plugin for PsychoPy**
+- :fontawesome-brands-python:{ .lg .middle } **Neon Plugin for PsychoPy**
 
     ***
 
@@ -26,7 +26,7 @@ There are more complex examples and tools that leverage this package, have a loo
 
     [:octicons-arrow-right-24: Read Documentation](https://docs.pupil-labs.com/neon/data-collection/psychopy/)
 
--   :octicons-code-24:{ .lg .middle } **More Projects and Tools**
+- :octicons-code-24:{ .lg .middle } **More Projects and Tools**
 
     ***
 
