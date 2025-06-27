@@ -13,7 +13,7 @@ Real-time access to eye tracking data and control over the generating devices is
 
 The Pupil Labs Real-Time Python client provides a high-level and very easy-to-use interface to this API, allowing developers and researchers to quickly build applications.
 
-Check out the [Cookbook](./cookbook.md) section for a list of example applications that use this library.
+Check out the [Cookbook](./cookbook/index.md) section for a list of example applications that use this library.
 
 !!! question "_Not a programmer?_"
 

@@ -1,3 +1,7 @@
+In the next section, we will explore how to use the Pupil Labs Realtime API to track your experiment progress using events. This is particularly useful for monitoring the state of your experiment in real-time and can be integrated into various applications.
+
+Have a look at [Track Your Experiment Progress Using Events](./track-your-experiment-progress-using-events.md)
+
 There are more complex examples and tools that leverage this package, have a look at:
 
 <div class="grid cards" markdown>

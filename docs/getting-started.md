@@ -52,4 +52,4 @@ while True:
 
 Many more data streams are available in real-time, including fixations, blinks, pupil diameter, IMU data and more. You can also control the device remotely, for example to start or stop a recording. Lastly, you can also save events as part of running recordings, to automatically annotate your data via the API.
 
-All of these features are demonstrated and explained in more detail in the [Simple API](./methods/simple.md) section. More involved example applications can be found in the [Cookbook](./cookbook.md). All methods are documented in the [API reference and Code Examples](./methods/index.md).
+All of these features are demonstrated and explained in more detail in the [Simple API](./methods/simple.md) section. More involved example applications can be found in the [Cookbook](./cookbook/index.md). All methods are documented in the [API reference and Code Examples](./methods/index.md).
