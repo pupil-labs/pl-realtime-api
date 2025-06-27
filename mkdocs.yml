@@ -48,7 +48,9 @@ nav:
       - Simple API reference: api/simple.md
       - Async API reference: api/async.md
   - Under the Hood: guides/under-the-hood.md
-  - Cookbook: cookbook.md
+  - Cookbook:
+      - Index: cookbook/index.md
+      - Track Your Experiment Progress Using Events: cookbook/track-your-experiment-progress-using-events.md
   - Changelog: changelog.md
 
 theme:
