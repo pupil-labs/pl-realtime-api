@@ -178,6 +178,8 @@ plt.ylabel("Number of Fixations")
 
     Text(0, 0.5, 'Number of Fixations')
 
+![Bar Chart of Average Fixations](./bar_chart.webp)
+
 ## Conclusion
 
 In this guide, you saw how to use events to track the progress of an experiment. Note that this approach can be generalized to much more complex setups.
