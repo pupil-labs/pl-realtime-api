@@ -21,7 +21,7 @@ Check out the [Cookbook](./cookbook/index.md) section for a list of example appl
 
 !!! question "_Not a Python user?_"
 
-    We offer a [Matlab wrapper](https://github.com/pupil-labs/pl-neon-matlab), a [C++ Client](https://github.com/pupil-labs/pl-realtime-cpp-client), and a [Unity3D (C#)](https://docs.pupil-labs.com/neon/neon-xr/neon-xr-core-package/) client. To implement your own client, please refer to the [Under the Hood](./guides/under-the-hood.md).
+    We offer a [Matlab wrapper](https://github.com/pupil-labs/pl-neon-matlab), a [C++ Client](https://github.com/pupil-labs/pl-realtime-cpp-client), and a [Unity3D (C#)](https://docs.pupil-labs.com/neon/neon-xr/neon-xr-core-package/) client. To implement your own client, please refer to [Under the Hood](./guides/under-the-hood.md).
 
 !!! warning "_Using Pupil Core?_"
 
