@@ -930,9 +930,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scene-camera-video-with-overlaid-gaze" class="md-nav__link">
+  <a href="#scene-camera-video-with-overlayed-gaze" class="md-nav__link">
     <span class="md-ellipsis">
-      Scene Camera Video with Overlaid Gaze
+      Scene Camera Video with Overlayed Gaze
     </span>
   </a>
   
@@ -1858,9 +1858,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scene-camera-video-with-overlaid-gaze" class="md-nav__link">
+  <a href="#scene-camera-video-with-overlayed-gaze" class="md-nav__link">
     <span class="md-ellipsis">
-      Scene Camera Video with Overlaid Gaze
+      Scene Camera Video with Overlayed Gaze
     </span>
   </a>
   
@@ -2255,7 +2255,7 @@ BGR pixel data and timestamp information.</p>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
 </details>
-<h3 id="scene-camera-video-with-overlaid-gaze">Scene Camera Video with Overlaid Gaze<a class="headerlink" href="#scene-camera-video-with-overlaid-gaze" title="Permanent link">&para;</a></h3>
+<h3 id="scene-camera-video-with-overlayed-gaze">Scene Camera Video with Overlayed Gaze<a class="headerlink" href="#scene-camera-video-with-overlayed-gaze" title="Permanent link">&para;</a></h3>
 <p>For additional context about where the wearer was gazing, it's useful to overlay gaze measurements onto the scene camera video stream. Since the scene camera and gaze signal can have different sampling rates, we need to be sure they are matched. For that, you can use (<a class="autorefs autorefs-internal" title="            receive_matched_scene_video_frame_and_gaze" href="../../../../api/simple/#pupil_labs.realtime_api.simple.Device.receive_matched_scene_video_frame_and_gaze"><code>device.receive_matched_scene_video_frame_and_gaze</code></a>).
 This receives a pair of scene camera video and gaze data already matched.</p>
 <div class="highlight"><pre><span></span><code><span class="n">frame</span><span class="p">,</span> <span class="n">gaze</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">receive_matched_scene_video_frame_and_gaze</span><span class="p">()</span>

@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation" class="md-skip">
+        <a href="#getting-started" class="md-skip">
           Skip to content
         </a>
       
@@ -544,6 +544,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -576,6 +578,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -584,27 +588,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#1-install-it" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation
+      1. Install It
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#connecting-to-a-device-receiving-data" class="md-nav__link">
+  <a href="#2-run-the-script" class="md-nav__link">
     <span class="md-ellipsis">
-      Connecting to a Device &amp; Receiving Data
+      2. Run the Script
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#more-data-remote-control" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
-      More Data &amp; Remote Control
+      How It Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-vs-async-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple vs. Async API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -1687,6 +1709,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1695,27 +1719,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#1-install-it" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation
+      1. Install It
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#connecting-to-a-device-receiving-data" class="md-nav__link">
+  <a href="#2-run-the-script" class="md-nav__link">
     <span class="md-ellipsis">
-      Connecting to a Device &amp; Receiving Data
+      2. Run the Script
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#more-data-remote-control" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
-      More Data &amp; Remote Control
+      How It Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-vs-async-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple vs. Async API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -1745,12 +1787,10 @@
   
 
 
-  <h1>Getting Started</h1>
-
-<p>The Real-time Python Client comes in two flavours, <a class="autorefs autorefs-internal" title="            simple" href="../api/simple/#pupil_labs.realtime_api.simple">simple</a> and <a class="autorefs autorefs-internal" title="            realtime_api" href="../modules/#pupil_labs.realtime_api">async</a>. For most applications the <code>simple</code> interface is appropriate and we recommend it for new users. The <code>async</code> interface uses Python's asyncio features to enable non-blocking communication, which can be beneficial for applications with very strict latency requirements. It is more difficult to use though and for most users the <code>simple</code> interface will suffice. To learn more, check out the <a href="../guides/simple-vs-async-api/">Simple vs Async guide</a>.</p>
-<p>In the examples below, we will use the <code>simple</code> interface. We are assuming a Neon device is used, but the same code works for Pupil Invisible devices analoguously as well.</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>The package is available on PyPI and can be installed using pip:</p>
+<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
+<p>Get the Real-time API running and stream data in two simple steps.</p>
+<h2 id="1-install-it">1. Install It<a class="headerlink" href="#1-install-it" title="Permanent link">&para;</a></h2>
+<p>Open your terminal and use pip to install the package.</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pupil-labs-realtime-api
 </code></pre></div>
 <div class="admonition warning">
@@ -1759,33 +1799,63 @@
 <div class="highlight"><pre><span></span><code><span class="n">pip</span> <span class="n">install</span> <span class="n">pupil</span><span class="o">-</span><span class="n">labs</span><span class="o">-</span><span class="n">realtime</span><span class="o">-</span><span class="n">api</span><span class="o">&lt;</span><span class="mf">1.6</span>
 </code></pre></div>
 </div>
-<h2 id="connecting-to-a-device-receiving-data">Connecting to a Device &amp; Receiving Data<a class="headerlink" href="#connecting-to-a-device-receiving-data" title="Permanent link">&para;</a></h2>
-<p>Using the <a class="autorefs autorefs-internal" title="            discover_one_device" href="../api/simple/#pupil_labs.realtime_api.simple.discover_one_device"><code>discover_one_device</code></a> function to connect to a Neon device in your local network. Make sure the Neon Companion app is running! If no device can be found, please check the <a href="../troubleshooting/">troubleshooting section</a>.</p>
-<p>Using the <a class="autorefs autorefs-internal" title="            receive_matched_scene_video_frame_and_gaze" href="../api/simple/#pupil_labs.realtime_api.simple.Device.receive_matched_scene_video_frame_and_gaze"><code>receive_matched_scene_video_frame_and_gaze</code></a> method, you can receive the current scene camera frame and gaze sample. This method ensures that both samples are matched temporally.</p>
-<p>The following example uses these methods to visualize a real-time gaze overlay on the scene camera frame:</p>
+<h2 id="2-run-the-script">2. Run the Script<a class="headerlink" href="#2-run-the-script" title="Permanent link">&para;</a></h2>
+<p>Run the code below in your Python environment. Before you start, make sure the Neon Companion app is running and your
+device is on the same network as your computer.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.simple</span><span class="w"> </span><span class="kn">import</span> <span class="n">discover_one_device</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
-<span class="n">device</span> <span class="o">=</span> <span class="n">discover_one_device</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully connected to device with serial </span><span class="si">{</span><span class="n">device</span><span class="o">.</span><span class="n">serial_number_glasses</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Look for a device on the network.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Looking for a device...&quot;</span><span class="p">)</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">discover_one_device</span><span class="p">(</span><span class="n">max_search_duration_seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No device found.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">()</span>
 
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">frame</span><span class="p">,</span> <span class="n">gaze</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">receive_matched_scene_video_frame_and_gaze</span><span class="p">()</span>
-    <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
-        <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">,</span>
-        <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">y</span><span class="p">)),</span>
-        <span class="n">radius</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
-        <span class="n">thickness</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connected to </span><span class="si">{</span><span class="n">device</span><span class="o">.</span><span class="n">serial_number_glasses</span><span class="si">}</span><span class="s2">. Press Ctrl-C to stop.&quot;</span><span class="p">)</span>
 
-    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Scene camera with gaze overlay&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
-        <span class="k">break</span>
+    <span class="c1"># Stream gaze data.</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># receive_gaze_datum() will return the next available gaze datum</span>
+        <span class="c1"># or block until one becomes available.</span>
+        <span class="n">gaze</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">receive_gaze_datum</span><span class="p">()</span>
+        <span class="c1"># The gaze datum is a named tuple containing x, y, worn, and timestamp.</span>
+        <span class="c1"># We can access these values as attributes.</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Timestamp: </span><span class="si">{</span><span class="n">gaze</span><span class="o">.</span><span class="n">timestamp_unix_seconds</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> | &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Gaze (x,y): (</span><span class="si">{</span><span class="n">gaze</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">gaze</span><span class="o">.</span><span class="n">y</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">) | &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Worn: </span><span class="si">{</span><span class="n">gaze</span><span class="o">.</span><span class="n">worn</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Stopping...&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="c1"># Cleanly close the connection</span>
+    <span class="k">if</span> <span class="s2">&quot;device&quot;</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">()</span> <span class="ow">and</span> <span class="n">device</span><span class="p">:</span>
+        <span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connection closed.&quot;</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="more-data-remote-control">More Data &amp; Remote Control<a class="headerlink" href="#more-data-remote-control" title="Permanent link">&para;</a></h2>
-<p>Many more data streams are available in real-time, including fixations, blinks, pupil diameter, IMU data and more. You can also control the device remotely, for example to start or stop a recording. Lastly, you can also save events as part of running recordings, to automatically annotate your data via the API.</p>
-<p>All of these features are demonstrated and explained in more detail in the <a href="../methods/simple/">Simple API</a> section. More involved example applications can be found in the <a href="../cookbook/">Cookbook</a>. All methods are documented in the <a href="../methods/">API reference and Code Examples</a>.</p>
+<p>You will see a continuous stream of timestamps, gaze coordinates, and worn status printed to your console.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>This script uses the <a class="autorefs autorefs-internal" title="            simple" href="../api/simple/#pupil_labs.realtime_api.simple">simple</a> interface, which is the easiest way to use the API
+and is recommended for most applications.</p>
+<ul>
+<li><code>discover_one_device()</code>: Scans the local network and connects to the first available device.</li>
+<li><code>receive_gaze_datum()</code>: Fetches the next available gaze data point from the device.</li>
+</ul>
+<h2 id="simple-vs-async-api">Simple vs. Async API<a class="headerlink" href="#simple-vs-async-api" title="Permanent link">&para;</a></h2>
+<p>For more advanced use-cases, an <a class="autorefs autorefs-internal" title="            realtime_api" href="../modules/#pupil_labs.realtime_api">async</a> interface is also available. This uses Python's asyncio
+features to enable non-blocking communication, which can be beneficial for applications with strict latency requirements.
+It is more difficult to use though and for most users the <code>simple</code> interface will suffice.</p>
+<p>For a deeper dive, read the <a href="../guides/simple-vs-async-api/">Simple vs Async guide</a>.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>You can stream much more than just gaze! For example, fixations, blinks, pupil data, and scene video with a live gaze
+overlay. Remotely controlling recordings is also possible:</p>
+<ul>
+<li>Explore more features and examples in the <a href="../methods/simple/">Simple</a> and <a href="../methods/async/">Async</a> methods sections.</li>
+<li>Find advanced examples in the <a href="../cookbook/">Cookbook</a>.</li>
+<li>See all methods in the <a href="../methods/">API Reference</a>.</li>
+</ul>
 
 
 
