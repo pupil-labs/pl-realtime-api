@@ -20,7 +20,7 @@ bgr_pixels, frame_datetime = device.receive_scene_video_frame()
     --8<-- "examples/simple/stream_scene_camera_video.py"
     ```
 
-### Scene Camera Video with Overlaid Gaze
+### Scene Camera Video with Overlayed Gaze
 
 For additional context about where the wearer was gazing, it's useful to overlay gaze measurements onto the scene camera video stream. Since the scene camera and gaze signal can have different sampling rates, we need to be sure they are matched. For that, you can use ([`device.receive_matched_scene_video_frame_and_gaze`][pupil_labs.realtime_api.simple.Device.receive_matched_scene_video_frame_and_gaze]).
 This receives a pair of scene camera video and gaze data already matched.
