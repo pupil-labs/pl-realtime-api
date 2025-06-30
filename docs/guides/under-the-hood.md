@@ -21,9 +21,9 @@ The current connection details can be looked up under the app's main menu → St
 
 By sending [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/POST) requests to the `/api/recording:*` endpoints, you can start, stop, and cancel recordings.
 
--   [`POST /api/recording:start`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_start) - Starts a recording if possible
--   [`POST /api/recording:stop_and_save`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_stop_and_save) - Stops and saves the running recording if possible
--   [`POST /api/recording:cancel`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_cancel) - Stops and discards the running recording if possible
+- [`POST /api/recording:start`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_start) - Starts a recording if possible
+- [`POST /api/recording:stop_and_save`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_stop_and_save) - Stops and saves the running recording if possible
+- [`POST /api/recording:cancel`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_cancel) - Stops and discards the running recording if possible
 
 !!! warning
 
@@ -55,7 +55,7 @@ By sending [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/example
 
 By [HTTP POSTing](https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/POST) requests to the `/api/event` endpoint, you can send labeled events to the device. Events will be timestamped on reception. Alternatively, you can provide a Unix-epoch timestamp in nanosecond. This is recommended if you want to control the timing of the event.
 
--   [`POST /api/event`](https://pupil-labs.github.io/realtime-network-api/#/events/post_event) - Sends an event to the device
+- [`POST /api/event`](https://pupil-labs.github.io/realtime-network-api/#/events/post_event) - Sends an event to the device
 
 !!! seealso
 **Implementations**
@@ -67,7 +67,7 @@ By [HTTP POSTing](https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/POS
 
 By sending a [HTTP GET](https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/GET) request to the `/api/status` endpoint, you can receive information about the device's current status. This includes information about the battery and storage capacities, connected sensors, and running recordings.
 
--   [`GET /api/status`](https://pupil-labs.github.io/realtime-network-api/#/status/get_status) - Receive status from device
+- [`GET /api/status`](https://pupil-labs.github.io/realtime-network-api/#/status/get_status) - Receive status from device
 
 !!! seealso
 
@@ -87,9 +87,9 @@ The messages published via this connection have the same format as the [Get Curr
 
 The Neon / Pupil Invisible Companion app uses the RTSP protocol ([RFC 2326](https://datatracker.ietf.org/doc/html/rfc2326)) to stream scene video and gaze data. Under the hood, communication is three-fold:
 
--   [RTSP](#rtsp) (RealTime Streaming Protocol) - Provides meta data about the corresponding stream
--   [RTP](#rtp) (Realtime Transport Protocol) - Data delivery channel, contains actual payloads
--   [RTCP](#rtcp) (RTP Control Protocol) - Provides absolute time information to align multiple streams
+- [RTSP](#rtsp) (RealTime Streaming Protocol) - Provides meta data about the corresponding stream
+- [RTP](#rtp) (Realtime Transport Protocol) - Data delivery channel, contains actual payloads
+- [RTCP](#rtcp) (RTP Control Protocol) - Provides absolute time information to align multiple streams
 
 The necessary connection information is made available via the [Sensor model](https://github.com/pupil-labs/realtime-network-api/blob/main/openapi_specification.yaml#L281) as part of the [Get Current Status](#get-current-status) and [Websocket API](#websocket-api).
 
@@ -129,8 +129,8 @@ During the SETUP method, client and server exchange information about their corr
 
 The DESCRIBE response contains [SDP](https://datatracker.ietf.org/doc/html/rfc2326#page-80)(Session Description Protocol) data, describing the following stream attributes (via the [media's rtpmap](https://datatracker.ietf.org/doc/html/rfc2326#appendix-C.1.3)):
 
--   `encoding` - The encoding of the stream, e.g. `H264`
--   `clockRate` - The clock rate of the stream's relative clock
+- `encoding` - The encoding of the stream, e.g. `H264`
+- `clockRate` - The clock rate of the stream's relative clock
 
 For video, it also exposes the [sprop-parameter-sets](https://datatracker.ietf.org/doc/html/rfc6184#section-8.2.1) via its [format-specific parameters](https://datatracker.ietf.org/doc/html/rfc5576#section-6.3) (`fmtp`).
 These contain crucial information in order to initialize the corresponding video decoder.
@@ -225,8 +225,8 @@ If eye state computation is enabled (not available for Pupil Invisible), additio
 
 Each RTP packet contains one gaze datum. The payload length varies:
 
--   **21 bytes**: When only gaze data is included. To unpack - (!ffB)
--   **77 bytes**: When both gaze and eye state data are included. To unpack - (!ffBffffffffffffff)
+- **21 bytes**: When only gaze data is included. To unpack - (!ffB)
+- **77 bytes**: When both gaze and eye state data are included. To unpack - (!ffBffffffffffffff)
 
 !!! tip
 
