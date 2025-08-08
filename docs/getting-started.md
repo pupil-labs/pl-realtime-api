@@ -70,7 +70,7 @@ and is recommended for most applications.
 
 ## Simple vs. Async API
 
-For more advanced use-cases, an [async][pupil_labs.realtime_api] interface is also available. This uses Python's asyncio
+For more advanced use-cases, an [async](./api/async.md) interface is also available. This uses Python's asyncio
 features to enable non-blocking communication, which can be beneficial for applications with strict latency requirements.
 It is more difficult to use though and for most users the `simple` interface will suffice.
 
@@ -83,4 +83,4 @@ overlay. Remotely controlling recordings is also possible:
 
 -   Explore more features and examples in the [Simple](./methods/simple.md) and [Async](./methods/async.md) methods sections.
 -   Find advanced examples in the [Cookbook](./cookbook/index.md).
--   See all methods in the [API Reference](./methods/index.md).
+-   See all methods in the [API Reference](./modules.md).

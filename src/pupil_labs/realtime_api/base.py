@@ -46,9 +46,17 @@ class DeviceBase(abc.ABC):  # noqa: B024
 
         """
         self.address: str = address
+        """REST API server address."""
+
         self.port: int = port
+        """REST API server port."""
+
         self.full_name: str | None = full_name
+        """Full service discovery name."""
+
         self.dns_name: str | None = dns_name
+        """REST API server DNS name, e.g.``neon.local / pi.local.``."""
+
         if suppress_decoding_warnings:
             # suppress decoding warnings due to incomplete data transmissions
             logging.getLogger("libav.h264").setLevel(logging.CRITICAL)

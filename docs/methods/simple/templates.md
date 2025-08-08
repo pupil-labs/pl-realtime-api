@@ -37,7 +37,7 @@ And using the [`device.post_template_data`][pupil_labs.realtime_api.simple.Devic
 
 ### Get Template Questions & Validate them
 
-You can also retrieve individual questions by their ID using the [`template.get_question_by_id`][pupil_labs.realtime_api.models.Template.get_question_by_id] method and check the validity of a response using the [`template.validate_answer`][pupil_labs.realtime_api.models.Template.validate_answer] method.
+You can also retrieve individual questions by their ID using the [`template.get_question_by_id`][pupil_labs.realtime_api.models.Template.get_question_by_id] method and check the validity of a response using the [`template.validate_answer`](../../../api/async/#pupil_labs.realtime_api.models.TemplateItem.validate_answer) method.
 
 ## See it in action
 

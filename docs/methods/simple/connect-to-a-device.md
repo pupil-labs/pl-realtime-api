@@ -6,7 +6,7 @@ The examples below demonstrate how to connect to one or more devices using our d
 to connect directly via a device’s IP address.
 
 Your device and the computer running the client must be connected to the same network, and the Companion app must be running.
-If no device can be found, please refer to the [troubleshooting section](./troubleshooting.md).
+If no device can be found, please refer to the [troubleshooting section](../../troubleshooting.md).
 
 === "Discover One Device"
 

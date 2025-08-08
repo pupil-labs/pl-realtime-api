@@ -16,7 +16,7 @@ With a recording ongoing, you can:
 
 ## Send event
 
-Save [events](https://docs.pupil-labs.com/neon/data-collection/events/) using the [`device.send_event`][pupil_labs.realtime_api.simple.Device.send_event] method. By default, the Neon device receiving the event will assign a timestamp to it, using the time of arrival. Optionally, you can set a custom nanosecond timestamp for your event instead.
+Save [events](https://docs.pupil-labs.com/neon/data-collection/events/) using the [`device.send_event`][pupil_labs.realtime_api.Device.send_event] method. By default, the Neon device receiving the event will assign a timestamp to it, using the time of arrival. Optionally, you can set a custom nanosecond timestamp for your event instead.
 
 === "Timestamped on Arrival (Host/Companion Device)"
 

@@ -66,7 +66,7 @@ This [`Status`][pupil_labs.realtime_api.models.Status] represents the full Compa
     Sensor(sensor='world', conn_type='WEBSOCKET', connected=True, ip='192.168.1.60', params='camera=world&audioenable=off', port=8686, protocol='rtsp', stream_error=False)
     ```
 
-Refer to the [Device API documentation](::: pupil_labs.realtime_api.device.Device) for more details.
+Refer to the [Device API documentation](../../../api/async/#pupil_labs.realtime_api.device.Device) for more details.
 
 ??? quote "Device"
 
