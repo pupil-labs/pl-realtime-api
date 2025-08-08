@@ -1852,7 +1852,12 @@
 </code></pre></div>
 <p>With a recording ongoing, you can:</p>
 <h2 id="send-event">Send event<a class="headerlink" href="#send-event" title="Permanent link">&para;</a></h2>
-<p>Save <a href="https://docs.pupil-labs.com/neon/data-collection/events/">events</a> using the <a class="autorefs autorefs-internal" title="            send_event" href="../../../api/simple/#pupil_labs.realtime_api.simple.Device.send_event"><code>device.send_event</code></a> method. By default, the Neon device receiving the event will assign a timestamp to it, using the time of arrival. Optionally, you can set a custom nanosecond timestamp for your event instead.</p>
+<p>Save <a href="https://docs.pupil-labs.com/neon/data-collection/events/">events</a> using the <a class="autorefs autorefs-internal" title="            send_event
+
+
+  
+      async
+  " href="../../../modules/#pupil_labs.realtime_api.Device.send_event"><code>device.send_event</code></a> method. By default, the Neon device receiving the event will assign a timestamp to it, using the time of arrival. Optionally, you can set a custom nanosecond timestamp for your event instead.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="timestamped-on-arrival-hostcompanion-device" name="__tabbed_1" type="radio" /><input id="with-explicit-timestamp" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="timestamped-on-arrival-hostcompanion-device">Timestamped on Arrival (Host/Companion Device)</label><label for="with-explicit-timestamp">With Explicit Timestamp</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">

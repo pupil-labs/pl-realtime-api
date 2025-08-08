@@ -1946,7 +1946,7 @@ information about available data streams.</p>
 <p>The device serves the built-in monitor web app at the document root <code>/</code>. The API is served under the <code>/api</code> path. You can find the full <a href="https://swagger.io/specification/">OpenAPI 3</a> specification of the REST API <a href="https://pupil-labs.github.io/realtime-network-api/">here</a>.</p>
 </div>
 <h3 id="startstopcancel-recordings">Start/stop/cancel recordings<a class="headerlink" href="#startstopcancel-recordings" title="Permanent link">&para;</a></h3>
-<p>By sending <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/POST">HTTP POST</a> requests to the <code>/api/recording:*</code> endpoints, you can start, stop, and cancel recordings.</p>
+<p>By sending <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST">HTTP POST</a> requests to the <code>/api/recording:*</code> endpoints, you can start, stop, and cancel recordings.</p>
 <ul>
 <li><a href="https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_start"><code>POST /api/recording:start</code></a> - Starts a recording if possible</li>
 <li><a href="https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_stop_and_save"><code>POST /api/recording:stop_and_save</code></a> - Stops and saves the running recording if possible</li>
@@ -1996,19 +1996,25 @@ recording:</p>
 </ul>
 </div>
 <h3 id="send-events">Send events<a class="headerlink" href="#send-events" title="Permanent link">&para;</a></h3>
-<p>By <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/POST">HTTP POSTing</a> requests to the <code>/api/event</code> endpoint, you can send labeled events to the device. Events will be timestamped on reception. Alternatively, you can provide a Unix-epoch timestamp in nanosecond. This is recommended if you want to control the timing of the event.</p>
+<p>By <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST">HTTP POSTing</a> requests to the <code>/api/event</code> endpoint, you can send labeled events to the device. Events will be timestamped on reception. Alternatively, you can provide a Unix-epoch timestamp in nanosecond. This is recommended if you want to control the timing of the event.</p>
 <ul>
 <li><a href="https://pupil-labs.github.io/realtime-network-api/#/events/post_event"><code>POST /api/event</code></a> - Sends an event to the device</li>
 </ul>
 <div class="admonition seealso">
 <p class="admonition-title">Seealso</p>
-</div>
 <p><strong>Implementations</strong></p>
-<pre><code>- `Simple` blocking: [`pupil_labs.realtime_api.simple.Device.send_event`][]
-- Asynchronous: [`pupil_labs.realtime_api.device.Device.send_event`][]
-</code></pre>
+<ul>
+<li><code>Simple</code> blocking: <a class="autorefs autorefs-internal" title="            send_event" href="../../api/simple/#pupil_labs.realtime_api.simple.Device.send_event"><code>pupil_labs.realtime_api.simple.Device.send_event</code></a></li>
+<li>Asynchronous: <a class="autorefs autorefs-internal" title="            send_event
+
+
+  
+      async
+  " href="../../api/async/#pupil_labs.realtime_api.device.Device.send_event"><code>pupil_labs.realtime_api.device.Device.send_event</code></a></li>
+</ul>
+</div>
 <h3 id="get-current-status">Get Current Status<a class="headerlink" href="#get-current-status" title="Permanent link">&para;</a></h3>
-<p>By sending a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/GET">HTTP GET</a> request to the <code>/api/status</code> endpoint, you can receive information about the device's current status. This includes information about the battery and storage capacities, connected sensors, and running recordings.</p>
+<p>By sending a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/GET">HTTP GET</a> request to the <code>/api/status</code> endpoint, you can receive information about the device's current status. This includes information about the battery and storage capacities, connected sensors, and running recordings.</p>
 <ul>
 <li><a href="https://pupil-labs.github.io/realtime-network-api/#/status/get_status"><code>GET /api/status</code></a> - Receive status from device</li>
 </ul>
@@ -2035,7 +2041,7 @@ recording:</p>
 <li><a href="#rtp">RTP</a> (Realtime Transport Protocol) - Data delivery channel, contains actual payloads</li>
 <li><a href="#rtcp">RTCP</a> (RTP Control Protocol) - Provides absolute time information to align multiple streams</li>
 </ul>
-<p>The necessary connection information is made available via the <a href="https://github.com/pupil-labs/realtime-network-api/blob/main/openapi_specification.yaml#L281">Sensor model</a> as part of the <a href="#get-current-status">Get Current Status</a> and <a href="#websocket-api">Websocket API</a>.</p>
+<p>The necessary connection information is made available via the <a href="https://github.com/pupil-labs/realtime-network-api/tree/main">Sensor model</a> as part of the <a href="#get-current-status">Get Current Status</a> and <a href="#websocket-api">Websocket API</a>.</p>
 <p>The RTSP connection URL follows the following pattern:</p>
 <div class="highlight"><pre><span></span><code>rtsp://&lt;ip&gt;:&lt;port&gt;/?&lt;params&gt;
 </code></pre></div>
@@ -2064,7 +2070,7 @@ available to web browsers</li>
 <p>Of the various <a href="https://datatracker.ietf.org/doc/html/rfc2326#section-6.1">methods</a> defined in the RTSP protocol, <a href="https://datatracker.ietf.org/doc/html/rfc2326#section-10.4">SETUP</a> and <a href="https://datatracker.ietf.org/doc/html/rfc2326#section-10.2">DESCRIBE</a> are particularly important for the transmission of the stream's meta and connection
 information.</p>
 <p>During the SETUP method, client and server exchange information about their corresponding port numbers for the <a href="#rtp">RTP</a> and <a href="#rtcp">RTCP</a> connections.</p>
-<p>The DESCRIBE response contains <a href="https://datatracker.ietf.org/doc/html/rfc2326#page-80">SDP</a>(Session Description Protocol) data, describing the following stream attributes (via the <a href="https://datatracker.ietf.org/doc/html/rfc2326#appendix-C.1.3">media's rtpmap</a>):</p>
+<p>The DESCRIBE response contains <a href="https://datatracker.ietf.org/doc/html/rfc2326#page-80">SDP</a> (Session Description Protocol) data, describing the following stream attributes (via the <a href="https://datatracker.ietf.org/doc/html/rfc2326#appendix-C.1.3">media's rtpmap</a>):</p>
 <ul>
 <li><code>encoding</code> - The encoding of the stream, e.g. <code>H264</code></li>
 <li><code>clockRate</code> - The clock rate of the stream's relative clock</li>
@@ -2085,7 +2091,7 @@ You can find more information about it below.</p>
 <h3 id="rtp">RTP<a class="headerlink" href="#rtp" title="Permanent link">&para;</a></h3>
 <div class="admonition abstract">
 <p class="admonition-title">Abstract</p>
-<p>[The real-time transport protocol] provides end-to-end network transport functions suitable for applications transmitting real-time data, such as audio, video or simulation data, over multicast or unicast network services. [...] The data transport is augmented by a control protocol (<a href="#rtcp">RTCP</a>) [...]. <a href="#rtp">RTP</a> and <a href="#rtcp">RTCP</a> are designed to be independent of the underlying transport and network layers.</p>
+<p>The real-time transport protocol provides end-to-end network transport functions suitable for applications transmitting real-time data, such as audio, video or simulation data, over multicast or unicast network services. [...] The data transport is augmented by a control protocol (<a href="#rtcp">RTCP</a>) [...]. <a href="#rtp">RTP</a> and <a href="#rtcp">RTCP</a> are   designed to be independent of the underlying transport and network layers.</p>
 <p>Source: <a href="https://datatracker.ietf.org/doc/html/rfc3550">https://datatracker.ietf.org/doc/html/rfc3550</a></p>
 </div>
 <p>Payloads can be split across multiple RTP packets. Their order can be identified via the packet header's <a href="https://datatracker.ietf.org/doc/html/rfc1889#section-5.1">sequence number</a>.
@@ -2101,7 +2107,7 @@ Packets belonging to the same payload have the same timestamp. The payloads can 
 
   
       async
-  " href="../../api/async/#pupil_labs.realtime_api.streaming.base.RTSPRawStreamer.receive"><code>pupil_labs.realtime_api.streaming.base.RTSPRawStreamer.receive</code></a> and calculates relative RTP packet timestamps in [<code>pupil_labs.realtime_api.streaming.base._WallclockRTSPReader.relative_timestamp_from_packet</code>][].</p>
+  " href="../../api/async/#pupil_labs.realtime_api.streaming.base.RTSPRawStreamer.receive"><code>pupil_labs.realtime_api.streaming.base.RTSPRawStreamer.receive</code></a> and calculates relative RTP packet timestamps in <a href="https://github.com/pupil-labs/pl-realtime-api/blob/883ac93d212b41c9ececa1dea134748f1f28fa27/src/pupil_labs/realtime_api/streaming/base.py#L208-L223"><code>pupil_labs.realtime_api.streaming.base._WallclockRTSPReader.relative_timestamp_from_packet</code></a>.</p>
 </div>
 <h3 id="rtcp">RTCP<a class="headerlink" href="#rtcp" title="Permanent link">&para;</a></h3>
 <p>The most important role that the RTP control protocol plays for the Pupil Labs Realtime Network API is to provide timestamps in relative stream time and in absolute NTP time (<a href="https://datatracker.ietf.org/doc/html/rfc1889#section-6.1">SR RTCP Packet type</a>).</p>
@@ -2201,7 +2207,12 @@ Specifically, it announces a service of type <code>_http._tcp.local.</code> and 
   
       instance-attribute
   " href="../../api/async/#pupil_labs.realtime_api.models.DiscoveredDeviceInfo.name"><code>pupil_labs.realtime_api.models.DiscoveredDeviceInfo.name</code></a> and
-- [<code>pupil_labs.realtime_api.base.DeviceBase.full_name</code>[]].</p>
+- <a class="autorefs autorefs-internal" title="            full_name
+
+
+  
+      instance-attribute
+  " href="../../api/async/#pupil_labs.realtime_api.base.DeviceBase.full_name"><code>pupil_labs.realtime_api.base.DeviceBase.full_name</code></a>.</p>
 <p>The phone name component is exposed via
 - <a class="autorefs autorefs-internal" title="            device_name
 
