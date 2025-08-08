@@ -59,12 +59,11 @@ class Device(DeviceBase):
     wrapping the asynchronous API with a more user-friendly interface.
 
     Important:
-        Use [discover_devices][pupil_labs.realtime_api.simple.discovery.
-        discover_devices]
+        Use [discover_devices](../../api/simple/#pupil_labs.realtime_api.simple.discover_devices)
         instead of initializing the class manually.
-        See the simple_discovery_example example.
+        See the [simple_discovery_example](../../methods/simple/connect-to-a-device/#discover-multiple-devices) example.
 
-    """
+    """  # noqa: E501
 
     def __init__(
         self,

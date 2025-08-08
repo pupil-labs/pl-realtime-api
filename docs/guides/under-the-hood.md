@@ -19,7 +19,7 @@ The current connection details can be looked up under the app's main menu → St
 
 ### Start/stop/cancel recordings
 
-By sending [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/POST) requests to the `/api/recording:*` endpoints, you can start, stop, and cancel recordings.
+By sending [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST) requests to the `/api/recording:*` endpoints, you can start, stop, and cancel recordings.
 
 -   [`POST /api/recording:start`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_start) - Starts a recording if possible
 -   [`POST /api/recording:stop_and_save`](https://pupil-labs.github.io/realtime-network-api/#/recording/post_recording_stop_and_save) - Stops and saves the running recording if possible
@@ -53,19 +53,20 @@ By sending [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/example
 
 ### Send events
 
-By [HTTP POSTing](https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/POST) requests to the `/api/event` endpoint, you can send labeled events to the device. Events will be timestamped on reception. Alternatively, you can provide a Unix-epoch timestamp in nanosecond. This is recommended if you want to control the timing of the event.
+By [HTTP POSTing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST) requests to the `/api/event` endpoint, you can send labeled events to the device. Events will be timestamped on reception. Alternatively, you can provide a Unix-epoch timestamp in nanosecond. This is recommended if you want to control the timing of the event.
 
 -   [`POST /api/event`](https://pupil-labs.github.io/realtime-network-api/#/events/post_event) - Sends an event to the device
 
 !!! seealso
-**Implementations**
+
+    **Implementations**
 
     - `Simple` blocking: [`pupil_labs.realtime_api.simple.Device.send_event`][]
     - Asynchronous: [`pupil_labs.realtime_api.device.Device.send_event`][]
 
 ### Get Current Status
 
-By sending a [HTTP GET](https://developer.mozilla.org/en-US/docs/Web/HTTP/examples/GET) request to the `/api/status` endpoint, you can receive information about the device's current status. This includes information about the battery and storage capacities, connected sensors, and running recordings.
+By sending a [HTTP GET](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/GET) request to the `/api/status` endpoint, you can receive information about the device's current status. This includes information about the battery and storage capacities, connected sensors, and running recordings.
 
 -   [`GET /api/status`](https://pupil-labs.github.io/realtime-network-api/#/status/get_status) - Receive status from device
 
@@ -91,7 +92,7 @@ The Neon / Pupil Invisible Companion app uses the RTSP protocol ([RFC 2326](http
 -   [RTP](#rtp) (Realtime Transport Protocol) - Data delivery channel, contains actual payloads
 -   [RTCP](#rtcp) (RTP Control Protocol) - Provides absolute time information to align multiple streams
 
-The necessary connection information is made available via the [Sensor model](https://github.com/pupil-labs/realtime-network-api/blob/main/openapi_specification.yaml#L281) as part of the [Get Current Status](#get-current-status) and [Websocket API](#websocket-api).
+The necessary connection information is made available via the [Sensor model](https://github.com/pupil-labs/realtime-network-api/tree/main) as part of the [Get Current Status](#get-current-status) and [Websocket API](#websocket-api).
 
 The RTSP connection URL follows the following pattern:
 
@@ -127,7 +128,7 @@ information.
 
 During the SETUP method, client and server exchange information about their corresponding port numbers for the [RTP](#rtp) and [RTCP](#rtcp) connections.
 
-The DESCRIBE response contains [SDP](https://datatracker.ietf.org/doc/html/rfc2326#page-80)(Session Description Protocol) data, describing the following stream attributes (via the [media's rtpmap](https://datatracker.ietf.org/doc/html/rfc2326#appendix-C.1.3)):
+The DESCRIBE response contains [SDP](https://datatracker.ietf.org/doc/html/rfc2326#page-80) (Session Description Protocol) data, describing the following stream attributes (via the [media's rtpmap](https://datatracker.ietf.org/doc/html/rfc2326#appendix-C.1.3)):
 
 -   `encoding` - The encoding of the stream, e.g. `H264`
 -   `clockRate` - The clock rate of the stream's relative clock
@@ -150,7 +151,7 @@ These contain crucial information in order to initialize the corresponding video
 
 !!! abstract
 
-    [The real-time transport protocol] provides end-to-end network transport functions suitable for applications transmitting real-time data, such as audio, video or simulation data, over multicast or unicast network services. [...] The data transport is augmented by a control protocol ([RTCP](#rtcp)) [...]. [RTP](#rtp) and [RTCP](#rtcp) are	designed to be independent of the underlying transport and network layers.
+    The real-time transport protocol provides end-to-end network transport functions suitable for applications transmitting real-time data, such as audio, video or simulation data, over multicast or unicast network services. [...] The data transport is augmented by a control protocol ([RTCP](#rtcp)) [...]. [RTP](#rtp) and [RTCP](#rtcp) are	designed to be independent of the underlying transport and network layers.
 
     Source: [https://datatracker.ietf.org/doc/html/rfc3550](https://datatracker.ietf.org/doc/html/rfc3550)
 
@@ -163,7 +164,7 @@ Packets belonging to the same payload have the same timestamp. The payloads can 
 
 !!! seealso
 
-    The Realtime Python API exposes raw RTP data via [`pupil_labs.realtime_api.streaming.base.RTSPRawStreamer.receive`][] and calculates relative RTP packet timestamps in [`pupil_labs.realtime_api.streaming.base._WallclockRTSPReader.relative_timestamp_from_packet`][].
+    The Realtime Python API exposes raw RTP data via [`pupil_labs.realtime_api.streaming.base.RTSPRawStreamer.receive`][] and calculates relative RTP packet timestamps in [`pupil_labs.realtime_api.streaming.base._WallclockRTSPReader.relative_timestamp_from_packet`](https://github.com/pupil-labs/pl-realtime-api/blob/883ac93d212b41c9ececa1dea134748f1f28fa27/src/pupil_labs/realtime_api/streaming/base.py#L208-L223).
 
 ### RTCP
 
@@ -267,7 +268,7 @@ PI monitor:<phone name>:<phone hardware id>._http._tcp.local.
 
     The service name is exposed via
     - [`pupil_labs.realtime_api.models.DiscoveredDeviceInfo.name`][] and
-    - [`pupil_labs.realtime_api.base.DeviceBase.full_name`[]].
+    - [`pupil_labs.realtime_api.base.DeviceBase.full_name`][].
 
     The phone name component is exposed via
     - [`pupil_labs.realtime_api.models.Phone.device_name`][] and

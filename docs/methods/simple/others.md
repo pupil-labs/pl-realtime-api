@@ -23,7 +23,7 @@ Mean roundtrip duration: 12.91 ms
 
 !!! question "Wanna get super precise time sync?"
 
-    Have a look at our tutorial [here](https://docs.pupil-labs.com/neon/data-collection/time-synchronization/#force-syncing-to-the-master-clock-on-demand).
+    Have a look at our tutorial [here](https://docs.pupil-labs.com/neon/data-collection/time-synchronization/).
 
 ## Camera calibration
 
@@ -72,7 +72,7 @@ Calibration(
 )
 ```
 
-!!! question "Wanna know how to undistort the video?""
+!!! question "Wanna know how to undistort the video?"
 
     Get a look at [our tutorial](https://docs.pupil-labs.com/alpha-lab/undistort/).
 

@@ -18,7 +18,7 @@ how to use them.
 -   [Gaze Data](simple/streaming/gaze.md)
 -   [Scene Camera Video](simple/streaming/scene-camera.md)
 -   [Scene Camera Video with Overlayed Gaze](simple/streaming/scene-camera.md#scene-camera-video-with-overlayed-gaze)
--   [Scene Camera Video with Overlayed Eyes Video and Gaze Circle](simple/streaming/scene-camera.md##scene-camera-video-with-overlayed-eyes-video-and-gaze-circle)
+-   [Scene Camera Video with Overlayed Eyes Video and Gaze Circle](simple/streaming/scene-camera.md#scene-camera-video-with-overlayed-eyes-video-and-gaze-circle)
 -   [Eyes Camera Video](simple/streaming/eye-cameras.md)
 -   [IMU Data](simple/streaming/imu-data.md)
 -   [Blinks, Fixations & Saccades](simple/streaming/eye-events.md)
