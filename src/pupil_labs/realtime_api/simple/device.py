@@ -63,7 +63,7 @@ class Device(DeviceBase):
         instead of initializing the class manually.
         See the [simple_discovery_example](../../simple/connect-to-a-device/#discover-multiple-devices) example.
 
-    """
+    """  # noqa: E501
 
     def __init__(
         self,
