@@ -10,6 +10,7 @@ import importlib.metadata
 from .device import APIPath, Device, DeviceError, StatusUpdateNotifier
 from .discovery import Network, discover_devices
 from .streaming import (
+    AudioFrame,
     BlinkEventData,
     DualMonocularGazeData,
     EyestateGazeData,
@@ -17,12 +18,14 @@ from .streaming import (
     FixationOnsetEventData,
     GazeData,
     RTSPData,
+    RTSPAudioStreamer,
     RTSPEyeEventStreamer,
     RTSPGazeStreamer,
     RTSPImuStreamer,
     RTSPRawStreamer,
     RTSPVideoFrameStreamer,
     VideoFrame,
+    receive_audio_frames,
     receive_eye_events_data,
     receive_gaze_data,
     receive_imu_data,
@@ -37,6 +40,7 @@ except importlib.metadata.PackageNotFoundError:
 
 __all__ = [
     "APIPath",
+    "AudioFrame",
     "BlinkEventData",
     "Device",
     "DeviceError",
@@ -47,6 +51,7 @@ __all__ = [
     "GazeData",
     "Network",
     "RTSPData",
+    "RTSPAudioStreamer",
     "RTSPEyeEventStreamer",
     "RTSPGazeStreamer",
     "RTSPImuStreamer",
@@ -57,6 +62,7 @@ __all__ = [
     "__version__",
     "discover_devices",
     "imu_pb2",
+    "receive_audio_frames",
     "receive_eye_events_data",
     "receive_gaze_data",
     "receive_imu_data",

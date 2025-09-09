@@ -25,11 +25,13 @@ from .gaze import (
 )
 from .imu import IMUData, RTSPImuStreamer, receive_imu_data
 from .video import RTSPVideoFrameStreamer, VideoFrame, receive_video_frames
+from .audio import RTSPAudioStreamer, AudioFrame, receive_audio_frames
 
 RTSPStreamerType = TypeVar("RTSPStreamerType", bound="RTSPRawStreamer")
 """Type annotation for RTSP Streamer classes"""
 
 __all__ = [
+    "AudioFrame",
     "BlinkEventData",
     "DualMonocularGazeData",
     "EyestateEyelidGazeData",
@@ -40,6 +42,7 @@ __all__ = [
     "IMUData",
     "ImuPacket",
     "RTSPData",
+    "RTSPAudioStreamer",
     "RTSPEyeEventStreamer",
     "RTSPGazeStreamer",
     "RTSPImuStreamer",
@@ -47,6 +50,7 @@ __all__ = [
     "RTSPVideoFrameStreamer",
     "SDPDataNotAvailableError",
     "VideoFrame",
+    "receive_audio_frames",
     "receive_eye_events_data",
     "receive_gaze_data",
     "receive_imu_data",

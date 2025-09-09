@@ -1,6 +1,7 @@
 import datetime
 from typing import NamedTuple
 
+from ..streaming.audio import AudioFrame
 from ..streaming.gaze import (
     GazeDataType,
 )
@@ -71,3 +72,17 @@ class MatchedGazeEyesSceneItem(NamedTuple):
 
 MATCHED_ITEM_LABEL = "matched_gaze_and_scene_video"
 MATCHED_GAZE_EYES_LABEL = "matched_gaze_eyes_and_scene_video"
+MATCHED_SCENE_AUDIO_LABEL = "matched_scene_video_and_audio"
+
+
+class MatchedSceneAudioItem(NamedTuple):
+    """A matched pair of scene video frame and audio data.
+
+    This class represents a scene video frame and audio data that
+    occurred at approximately the same time.
+    """
+
+    frame: SimpleVideoFrame
+    """Scene video frame."""
+    audio: list[AudioFrame]
+    """Corresponding audio data."""

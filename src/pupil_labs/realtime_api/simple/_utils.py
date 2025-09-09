@@ -10,6 +10,7 @@ from typing import Generic, TypeVar, cast
 
 from ..models import Sensor, SensorName
 from ..streaming import (
+    AudioFrame,
     RTSPEyeEventStreamer,
     RTSPGazeStreamer,
     RTSPImuStreamer,
@@ -19,9 +20,11 @@ from ..streaming import (
 from .models import (
     MATCHED_GAZE_EYES_LABEL,
     MATCHED_ITEM_LABEL,
+    MATCHED_SCENE_AUDIO_LABEL,
     GazeDataType,
     MatchedGazeEyesSceneItem,
     MatchedItem,
+    MatchedSceneAudioItem,
     SimpleVideoFrame,
 )
 
@@ -84,7 +87,9 @@ class _AsyncEventManager(Generic[EventKey]):
         self._events[name].set()
 
     def trigger_threadsafe(
-        self, name: EventKey, loop: asyncio.AbstractEventLoop | None = None
+        self,
+        name: EventKey,
+        loop: asyncio.AbstractEventLoop | None = None,
     ) -> None:
         """Set the event associated with the given name in a thread-safe manner.
 
@@ -258,6 +263,7 @@ class _StreamManager:
             )
         self._device()._cached_gaze_for_matching.clear()  # type: ignore[union-attr]
         self._device()._cached_eyes_for_matching.clear()  # type: ignore[union-attr]
+        self._device()._cached_audio_for_matching.clear()  # type: ignore[union-attr]
         async with self._streaming_cls(
             sensor.url, run_loop=True, log_level=logging.WARNING
         ) as streamer:
@@ -276,6 +282,11 @@ class _StreamManager:
                 device._most_recent_item[name].append(item)
                 if name == SensorName.GAZE.value:
                     device._cached_gaze_for_matching.append((
+                        item.timestamp_unix_seconds,
+                        item,
+                    ))
+                elif name == SensorName.AUDIO.value:
+                    device._cached_audio_for_matching.append((
                         item.timestamp_unix_seconds,
                         item,
                     ))
@@ -346,11 +357,33 @@ class _StreamManager:
                             )
                             device._event_new_item[MATCHED_GAZE_EYES_LABEL].set()
 
+                    try:
+                        audio_frames = self._get_closest_items(
+                            device._cached_audio_for_matching,
+                            item.timestamp_unix_seconds,
+                        )
+                    except IndexError:
+                        logger_receive_data.info(
+                            "No cached audio data available for matching"
+                        )
+                    else:
+                        device._most_recent_item[MATCHED_SCENE_AUDIO_LABEL].append(
+                            MatchedSceneAudioItem(
+                                cast(SimpleVideoFrame, item), audio_frames
+                            )
+                        )
+                        audio_time_difference = (
+                            item.timestamp_unix_seconds
+                            - audio_frames[-1].timestamp_unix_seconds
+                        )
+                        device._event_new_item[MATCHED_SCENE_AUDIO_LABEL].set()
+
                     logger_receive_data.debug(
                         f"Found matching samples. Time differences:\n"
                         f"\tscene - gaze: {gaze_match_time_difference:.3f}s\n"
                         f"\tscene - eyes: {eyes_match_time_difference:.3f}s)\n"
-                        f"\tgaze - eyes: {gaze_eyes_time_difference:.3f}s)"
+                        f"\tgaze - eyes: {gaze_eyes_time_difference:.3f}s)\n"
+                        f"\tscene - audio: {audio_time_difference:.3f}s)\n"
                     )
                 elif name == SensorName.EYES.value:
                     device._cached_eyes_for_matching.append((
@@ -385,6 +418,25 @@ class _StreamManager:
                 if next_item_ts > timestamp:
                     return next_item
                 item_ts, item = next_item_ts, next_item
+
+    @staticmethod
+    def _get_closest_items(
+        cache: deque[tuple[float, AudioFrame]], timestamp: float, tolerance: float = 0.1
+    ) -> list[AudioFrame]:
+        """Get the closest items in the cache to the given timestamp."""
+        items = []
+        while True:
+            try:
+                item_ts, item = cache[0]
+            except IndexError:
+                break
+            if abs(item_ts - timestamp) <= tolerance:
+                items.append(cache.popleft()[1])
+            elif item_ts > timestamp:
+                break
+            else:  # item_ts < timestamp
+                cache.popleft()
+        return items
 
 
 __all__ = ["_AsyncEventManager", "_StreamManager"]

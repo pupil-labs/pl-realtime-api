@@ -9,7 +9,6 @@ from typing import Any, cast, get_args
 
 import aiohttp
 import websockets
-
 from pupil_labs.neon_recording.calib import Calibration
 
 from .base import DeviceBase

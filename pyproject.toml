@@ -20,7 +20,7 @@ classifiers = [
 
 dependencies = [
     "aiohttp[speedups]>=3.11.14",
-    "aiortsp>=1.4.0",
+    "aiortsp>=1.4.1",
     "av>=14.2.0",
     "beaupy>=3.10.1",
     "deprecated>=1.2.18",
@@ -68,7 +68,7 @@ dev = [
     "tomli>=2.0; python_version < '3.11'",
     "types-deprecated>=1.2.15.20250304",
 ]
-examples = ["opencv-python"]
+examples = ["opencv-python", "rich", "librosa", "sounddevice"]
 
 [build-system]
 requires = ["hatchling", "uv-dynamic-versioning"]
@@ -96,3 +96,6 @@ source = "uv-dynamic-versioning"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pupil_labs"]
+
+[tool.uv.sources]
+aiortsp = { git = "https://github.com/mikelgg93/aiortsp.git" }
