@@ -19,6 +19,7 @@ def extract_frames_from_au_packet(rtp_payload: ByteString) -> list[ByteString]:
     References:
         See RFC 3640 (https://www.ietf.org/rfc/rfc3640.txt) for detailed AAC
         payload format specifications.
+
     """
     if not rtp_payload or len(rtp_payload) < 2:
         return []

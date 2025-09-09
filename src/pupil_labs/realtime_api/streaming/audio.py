@@ -22,6 +22,7 @@ class AudioFrame(NamedTuple):
     Note:
         Audio in Neon is streamed as fltp mono 8K, this class takes the decoded packets
         as av.AudioFrames.
+
     """
 
     av_frame: av.AudioFrame
@@ -66,6 +67,7 @@ async def receive_audio_frames(
 
     Yields:
         AudioFrame: Decoded audio frames with timestamp information.
+
     """
     async with RTSPAudioStreamer(url, *args, **kwargs) as streamer:
         async for datum in streamer.receive():

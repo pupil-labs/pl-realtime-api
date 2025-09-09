@@ -2,6 +2,7 @@ from typing import TypeVar
 
 from pupil_labs.neon_recording.stream.imu.imu_pb2 import ImuPacket  # type: ignore
 
+from .audio import AudioFrame, RTSPAudioStreamer, receive_audio_frames
 from .base import (
     RTSPData,
     RTSPRawStreamer,
@@ -25,7 +26,6 @@ from .gaze import (
 )
 from .imu import IMUData, RTSPImuStreamer, receive_imu_data
 from .video import RTSPVideoFrameStreamer, VideoFrame, receive_video_frames
-from .audio import RTSPAudioStreamer, AudioFrame, receive_audio_frames
 
 RTSPStreamerType = TypeVar("RTSPStreamerType", bound="RTSPRawStreamer")
 """Type annotation for RTSP Streamer classes"""
@@ -41,8 +41,8 @@ __all__ = [
     "GazeData",
     "IMUData",
     "ImuPacket",
-    "RTSPData",
     "RTSPAudioStreamer",
+    "RTSPData",
     "RTSPEyeEventStreamer",
     "RTSPGazeStreamer",
     "RTSPImuStreamer",
