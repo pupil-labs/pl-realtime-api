@@ -29,6 +29,7 @@ nav:
           - Eye Cameras: methods/simple/streaming/eye-cameras.md
           - IMU Data: methods/simple/streaming/imu-data.md
           - Blinks, Fixations & Saccades: methods/simple/streaming/eye-events.md
+          - Audio: methods/simple/streaming/audio.md
       - Templates: methods/simple/templates.md
       - Others: methods/simple/others.md
   - Async API:
@@ -41,6 +42,7 @@ nav:
           - Eye Cameras: methods/async/streaming/eye-cameras.md
           - IMU Data: methods/async/streaming/imu-data.md
           - Blinks, Fixations & Saccades: methods/async/streaming/eye-events.md
+          - Audio: methods/async/streaming/audio.md
       - Templates: methods/async/templates.md
       - Others: methods/async/others.md
   - API reference:
