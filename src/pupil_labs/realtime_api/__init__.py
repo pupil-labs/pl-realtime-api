@@ -9,6 +9,7 @@ import importlib.metadata
 
 from .device import APIPath, Device, DeviceError, StatusUpdateNotifier
 from .discovery import Network, discover_devices
+from .models import AudioPlayer
 from .streaming import (
     AudioFrame,
     BlinkEventData,
@@ -41,6 +42,7 @@ except importlib.metadata.PackageNotFoundError:
 __all__ = [
     "APIPath",
     "AudioFrame",
+    "AudioPlayer",
     "BlinkEventData",
     "Device",
     "DeviceError",

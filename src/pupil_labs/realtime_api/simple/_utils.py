@@ -8,6 +8,8 @@ from collections.abc import Hashable, Iterable, Mapping
 from types import MappingProxyType
 from typing import Generic, TypeVar, cast
 
+import numpy as np
+
 from ..models import Sensor, SensorName
 from ..streaming import (
     AudioFrame,
@@ -362,6 +364,10 @@ class _StreamManager:
                             device._cached_audio_for_matching,
                             item.timestamp_unix_seconds,
                         )
+                        gaze = self._get_closest_item(
+                            device._cached_gaze_for_matching,
+                            item.timestamp_unix_seconds,
+                        )
                     except IndexError:
                         logger_receive_data.info(
                             "No cached audio data available for matching"
@@ -369,12 +375,18 @@ class _StreamManager:
                     else:
                         device._most_recent_item[MATCHED_SCENE_AUDIO_LABEL].append(
                             MatchedSceneAudioItem(
-                                cast(SimpleVideoFrame, item), audio_frames
+                                cast(SimpleVideoFrame, item),
+                                audio_frames,
+                                gaze,
                             )
                         )
                         audio_time_difference = (
-                            item.timestamp_unix_seconds
-                            - audio_frames[-1].timestamp_unix_seconds
+                            (
+                                item.timestamp_unix_seconds
+                                - audio_frames[-1].timestamp_unix_seconds
+                            )
+                            if audio_frames
+                            else np.nan
                         )
                         device._event_new_item[MATCHED_SCENE_AUDIO_LABEL].set()
 
@@ -421,21 +433,20 @@ class _StreamManager:
 
     @staticmethod
     def _get_closest_items(
-        cache: deque[tuple[float, AudioFrame]], timestamp: float, tolerance: float = 0.1
+        cache: deque[tuple[float, AudioFrame]], timestamp: float, tolerance: float = 34
     ) -> list[AudioFrame]:
         """Get the closest items in the cache to the given timestamp."""
         items = []
-        while True:
-            try:
-                item_ts, item = cache[0]
-            except IndexError:
+        while cache:
+            item_ts, _ = cache[0]
+            if item_ts > timestamp + tolerance:
                 break
-            if abs(item_ts - timestamp) <= tolerance:
-                items.append(cache.popleft()[1])
-            elif item_ts > timestamp:
-                break
-            else:  # item_ts < timestamp
+            if item_ts < timestamp - tolerance:
                 cache.popleft()
+                continue
+
+            items.append(cache.popleft()[1])
+
         return items
 
 

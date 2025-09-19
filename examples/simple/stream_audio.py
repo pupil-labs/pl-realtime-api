@@ -1,8 +1,5 @@
-import logging
-
 from pupil_labs.realtime_api.simple import discover_one_device
 
-logging.basicConfig(level=logging.DEBUG)
 # Look for devices. Returns as soon as it has found the first device.
 print("Looking for the next best device...")
 device = discover_one_device(max_search_duration_seconds=10)

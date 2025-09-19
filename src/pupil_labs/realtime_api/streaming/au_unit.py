@@ -3,7 +3,7 @@ from collections.abc import ByteString
 
 
 def extract_frames_from_au_packet(rtp_payload: ByteString) -> list[ByteString]:
-    """Extracts one or more AAC frames from an RTP payload formatted as RFC3640.
+    """Extract one or more AAC frames from an RTP payload formatted as RFC3640.
 
     This function parses the Access Unit (AU) header section to determine the
     size of each AAC frame contained in the payload, and then extracts them.

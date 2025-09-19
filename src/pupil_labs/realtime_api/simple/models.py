@@ -86,3 +86,5 @@ class MatchedSceneAudioItem(NamedTuple):
     """Scene video frame."""
     audio: list[AudioFrame]
     """Corresponding audio data."""
+    gaze: GazeDataType
+    """Corresponding gaze data."""

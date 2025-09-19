@@ -592,6 +592,7 @@ class Device(DeviceBase):
             self.start_stream_if_needed(SensorName.WORLD.value)
 
         elif sensor == MATCHED_SCENE_AUDIO_LABEL:
+            self.start_stream_if_needed(SensorName.GAZE.value)
             self.start_stream_if_needed(SensorName.AUDIO.value)
             self.start_stream_if_needed(SensorName.WORLD.value)
 
@@ -906,6 +907,15 @@ class Device(DeviceBase):
                     await stream_managers[changed.sensor].handle_sensor_update(changed)
                 else:
                     logger.debug(f"Unhandled DIRECT sensor {changed.sensor}")
+                if changed.sensor == SensorName.WORLD.value:
+                    # The audio sensor status is derived from the world sensor status.
+                    # We need to manually trigger an update for the audio stream
+                    # manager.
+                    audio_sensor = device_instance._status.direct_audio_sensor()
+                    if audio_sensor:
+                        await stream_managers[
+                            SensorName.AUDIO.value
+                        ].handle_sensor_update(audio_sensor)
 
             elif isinstance(changed, Recording) and changed.action == "ERROR":
                 device_instance._errors.append(changed.message)

@@ -121,7 +121,7 @@ async def manage_audio_playback(
 
 
 async def enqueue_sensor_data(sensor: T.AsyncIterator, queue: asyncio.Queue) -> None:
-    """Puts sensor data into an asyncio queue."""
+    """Move sensor data into an asyncio queue."""
     async for datum in sensor:
         try:
             queue.put_nowait((datum.datetime, datum))
@@ -130,7 +130,7 @@ async def enqueue_sensor_data(sensor: T.AsyncIterator, queue: asyncio.Queue) -> 
 
 
 async def get_most_recent_item(queue: asyncio.Queue):
-    """Empties the queue and returns the last item."""
+    """Empty the queue and returns the last item."""
     item = await queue.get()
     while True:
         try:
@@ -142,7 +142,7 @@ async def get_most_recent_item(queue: asyncio.Queue):
 
 
 async def get_closest_item(queue: asyncio.Queue, timestamp):
-    """Gets the item from the queue that is closest in time to the timestamp."""
+    """Get the item from the queue that is closest in time to the timestamp."""
     item_ts, item = await queue.get()
     if item_ts > timestamp:
         return item_ts, item
@@ -158,7 +158,7 @@ async def get_closest_item(queue: asyncio.Queue, timestamp):
 
 
 async def match_and_draw(queue_video: asyncio.Queue, queue_gaze: asyncio.Queue):
-    """Matches video and gaze data and draws the gaze overlay."""
+    """Match video and gaze data and draws the gaze overlay."""
     while not stop_audio_event.is_set():
         try:
             video_datetime, video_frame = await get_most_recent_item(queue_video)

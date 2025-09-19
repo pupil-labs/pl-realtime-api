@@ -6,12 +6,12 @@ import os
 try:
     import librosa
 except ImportError:
-    print(
+    raise ImportError(
         "librosa library not found. Please install with: pip install librosa to run"
         "this example or install pl-realtime with examples extras: "
-        "pip install pl-realtime[examples]"
-    )
-    exit()
+        "pip install pupil-labs-realtime-api[examples]"
+        "uv pip install pupil-labs-realtime-api --group examples"
+    ) from None
 
 import numpy as np
 from rich.align import Align
@@ -47,7 +47,7 @@ class TerminalAudioBar:
 
 
 def generate_linear_spectrum(audio_chunk, sample_rate, bars, dt):
-    """Renders a linear, vertically symmetric bar spectrum."""
+    """Render a linear, vertically symmetric bar spectrum."""
     audio_chunk = np.squeeze(audio_chunk).astype(np.float32)
     if audio_chunk.size == 0:
         return ""
@@ -64,7 +64,6 @@ def generate_linear_spectrum(audio_chunk, sample_rate, bars, dt):
         bar.update(dt, level)
 
     term_size_obj = os.get_terminal_size()
-    width = min(term_size_obj.columns, 160)
     height = min(term_size_obj.lines, 40)
 
     center_y = height // 2

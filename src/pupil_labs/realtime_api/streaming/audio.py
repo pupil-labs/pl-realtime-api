@@ -47,7 +47,7 @@ class AudioFrame(NamedTuple):
         return self.av_frame.to_ndarray(*args, **kwargs)
 
     def to_resampled_ndarray(self, *args: Any, **kwargs: Any) -> Iterator[npt.NDArray]:
-        """Converts the audio frame to a resampled s16 NumPy array"""
+        """Convert the audio frame to a resampled s16 NumPy array"""
         for frame in self.resampler.resample(self.av_frame):
             yield frame.to_ndarray(*args, **kwargs)
 
