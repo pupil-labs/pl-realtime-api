@@ -86,7 +86,7 @@ branch = true
 source = ["pupil_labs"]
 
 [tool.deptry.per_rule_ignores]
-DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "sounddevice"]
+DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "sounddevice", "audio_player"]
 DEP002 = ["opencv-python"]
 DEP003 = ["pupil_labs", "typing_extensions", "pydantic_core"]
 DEP004 = ["cv2", "mkdocs", "rich", "librosa", "whisper", "speech_recognition", "sounddevice"]
