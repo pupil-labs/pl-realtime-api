@@ -3,11 +3,12 @@ import time
 import cv2
 import numpy as np
 
+from ..audio_player import AudioPlayer
+
 # Workaround for https://github.com/opencv/opencv/issues/21952
 cv2.imshow("cv/av bug", np.zeros(1))
 cv2.destroyAllWindows()
 
-from pupil_labs.realtime_api import AudioPlayer  # noqa: E402
 from pupil_labs.realtime_api.simple import discover_one_device  # noqa: E402
 
 # NOTE: Audio playback is done in a separate process with SoundDevice and a circular

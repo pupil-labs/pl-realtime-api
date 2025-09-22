@@ -5,11 +5,12 @@ import typing as T
 
 from pupil_labs.realtime_api import (
     AudioFrame,
-    AudioPlayer,
     Device,
     Network,
     receive_audio_frames,
 )
+
+from ..audio_player import AudioPlayer
 
 logging.basicConfig(level=logging.INFO)
 

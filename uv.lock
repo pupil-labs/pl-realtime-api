@@ -2202,7 +2202,6 @@ dependencies = [
     { name = "pupil-labs-neon-recording" },
     { name = "pupil-labs-video" },
     { name = "pydantic" },
-    { name = "sounddevice" },
     { name = "websockets" },
     { name = "zeroconf" },
 ]
@@ -2234,6 +2233,7 @@ examples = [
     { name = "openai-whisper" },
     { name = "opencv-python" },
     { name = "rich" },
+    { name = "sounddevice" },
     { name = "speechrecognition" },
 ]
 
@@ -2248,7 +2248,6 @@ requires-dist = [
     { name = "pupil-labs-neon-recording", specifier = ">=1.0.1" },
     { name = "pupil-labs-video", specifier = ">=1.0.3" },
     { name = "pydantic", specifier = ">=2.10.6" },
-    { name = "sounddevice", specifier = ">=0.5.2" },
     { name = "websockets", specifier = ">=15.0.1" },
     { name = "zeroconf", specifier = ">=0.146.1" },
 ]
@@ -2280,6 +2279,7 @@ examples = [
     { name = "openai-whisper" },
     { name = "opencv-python" },
     { name = "rich" },
+    { name = "sounddevice" },
     { name = "speechrecognition" },
 ]
 

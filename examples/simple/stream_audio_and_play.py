@@ -1,7 +1,8 @@
 import time
 
-from pupil_labs.realtime_api import AudioPlayer
 from pupil_labs.realtime_api.simple import discover_one_device
+
+from ..audio_player import AudioPlayer
 
 
 def main():

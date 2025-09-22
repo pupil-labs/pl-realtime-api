@@ -147,7 +147,7 @@ plugins:
         python:
           inventories:
             - https://docs.python.org/3/objects.inv
-          paths: [src]
+          paths: [src, examples]
           options:
             docstring_options:
               ignore_init_summary: true

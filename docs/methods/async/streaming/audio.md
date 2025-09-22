@@ -44,7 +44,7 @@ Audio Playback in realtime can be tricky, here we use [SoundDevice](https://pyth
 
 For commodity, we included a PyAv `AudioResampler` object to the AudioFrame class, it lazy loads, and calling [`to_resampled_ndarray`][pupil_labs.realtime_api.streaming.audio.AudioFrame.to_resampled_ndarray] will convert convert the av.AudioFrame to a NumPy array in signed 16-bit integer format, which is supported by SoundDevice for playback.
 
-For further simplicity, and beacuse audio should not be blocking your application, we also provide a [`AudioPlayer`][pupil_labs.realtime_api.AudioPlayer] class that handles buffering and playback of the audio data in a background process with a circular buffer, to avoid glitches, or silence during playback.
+To simplify development and ensure audio does not block your application, the examples include an [`AudioPlayer`][audio_player.AudioPlayer] class. It handles audio buffering and playback in a background process, using a circular buffer to guarantee smooth playback without glitches or silence.
 
 ??? example "Check the whole example code here"
 
@@ -62,7 +62,11 @@ Here you can find an example that shows how to play both video with gaze overlay
     --8<-- "examples/async/stream_video_gaze_and_audio.py"
     ```
 
-Alternatively, have a look at our Simple implementation and leverage [`AudioPlayer`][pupil_labs.realtime_api.AudioPlayer] which already uses a separate process.
+Alternatively, have a look at our simple examples, to see how to leverage [`AudioPlayer`][audio_player.AudioPlayer], which already uses a separate process.
+
+??? quote "AudioPlayer"
+
+    ::: audio_player.AudioPlayer
 
 !!! tip "Bonus"
 
