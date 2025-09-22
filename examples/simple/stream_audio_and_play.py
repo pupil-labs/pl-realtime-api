@@ -1,8 +1,13 @@
+import os
+import sys
 import time
 
-from pupil_labs.realtime_api.simple import discover_one_device
+# Allow for absloute imports, to import audio_player from the parent directory.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from ..audio_player import AudioPlayer
+from audio_player import AudioPlayer
+
+from pupil_labs.realtime_api.simple import discover_one_device
 
 
 def main():

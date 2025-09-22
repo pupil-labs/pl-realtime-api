@@ -1,9 +1,13 @@
+import os
+import sys
 import time
 
 import cv2
 import numpy as np
 
-from ..audio_player import AudioPlayer
+# Allow for absloute imports, to import audio_player from the parent directory.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from audio_player import AudioPlayer
 
 # Workaround for https://github.com/opencv/opencv/issues/21952
 cv2.imshow("cv/av bug", np.zeros(1))
