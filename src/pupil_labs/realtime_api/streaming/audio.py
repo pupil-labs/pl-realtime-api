@@ -125,9 +125,8 @@ class RTSPAudioStreamer(RTSPRawStreamer):
                         f"Failed to get SDP: {resp.status} {resp.msg}"
                     )
                 sdp = SDP(resp.content)
-                if not sdp.get("medias") or not any(
-                    m.get("type") == "audio" for m in sdp.get("medias")
-                ):
+                medias = sdp.get("medias")
+                if not medias or not any(m.get("type") == "audio" for m in medias):
                     raise AudioNotAvailableError(f"No audio media found in SDP: {sdp}")  # noqa: TRY301
         except Exception:
             self._stream_available = False

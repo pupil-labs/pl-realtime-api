@@ -26,7 +26,15 @@ The audio stream does not have it's own RTSP stream but is **multiplexed** with 
 
 ## Working with Audio Data
 
-You can easily receive audio frames and convert them to NumPy arrays using the [`to_ndarray`][pupil_labs.realtime_api.streaming.audio.AudioFrame.to_ndarray] method and feed these to any audio library of your choice like [`librosa`](https://librosa.org/) for analysis. For completeness, we have also included an example that shows how plot audio using librosa and rich on the terminal.
+You can easily receive audio frames and convert them to NumPy arrays using the [`to_ndarray`][pupil_labs.realtime_api.streaming.audio.AudioFrame.to_ndarray] method and feed these to any audio library of your choice like [`librosa`](https://librosa.org/) for analysis.
+
+??? example "Check the whole example code here"
+
+    ```py title="stream_audio.py" linenums="1"
+    --8<-- "examples/async/stream_audio.py"
+    ```
+
+For completeness, we have also included an example that shows how plot audio using librosa and rich on the terminal.
 
 <figure markdown="span">
 ![Audio Wave](../../../assets/audio_wave.webp){ loading=lazy }
