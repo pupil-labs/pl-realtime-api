@@ -8,7 +8,6 @@ from datetime import datetime
 from functools import partial
 from textwrap import indent
 from typing import Annotated, Any, ClassVar, Literal, NamedTuple
-from urllib.parse import parse_qs
 from uuid import UUID
 
 from pydantic import (
@@ -372,10 +371,8 @@ class Status:
                     component.sensor == SensorName.WORLD.value
                     and component.conn_type == ConnectionType.DIRECT.value
                 ):
-                    params = parse_qs(component.params)
-                    is_audio_enabled = params.get("audioenable", [None])[0] == "on"
                     audio_component = component._replace(
-                        sensor=SensorName.AUDIO.value, connected=is_audio_enabled
+                        sensor=SensorName.AUDIO.value, connected=True
                     )
                     sensors.append(audio_component)
             elif isinstance(component, Recording):
@@ -408,10 +405,8 @@ class Status:
                 component.sensor == SensorName.WORLD.value
                 and component.conn_type == ConnectionType.DIRECT.value
             ):
-                params = parse_qs(component.params)
-                is_audio_enabled = params.get("audioenable", [None])[0] == "on"
                 audio_component = component._replace(
-                    sensor=SensorName.AUDIO.value, connected=is_audio_enabled
+                    sensor=SensorName.AUDIO.value, connected=True
                 )
                 updates[audio_component.sensor, audio_component.conn_type] = (
                     audio_component

@@ -1,16 +1,29 @@
 import binascii
 import datetime
 import logging
+import ssl
 from collections.abc import AsyncIterator, Iterator
 from typing import Any, NamedTuple, cast
+from urllib.parse import urlparse
 
 import av
 import numpy.typing as npt
+from aiortsp.rtsp.connection import RTSPConnection
+from aiortsp.rtsp.sdp import SDP
 
 from .au_unit import extract_frames_from_au_packet
 from .base import RTSPRawStreamer, SDPDataNotAvailableError
 
 logger = logging.getLogger(__name__)
+
+
+class AudioNotAvailableError(Exception):
+    """Exception raised when SDP Audio data is not available.
+
+    Could happen if the microphone is not enabled in the Companion App.
+    """
+
+    pass
 
 
 class AudioFrame(NamedTuple):
@@ -82,12 +95,57 @@ class RTSPAudioStreamer(RTSPRawStreamer):
         super().__init__(*args, **kwargs)
         self._codec_config: str | None = None
         self._resampler: av.AudioResampler | None = None
+        self._stream_available = True
+
+    async def __aenter__(self) -> "RTSPAudioStreamer":
+        reader = self.reader
+        p_url = urlparse(reader.media_url)
+        ssl_context = reader.ssl
+        if p_url.scheme == "rtsps" and not ssl_context:
+            ssl_context = ssl.create_default_context()
+        port = p_url.port or (322 if p_url.scheme == "rtsps" else 554)
+
+        try:
+            async with RTSPConnection(
+                host=p_url.hostname,
+                port=port,
+                username=p_url.username,
+                password=p_url.password,
+                logger=reader.logger,
+                timeout=reader.timeout,
+                ssl=ssl_context,
+            ) as conn:
+                resp = await conn.send_request(
+                    "DESCRIBE",
+                    url=reader.media_url,
+                    headers={"Accept": "application/sdp"},
+                )
+                if resp.status != 200:
+                    raise SDPDataNotAvailableError(  # noqa: TRY301
+                        f"Failed to get SDP: {resp.status} {resp.msg}"
+                    )
+                sdp = SDP(resp.content)
+                if not sdp.get("medias") or not any(
+                    m.get("type") == "audio" for m in sdp.get("medias")
+                ):
+                    raise AudioNotAvailableError(f"No audio media found in SDP: {sdp}")  # noqa: TRY301
+        except Exception:
+            self._stream_available = False
+            logger.warning(
+                "RTSP audio stream not available.\n"
+                "\n"
+                "Check that the microphone is enabled in the Companion App."
+            )
+            return self
+
+        await super().__aenter__()
+        return self
 
     def _get_resampler(self, frame: av.AudioFrame) -> av.AudioResampler:
         """Create an AudioResampler needed for playback audio with SoundDevice.
 
         There is no fltp playback support in SoundDevice, so we need to resample
-        to s16. We create the resampler on the first frame and reuse it for all
+        to s16. We are creating the resampler on the first frame and reuse it for all
         subsequent frames.
         """
         if self._resampler is None:
