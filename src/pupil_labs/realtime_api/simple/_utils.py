@@ -6,7 +6,7 @@ import weakref
 from collections import deque
 from collections.abc import Hashable, Iterable, Mapping
 from types import MappingProxyType
-from typing import Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from ..models import Sensor, SensorName
 from ..streaming import (
@@ -33,7 +33,7 @@ logger = logging.getLogger(logger_name)
 logger_receive_data = logging.getLogger(logger_name + ".Device.receive_data")
 logger_receive_data.setLevel(logging.INFO)
 
-
+ItemType = SimpleVideoFrame | GazeDataType | AudioFrame | Any
 EventKey = TypeVar("EventKey", bound=Hashable)
 StreamerClassType = type[
     RTSPVideoFrameStreamer
@@ -137,7 +137,7 @@ class _AsyncEventManager(Generic[EventKey]):
 class _MatchingHandler:
     """A stateless handler that encapsulates the logic for processing and matching."""
 
-    def process_item(self, item, sensor_name, device):
+    def process_item(self, item: ItemType, sensor_name: str, device: Any) -> None:
         """Handle an incoming items, performing caching and matching logic."""
         if sensor_name == SensorName.GAZE.value:
             device._cached_gaze_for_matching.append((
@@ -155,13 +155,13 @@ class _MatchingHandler:
                 item,
             ))
         elif sensor_name == SensorName.WORLD.value:
-            self._match(item, device)
+            self._match(item, device)  # type: ignore[arg-type]
         elif sensor_name in (SensorName.IMU.value, SensorName.EYE_EVENTS.value):
             pass
         else:
             logger.error(f"Unhandled {item} for sensor {sensor_name}")
 
-    def _match(self, world_frame: SimpleVideoFrame, device):
+    def _match(self, world_frame: SimpleVideoFrame, device: Any) -> None:
         """Perform the matching logic for a world frame and matched items."""
         gaze = eyes = audio_frames = None
         nan = float("nan")
@@ -197,7 +197,7 @@ class _MatchingHandler:
                 gaze_eyes_time_diff = (
                     gaze.timestamp_unix_seconds - eyes.timestamp_unix_seconds
                 )
-                matched_item = MatchedGazeEyesSceneItem(world_frame, eyes, gaze)
+                matched_item = MatchedGazeEyesSceneItem(world_frame, eyes, gaze)  # type: ignore
                 device._most_recent_item[MATCHED_GAZE_EYES_LABEL].append(matched_item)
                 device._event_new_item[MATCHED_GAZE_EYES_LABEL].set()
 
@@ -206,7 +206,7 @@ class _MatchingHandler:
                 device._cached_audio_for_matching, world_frame.timestamp_unix_seconds
             )
             if audio_frames:
-                matched_item = MatchedSceneAudioItem(world_frame, audio_frames, gaze)
+                matched_item = MatchedSceneAudioItem(world_frame, audio_frames, gaze)  # type: ignore
                 device._most_recent_item[MATCHED_SCENE_AUDIO_LABEL].append(matched_item)
                 device._event_new_item[MATCHED_SCENE_AUDIO_LABEL].set()
                 audio_time_diff = (
