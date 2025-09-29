@@ -62,7 +62,7 @@ To simplify development and ensure audio does not block your application, the ex
 
 ## Playing Video and Audio
 
-Here you can find an example that shows how to play both video with gaze overlay and audio using OpenCV and SoundDevice. Note that this is a example uses threading to handle both video and audio playback, which is not optimal, but works for demonstration purposes. In a real application you may want to use multiprocessing, or use a Python version without GIL lock.
+Here you can find an example that shows how to play both video with gaze overlay and audio using OpenCV and SoundDevice. Note that this is a example uses threading to handle both video and audio playback, which is not optimal, but works for demonstration purposes.
 
 ??? example "Check the whole example code here"
 
