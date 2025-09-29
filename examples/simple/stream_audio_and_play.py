@@ -1,6 +1,5 @@
 import os
 import sys
-import time
 
 # Allow for absloute imports, to import audio_player from the parent directory.
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -35,7 +34,6 @@ def main():
                     )
                     # Start the player process
                     player.start()
-                    time.sleep(1)  # Give some time to the player to start
                     print(
                         f"Audio stream parameters: "
                         f"Sample Rate: {audio_frame.av_frame.sample_rate}, "

@@ -1,6 +1,5 @@
 import os
 import sys
-import time
 
 import cv2
 import numpy as np
@@ -32,7 +31,6 @@ def main():
     player = AudioPlayer(samplerate=8000, channels=1, dtype="int16")
     try:
         player.start()
-        time.sleep(1)  # Give some time to the player to start
         while True:
             matched = device.receive_matched_scene_video_frame_and_audio(
                 timeout_seconds=5
@@ -46,11 +44,20 @@ def main():
             for audio_frame in audio:
                 player.add_data(next(audio_frame.to_resampled_ndarray()).T)
 
+            buffer_fill_ms = 1000 * player.get_buffer_size() / player.samplerate
+
             # We display the number of audio frames received with the video frame
+            time_diff_ms = [
+                frame.timestamp_unix_seconds - af.timestamp_unix_seconds for af in audio
+            ]
             if audio:
                 cv2.putText(
                     frame.bgr_pixels,
-                    f"Audio frames: {len(audio)}",
+                    (
+                        f"Audio frames: {len(audio)} / "
+                        f"Buffer: {buffer_fill_ms:.0f} ms / "
+                        f"Mean diff. audio-scene: {np.mean(time_diff_ms) * 1000:.0f} ms"
+                    ),
                     (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1,
@@ -60,7 +67,7 @@ def main():
             else:
                 cv2.putText(
                     frame.bgr_pixels,
-                    "No audio",
+                    f"No audio / Buffer: {buffer_fill_ms:.0f} ms",
                     (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1,
