@@ -6,10 +6,11 @@ import weakref
 from collections import deque
 from collections.abc import Hashable, Iterable, Mapping
 from types import MappingProxyType
-from typing import Generic, TypeVar, cast
+from typing import Any, Generic, TypeVar
 
 from ..models import Sensor, SensorName
 from ..streaming import (
+    AudioFrame,
     RTSPEyeEventStreamer,
     RTSPGazeStreamer,
     RTSPImuStreamer,
@@ -19,9 +20,11 @@ from ..streaming import (
 from .models import (
     MATCHED_GAZE_EYES_LABEL,
     MATCHED_ITEM_LABEL,
+    MATCHED_SCENE_AUDIO_LABEL,
     GazeDataType,
     MatchedGazeEyesSceneItem,
     MatchedItem,
+    MatchedSceneAudioItem,
     SimpleVideoFrame,
 )
 
@@ -30,7 +33,7 @@ logger = logging.getLogger(logger_name)
 logger_receive_data = logging.getLogger(logger_name + ".Device.receive_data")
 logger_receive_data.setLevel(logging.INFO)
 
-
+ItemType = SimpleVideoFrame | GazeDataType | AudioFrame | Any
 EventKey = TypeVar("EventKey", bound=Hashable)
 StreamerClassType = type[
     RTSPVideoFrameStreamer
@@ -84,7 +87,9 @@ class _AsyncEventManager(Generic[EventKey]):
         self._events[name].set()
 
     def trigger_threadsafe(
-        self, name: EventKey, loop: asyncio.AbstractEventLoop | None = None
+        self,
+        name: EventKey,
+        loop: asyncio.AbstractEventLoop | None = None,
     ) -> None:
         """Set the event associated with the given name in a thread-safe manner.
 
@@ -129,6 +134,97 @@ class _AsyncEventManager(Generic[EventKey]):
         return event_key
 
 
+class _MatchingHandler:
+    """A stateless handler that encapsulates the logic for processing and matching."""
+
+    def process_item(self, item: ItemType, sensor_name: str, device: Any) -> None:
+        """Handle an incoming items, performing caching and matching logic."""
+        if sensor_name == SensorName.GAZE.value:
+            device._cached_gaze_for_matching.append((
+                item.timestamp_unix_seconds,
+                item,
+            ))
+        elif sensor_name == SensorName.EYES.value:
+            device._cached_eyes_for_matching.append((
+                item.timestamp_unix_seconds,
+                item,
+            ))
+        elif sensor_name == SensorName.AUDIO.value:
+            device._cached_audio_for_matching.append((
+                item.timestamp_unix_seconds,
+                item,
+            ))
+        elif sensor_name == SensorName.WORLD.value:
+            self._match(item, device)  # type: ignore[arg-type]
+        elif sensor_name in (SensorName.IMU.value, SensorName.EYE_EVENTS.value):
+            pass
+        else:
+            logger.error(f"Unhandled {item} for sensor {sensor_name}")
+
+    def _match(self, world_frame: SimpleVideoFrame, device: Any) -> None:
+        """Perform the matching logic for a world frame and matched items."""
+        gaze = eyes = audio_frames = None
+        nan = float("nan")
+        gaze_match_time_diff = eyes_match_time_diff = gaze_eyes_time_diff = (
+            audio_time_diff
+        ) = nan
+
+        try:
+            gaze = _get_closest_item(
+                device._cached_gaze_for_matching, world_frame.timestamp_unix_seconds
+            )
+        except IndexError:
+            logger_receive_data.info("No gaze data to match with world frame.")
+        else:
+            gaze_match_time_diff = (
+                world_frame.timestamp_unix_seconds - gaze.timestamp_unix_seconds
+            )
+            matched_item = MatchedItem(world_frame, gaze)
+            device._most_recent_item[MATCHED_ITEM_LABEL].append(matched_item)
+            device._event_new_item[MATCHED_ITEM_LABEL].set()
+
+        if gaze:
+            try:
+                eyes = _get_closest_item(
+                    device._cached_eyes_for_matching, world_frame.timestamp_unix_seconds
+                )
+            except IndexError:
+                logger_receive_data.debug("No eyes data for matching.")
+            else:
+                eyes_match_time_diff = (
+                    world_frame.timestamp_unix_seconds - eyes.timestamp_unix_seconds
+                )
+                gaze_eyes_time_diff = (
+                    gaze.timestamp_unix_seconds - eyes.timestamp_unix_seconds
+                )
+                matched_item = MatchedGazeEyesSceneItem(world_frame, eyes, gaze)  # type: ignore
+                device._most_recent_item[MATCHED_GAZE_EYES_LABEL].append(matched_item)
+                device._event_new_item[MATCHED_GAZE_EYES_LABEL].set()
+
+        try:
+            audio_frames = _get_closest_items(
+                device._cached_audio_for_matching, world_frame.timestamp_unix_seconds
+            )
+            if audio_frames:
+                matched_item = MatchedSceneAudioItem(world_frame, audio_frames, gaze)  # type: ignore
+                device._most_recent_item[MATCHED_SCENE_AUDIO_LABEL].append(matched_item)
+                device._event_new_item[MATCHED_SCENE_AUDIO_LABEL].set()
+                audio_time_diff = (
+                    world_frame.timestamp_unix_seconds
+                    - audio_frames[-1].timestamp_unix_seconds
+                )
+        except IndexError:
+            logger_receive_data.debug("No audio data for matching.")
+
+        logger_receive_data.debug(
+            f"Matching results for world frame ts={world_frame.timestamp_unix_seconds:.3f}:\n"  # noqa: E501
+            f"\tscene - gaze: {gaze_match_time_diff:.3f}s\n"
+            f"\tscene - eyes: {eyes_match_time_diff:.3f}s\n"
+            f"\tgaze - eyes: {gaze_eyes_time_diff:.3f}s\n"
+            f"\tscene - audio: {audio_time_diff:.3f}s"
+        )
+
+
 class _StreamManager:
     """Manages a single RTSP stream connection and data processing.
 
@@ -151,7 +247,6 @@ class _StreamManager:
 
     """
 
-    # TODO: Refactor matching logic to be more flexible
     def __init__(
         self,
         device_weakref: weakref.ReferenceType,
@@ -163,6 +258,7 @@ class _StreamManager:
         self._streaming_task: asyncio.Task | None = None
         self._should_be_streaming: bool = should_be_streaming_by_default
         self._recent_sensor: Sensor | None = None
+        self.matching_handler = _MatchingHandler()
 
     @property
     def should_be_streaming(self) -> bool:
@@ -233,7 +329,7 @@ class _StreamManager:
             self._streaming_task.cancel()
             self._streaming_task = None
 
-    async def append_data_from_sensor_to_queue(self, sensor: Sensor) -> None:  # noqa: C901 for now
+    async def append_data_from_sensor_to_queue(self, sensor: Sensor) -> None:
         """Connect to the sensor's RTSP stream and processes incoming data.
 
         Establishes a connection using the provided `sensor` URL and the
@@ -258,6 +354,8 @@ class _StreamManager:
             )
         self._device()._cached_gaze_for_matching.clear()  # type: ignore[union-attr]
         self._device()._cached_eyes_for_matching.clear()  # type: ignore[union-attr]
+        self._device()._cached_audio_for_matching.clear()  # type: ignore[union-attr]
+
         async with self._streaming_cls(
             sensor.url, run_loop=True, log_level=logging.WARNING
         ) as streamer:
@@ -274,117 +372,48 @@ class _StreamManager:
 
                 logger_receive_data.debug(f"{self} received {item}")
                 device._most_recent_item[name].append(item)
-                if name == SensorName.GAZE.value:
-                    device._cached_gaze_for_matching.append((
-                        item.timestamp_unix_seconds,
-                        item,
-                    ))
-                elif name == SensorName.WORLD.value:
-                    # Matching priority
-                    # 1. Match gaze datum to scene video frame (MATCHED_ITEM_LABEL)
-                    # 2. If match not possible: Abort matching
-                    # 3. Match eyes video frame to scene video frame
-                    #    (MATCHED_GAZE_EYES_LABEL)
-                    # Motivation: As of now, there is only  eyes video if there is gaze,
-                    # too. In the future, it might be possible to receive eyes video
-                    # without receiving gaze.
 
-                    logger_receive_data.debug(
-                        f"Searching closest gaze datum in cache "
-                        f"(len={len(device._cached_gaze_for_matching)})..."
-                    )
-
-                    nan = float("nan")
-                    gaze_match_time_difference = nan
-                    eyes_match_time_difference = nan
-                    gaze_eyes_time_difference = nan
-
-                    try:
-                        gaze = self._get_closest_item(
-                            device._cached_gaze_for_matching,
-                            item.timestamp_unix_seconds,
-                        )
-                    except IndexError:
-                        logger_receive_data.info(
-                            "No cached gaze data available for matching"
-                        )
-                    else:
-                        gaze_match_time_difference = (
-                            item.timestamp_unix_seconds - gaze.timestamp_unix_seconds
-                        )
-                        device._most_recent_item[MATCHED_ITEM_LABEL].append(
-                            MatchedItem(cast(SimpleVideoFrame, item), gaze)
-                        )
-                        device._event_new_item[MATCHED_ITEM_LABEL].set()
-
-                        try:
-                            eyes = self._get_closest_item(
-                                device._cached_eyes_for_matching,
-                                item.timestamp_unix_seconds,
-                            )
-                        except IndexError:
-                            # This case is expected when streaming data from Pupil
-                            # Invisible.
-                            logger_receive_data.info(
-                                "No cached eyes video frames available for matching"
-                            )
-                        else:
-                            eyes_match_time_difference = (
-                                item.timestamp_unix_seconds
-                                - eyes.timestamp_unix_seconds
-                            )
-                            gaze_eyes_time_difference = (
-                                gaze.timestamp_unix_seconds
-                                - eyes.timestamp_unix_seconds
-                            )
-                            device._most_recent_item[MATCHED_GAZE_EYES_LABEL].append(
-                                MatchedGazeEyesSceneItem(
-                                    cast(SimpleVideoFrame, item),
-                                    cast(SimpleVideoFrame, eyes),
-                                    gaze,
-                                )
-                            )
-                            device._event_new_item[MATCHED_GAZE_EYES_LABEL].set()
-
-                    logger_receive_data.debug(
-                        f"Found matching samples. Time differences:\n"
-                        f"\tscene - gaze: {gaze_match_time_difference:.3f}s\n"
-                        f"\tscene - eyes: {eyes_match_time_difference:.3f}s)\n"
-                        f"\tgaze - eyes: {gaze_eyes_time_difference:.3f}s)"
-                    )
-                elif name == SensorName.EYES.value:
-                    device._cached_eyes_for_matching.append((
-                        item.timestamp_unix_seconds,
-                        item,
-                    ))
-                elif (
-                    name == SensorName.IMU.value or name == SensorName.EYE_EVENTS.value
-                ):
-                    pass
-                else:
-                    logger.error(f"Unhandled {item} for sensor {name}")
+                self.matching_handler.process_item(item, name, device)
 
                 device._event_new_item[name].set()
                 del device  # remove Device reference
 
-    @staticmethod
-    def _get_closest_item(
-        cache: deque[tuple[float, GazeDataType]], timestamp: float
-    ) -> GazeDataType:
-        """Get the closest item in the cache to the given timestamp."""
-        item_ts, item = cache.popleft()
-        # assumes monotonically increasing timestamps
-        if item_ts > timestamp:
+
+def _get_closest_item(
+    cache: deque[tuple[float, GazeDataType]], timestamp: float
+) -> GazeDataType:
+    """Get the closest item in the cache to the given timestamp."""
+    item_ts, item = cache.popleft()
+    # assumes monotonically increasing timestamps
+    if item_ts > timestamp:
+        return item
+    while True:
+        try:
+            next_item_ts, next_item = cache.popleft()
+        except IndexError:
             return item
-        while True:
-            try:
-                next_item_ts, next_item = cache.popleft()
-            except IndexError:
-                return item
-            else:
-                if next_item_ts > timestamp:
-                    return next_item
-                item_ts, item = next_item_ts, next_item
+        else:
+            if next_item_ts > timestamp:
+                return next_item
+            item_ts, item = next_item_ts, next_item
+
+
+def _get_closest_items(
+    cache: deque[tuple[float, AudioFrame]], timestamp: float, tolerance: float = 34
+) -> list[AudioFrame]:
+    """Get the closest items in the cache to the given timestamp."""
+    items = []
+    while cache:
+        item_ts, _ = cache[0]
+        if item_ts > timestamp + tolerance:
+            break
+        if item_ts < timestamp - tolerance:
+            cache.popleft()
+            continue
+
+        items.append(cache.popleft()[1])
+
+    return items
 
 
 __all__ = ["_AsyncEventManager", "_StreamManager"]

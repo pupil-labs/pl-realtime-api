@@ -22,10 +22,12 @@ from ..models import (
     TemplateDataFormat,
 )
 from ..streaming import (
+    AudioFrame,
     BlinkEventData,
     FixationEventData,
     FixationOnsetEventData,
     IMUData,
+    RTSPAudioStreamer,
     RTSPEyeEventStreamer,
     RTSPGazeStreamer,
     RTSPImuStreamer,
@@ -36,9 +38,11 @@ from ._utils import _AsyncEventManager, _StreamManager, logger
 from .models import (
     MATCHED_GAZE_EYES_LABEL,
     MATCHED_ITEM_LABEL,
+    MATCHED_SCENE_AUDIO_LABEL,
     GazeDataType,
     MatchedGazeEyesSceneItem,
     MatchedItem,
+    MatchedSceneAudioItem,
     SimpleVideoFrame,
 )
 
@@ -46,8 +50,10 @@ ReceivedItemType = (
     SimpleVideoFrame
     | GazeDataType
     | IMUData
+    | AudioFrame
     | MatchedItem
     | MatchedGazeEyesSceneItem
+    | MatchedSceneAudioItem
     | None
 )
 
@@ -103,6 +109,7 @@ class Device(DeviceBase):
             SensorName.EYES.value: self._EVENT.SHOULD_START_EYES,
             SensorName.IMU.value: self._EVENT.SHOULD_START_IMU,
             SensorName.EYE_EVENTS.value: self._EVENT.SHOULD_START_EYE_EVENTS,
+            SensorName.AUDIO.value: self._EVENT.SHOULD_START_AUDIO,
         }
 
         self.stream_name_stop_event_map = {
@@ -111,6 +118,7 @@ class Device(DeviceBase):
             SensorName.EYES.value: self._EVENT.SHOULD_STOP_EYES,
             SensorName.IMU.value: self._EVENT.SHOULD_STOP_IMU,
             SensorName.EYE_EVENTS.value: self._EVENT.SHOULD_STOP_EYE_EVENTS,
+            SensorName.AUDIO.value: self._EVENT.SHOULD_STOP_AUDIO,
         }
 
     @property
@@ -487,6 +495,25 @@ class Device(DeviceBase):
             self._receive_item(SensorName.EYE_EVENTS.value, timeout_seconds),
         )
 
+    def receive_audio_frame(
+        self, timeout_seconds: float | None = None
+    ) -> AudioFrame | None:
+        """Receive an Audio frame.
+
+        Args:
+            timeout_seconds: Maximum time to wait for a new frame.
+                If None, wait indefinitely.
+
+        Returns:
+            AudioFrame or None: The received audio frame, or None if timeout was
+            reached.
+
+        """
+        return cast(
+            AudioFrame,
+            self._receive_item(SensorName.AUDIO.value, timeout_seconds),
+        )
+
     def receive_matched_scene_video_frame_and_gaze(
         self, timeout_seconds: float | None = None
     ) -> MatchedItem | None:
@@ -523,6 +550,25 @@ class Device(DeviceBase):
             self._receive_item(MATCHED_GAZE_EYES_LABEL, timeout_seconds),
         )
 
+    def receive_matched_scene_video_frame_and_audio(
+        self, timeout_seconds: float | None = None
+    ) -> MatchedSceneAudioItem | None:
+        """Receive a matched pair of scene video frame and audio data.
+
+        Args:
+            timeout_seconds: Maximum time to wait for a matched pair.
+                If None, wait indefinitely.
+
+        Returns:
+            MatchedSceneAudioItem or None: The matched pair, or None if timeout was
+            reached.
+
+        """
+        return cast(
+            MatchedSceneAudioItem,
+            self._receive_item(MATCHED_SCENE_AUDIO_LABEL, timeout_seconds),
+        )
+
     def _receive_item(
         self, sensor: str, timeout_seconds: float | None = None
     ) -> ReceivedItemType:
@@ -543,6 +589,11 @@ class Device(DeviceBase):
         elif sensor == MATCHED_GAZE_EYES_LABEL:
             self.start_stream_if_needed(SensorName.GAZE.value)
             self.start_stream_if_needed(SensorName.EYES.value)
+            self.start_stream_if_needed(SensorName.WORLD.value)
+
+        elif sensor == MATCHED_SCENE_AUDIO_LABEL:
+            self.start_stream_if_needed(SensorName.GAZE.value)
+            self.start_stream_if_needed(SensorName.AUDIO.value)
             self.start_stream_if_needed(SensorName.WORLD.value)
 
         else:
@@ -587,6 +638,7 @@ class Device(DeviceBase):
                 self._EVENT.SHOULD_START_EYES,
                 self._EVENT.SHOULD_START_IMU,
                 self._EVENT.SHOULD_START_EYE_EVENTS,
+                self._EVENT.SHOULD_START_AUDIO,
             ):
                 self._streaming_trigger_action(event)
             return
@@ -612,6 +664,7 @@ class Device(DeviceBase):
                 self._EVENT.SHOULD_STOP_EYES,
                 self._EVENT.SHOULD_STOP_IMU,
                 self._EVENT.SHOULD_STOP_EYE_EVENTS,
+                self._EVENT.SHOULD_STOP_AUDIO,
             ):
                 self._streaming_trigger_action(event)
             return
@@ -700,11 +753,13 @@ class Device(DeviceBase):
         SHOULD_START_EYES = "should start eyes"
         SHOULD_START_IMU = "should start imu"
         SHOULD_START_EYE_EVENTS = "should start eye events"
+        SHOULD_START_AUDIO = "should start audio"
         SHOULD_STOP_GAZE = "should stop gaze"
         SHOULD_STOP_WORLD = "should stop world"
         SHOULD_STOP_EYES = "should stop eyes"
         SHOULD_STOP_IMU = "should stop imu"
         SHOULD_STOP_EYE_EVENTS = "should stop eye events"
+        SHOULD_STOP_AUDIO = "should stop audio"
 
     def _start_background_worker(self, start_streaming_by_default: bool) -> None:
         """Start the background worker thread.
@@ -723,8 +778,10 @@ class Device(DeviceBase):
             SensorName.EYES.value,
             SensorName.IMU.value,
             SensorName.EYE_EVENTS.value,
+            SensorName.AUDIO.value,
             MATCHED_ITEM_LABEL,
             MATCHED_GAZE_EYES_LABEL,
+            MATCHED_SCENE_AUDIO_LABEL,
         ]
         self._most_recent_item: dict[str, collections.deque[ReceivedItemType]] = {
             name: collections.deque(maxlen=1) for name in sensor_names
@@ -736,9 +793,11 @@ class Device(DeviceBase):
         # only cache 3-4 seconds worth of gaze data in case no scene camera is connected
         GazeCacheType: TypeAlias = collections.deque[tuple[float, GazeDataType]]
         EyesCacheType: TypeAlias = collections.deque[tuple[float, SimpleVideoFrame]]
+        AudioCacheType: TypeAlias = collections.deque[tuple[float, AudioFrame]]
 
         self._cached_gaze_for_matching: GazeCacheType = collections.deque(maxlen=200)
         self._cached_eyes_for_matching: EyesCacheType = collections.deque(maxlen=200)
+        self._cached_audio_for_matching: AudioCacheType = collections.deque(maxlen=200)
 
         event_auto_update_started = threading.Event()
         self._is_streaming_flags = {
@@ -747,6 +806,7 @@ class Device(DeviceBase):
             SensorName.EYES.value: threading.Event(),
             SensorName.IMU.value: threading.Event(),
             SensorName.EYE_EVENTS.value: threading.Event(),
+            SensorName.AUDIO.value: threading.Event(),
         }
         self._auto_update_thread = threading.Thread(
             target=self._auto_update,
@@ -823,6 +883,11 @@ class Device(DeviceBase):
                 RTSPEyeEventStreamer,
                 should_be_streaming_by_default=start_streaming_by_default,
             ),
+            SensorName.AUDIO.value: _StreamManager(
+                device_weakref,
+                RTSPAudioStreamer,
+                should_be_streaming_by_default=start_streaming_by_default,
+            ),
         }
 
         async def _process_status_changes(changed: Component) -> None:
@@ -842,6 +907,15 @@ class Device(DeviceBase):
                     await stream_managers[changed.sensor].handle_sensor_update(changed)
                 else:
                     logger.debug(f"Unhandled DIRECT sensor {changed.sensor}")
+                if changed.sensor == SensorName.WORLD.value:
+                    # The audio sensor status is derived from the world sensor status.
+                    # We need to manually trigger an update for the audio stream
+                    # manager.
+                    audio_sensor = device_instance._status.direct_audio_sensor()
+                    if audio_sensor:
+                        await stream_managers[
+                            SensorName.AUDIO.value
+                        ].handle_sensor_update(audio_sensor)
 
             elif isinstance(changed, Recording) and changed.action == "ERROR":
                 device_instance._errors.append(changed.message)
@@ -874,6 +948,7 @@ class Device(DeviceBase):
                     start_stream(SensorName.EYES.value)
                     start_stream(SensorName.IMU.value)
                     start_stream(SensorName.EYE_EVENTS.value)
+                    start_stream(SensorName.AUDIO.value)
 
                 while True:
                     logger.debug("Background worker waiting for event...")
@@ -921,11 +996,13 @@ class Device(DeviceBase):
             Device._EVENT.SHOULD_START_EYES: start_stream,
             Device._EVENT.SHOULD_START_IMU: start_stream,
             Device._EVENT.SHOULD_START_EYE_EVENTS: start_stream,
+            Device._EVENT.SHOULD_START_AUDIO: start_stream,
             Device._EVENT.SHOULD_STOP_GAZE: stop_stream,
             Device._EVENT.SHOULD_STOP_WORLD: stop_stream,
             Device._EVENT.SHOULD_STOP_EYES: stop_stream,
             Device._EVENT.SHOULD_STOP_IMU: stop_stream,
             Device._EVENT.SHOULD_STOP_EYE_EVENTS: stop_stream,
+            Device._EVENT.SHOULD_STOP_AUDIO: stop_stream,
         }
 
         event_stream_map = {
@@ -934,11 +1011,13 @@ class Device(DeviceBase):
             Device._EVENT.SHOULD_START_EYES: SensorName.EYES,
             Device._EVENT.SHOULD_START_IMU: SensorName.IMU,
             Device._EVENT.SHOULD_START_EYE_EVENTS: SensorName.EYE_EVENTS,
+            Device._EVENT.SHOULD_START_AUDIO: SensorName.AUDIO,
             Device._EVENT.SHOULD_STOP_GAZE: SensorName.GAZE,
             Device._EVENT.SHOULD_STOP_WORLD: SensorName.WORLD,
             Device._EVENT.SHOULD_STOP_EYES: SensorName.EYES,
             Device._EVENT.SHOULD_STOP_IMU: SensorName.IMU,
             Device._EVENT.SHOULD_STOP_EYE_EVENTS: SensorName.EYE_EVENTS,
+            Device._EVENT.SHOULD_STOP_AUDIO: SensorName.AUDIO,
         }
 
         return asyncio.run(_auto_update_until_closed())

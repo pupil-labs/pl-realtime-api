@@ -23,6 +23,7 @@ how to use them.
 -   [Eyes Camera Video](async/streaming/eye-cameras.md)
 -   [IMU Data](async/streaming/imu-data.md)
 -   [Blinks, Fixations & Saccades](async/streaming/eye-events.md)
+-   [Audio](async/streaming/audio.md)
 
 ## Templates
 

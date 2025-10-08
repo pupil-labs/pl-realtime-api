@@ -188,6 +188,7 @@ class SensorName(enum.Enum):
     IMU = "imu"
     EYES = "eyes"
     EYE_EVENTS = "eye_events"
+    AUDIO = "audio"
 
 
 class ConnectionType(enum.Enum):
@@ -366,6 +367,14 @@ class Status:
                 hardware = component
             elif isinstance(component, Sensor):
                 sensors.append(component)
+                if (
+                    component.sensor == SensorName.WORLD.value
+                    and component.conn_type == ConnectionType.DIRECT.value
+                ):
+                    audio_component = component._replace(
+                        sensor=SensorName.AUDIO.value, connected=True
+                    )
+                    sensors.append(audio_component)
             elif isinstance(component, Recording):
                 recording = component
             elif isinstance(component, NetworkDevice):
@@ -391,13 +400,21 @@ class Status:
         elif isinstance(component, Recording):
             self.recording = component
         elif isinstance(component, Sensor):
-            for idx, sensor in enumerate(self.sensors):
-                if (
-                    sensor.sensor == component.sensor
-                    and sensor.conn_type == component.conn_type
-                ):
-                    self.sensors[idx] = component
-                    break
+            updates = {(component.sensor, component.conn_type): component}
+            if (
+                component.sensor == SensorName.WORLD.value
+                and component.conn_type == ConnectionType.DIRECT.value
+            ):
+                audio_component = component._replace(
+                    sensor=SensorName.AUDIO.value, connected=True
+                )
+                updates[audio_component.sensor, audio_component.conn_type] = (
+                    audio_component
+                )
+            for i, sensor in enumerate(self.sensors):
+                key = (sensor.sensor, sensor.conn_type)
+                if key in updates:
+                    self.sensors[i] = updates[key]
 
     def matching_sensors(
         self, name: SensorName, connection: ConnectionType
@@ -467,6 +484,15 @@ class Status:
             Sensor(
                 sensor=SensorName.EYE_EVENTS.value,
                 conn_type=ConnectionType.DIRECT.value,
+            ),
+        )
+
+    def direct_audio_sensor(self) -> Sensor | None:
+        """Get the audio sensor with direct connection."""
+        return next(
+            self.matching_sensors(SensorName.AUDIO, ConnectionType.DIRECT),
+            Sensor(
+                sensor=SensorName.AUDIO.value, conn_type=ConnectionType.DIRECT.value
             ),
         )
 

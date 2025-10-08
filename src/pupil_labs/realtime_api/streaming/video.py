@@ -91,6 +91,7 @@ class RTSPVideoFrameStreamer(RTSPRawStreamer):
     """
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
+        kwargs["media_type"] = "video"
         super().__init__(*args, **kwargs)
         self._sprop_parameter_set_payloads: list[ByteString] | None = None
 

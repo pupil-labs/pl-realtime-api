@@ -156,6 +156,7 @@ class _WallclockRTSPReader(AiortspRTSPReader):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self._relative_to_ntp_clock_offset = None
+        self._media_type = kwargs.get("media_type")
 
     def handle_rtcp(self, rtcp: Any) -> None:
         """Handle RTCP packets to extract clock synchronization information.
@@ -254,8 +255,8 @@ class _WallclockRTSPReader(AiortspRTSPReader):
     def get_primary_media(self) -> Any:
         """Get the primary media description from the SDP data.
 
-        This method returns the first video or application media description
-        from the SDP data. Audio media descriptions are not implemented.
+        This method returns the first media description of the specified type
+        from the SDP data.
 
         Returns:
             dict: Media description.
@@ -270,9 +271,10 @@ class _WallclockRTSPReader(AiortspRTSPReader):
             raise SDPDataNotAvailableError("No 'medias' found in SDP data")
 
         for media in medias:
-            if media and media.get("type") in ["video", "application"]:
-                return media
+            if media and media.get("type") in ["video", "audio", "application"]:  # noqa: SIM102
+                if self._media_type is None or media.get("type") == self._media_type:
+                    return media
 
         raise SDPDataNotAvailableError(
-            "No suitable video/application media found in SDP"
+            f"No suitable {self.media_type} media found in SDP"
         )

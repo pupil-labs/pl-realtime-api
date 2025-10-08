@@ -20,7 +20,7 @@ classifiers = [
 
 dependencies = [
     "aiohttp[speedups]>=3.11.14",
-    "aiortsp>=1.4.0",
+    "aiortsp>=1.4.1",
     "av>=14.2.0",
     "beaupy>=3.10.1",
     "deprecated>=1.2.18",
@@ -42,12 +42,12 @@ Issues = "https://github.com/pupil-labs/pl-realtime-api/issues"
 
 [dependency-groups]
 dev = [
-    "pytest>=8.2",
-    "pre-commit>=2.20.0",
-    "mypy>=0.991",
-    "deptry>=0.20.0",
-    "tox-uv>=1.11.3",
-    "pytest-cov>=4.0.0",
+    "pytest>=8.3",
+    "pre-commit>=4.3.0",
+    "mypy>=1.18.1",
+    "deptry>=0.23.1",
+    "tox-uv>=1.28.0",
+    "pytest-cov>=7.0.0",
     # stubs
     # "opencv-stubs",
     # "types-protobuf",
@@ -68,7 +68,7 @@ dev = [
     "tomli>=2.0; python_version < '3.11'",
     "types-deprecated>=1.2.15.20250304",
 ]
-examples = ["opencv-python"]
+examples = ["opencv-python", "sounddevice", "rich", "librosa", "speechrecognition", "openai-whisper"]
 
 [build-system]
 requires = ["hatchling", "uv-dynamic-versioning"]
@@ -86,13 +86,16 @@ branch = true
 source = ["pupil_labs"]
 
 [tool.deptry.per_rule_ignores]
-DEP001 = ["pupil_labs", "cv2"]
+DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "sounddevice", "audio_player"]
 DEP002 = ["opencv-python"]
 DEP003 = ["pupil_labs", "typing_extensions", "pydantic_core"]
-DEP004 = ["cv2", "mkdocs"]
+DEP004 = ["cv2", "mkdocs", "rich", "librosa", "whisper", "speech_recognition", "sounddevice"]
 
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pupil_labs"]
+
+[tool.uv.sources]
+aiortsp = { git = "https://github.com/mikelgg93/aiortsp.git" }

@@ -6,7 +6,7 @@
 
 Using the [`receive_eye_events_data`][pupil_labs.realtime_api.streaming.receive_eye_events_data] method, you can receive eye events such as blinks, saccades or fixations. The data returned is either an instance of:
 
-!!! warnign
+!!! warning
 
     Requires the "Compute fixations" setting to be enabled in the Companion Device.
 

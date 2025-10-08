@@ -217,7 +217,7 @@ class RTSPEyeEventStreamer(RTSPRawStreamer):
                 event_type = struct.unpack_from("!i", data.raw)[0]
                 cls = data_class_by_type[event_type]
                 if cls is not None:
-                    yield cls.from_raw(data)  # type: ignore[attr-defined]
+                    yield cls.from_raw(data)
             except KeyError:
                 logger.exception(f"Raw eye event data has unexpected type: {data}")
                 raise

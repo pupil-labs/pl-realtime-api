@@ -1,3 +1,20 @@
+## 1.7
+
+-   Adds audio support in simple and async API
+    -   Simple API
+        -   [pupil_labs.realtime_api.simple.Device.receive_audio_frame][]
+    -   Async API
+        -   [pupil_labs.realtime_api.streaming.receive_audio_frames][]
+
+## 1.6.2
+
+-   Project maintenance: Aligned with pl-template
+-   Switched to Material for MkDocs for documentation
+-   Added uv for package management
+-   Introduced mypy for static type checking
+-   Adopted ruff for formatting and linting
+-   Dropped support for Python 3.9
+
 ## 1.5.0
 
 -   Auto-start only necessary streams in Simple API
