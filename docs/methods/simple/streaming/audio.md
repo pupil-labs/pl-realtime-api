@@ -4,7 +4,7 @@
 <!-- badge:companion +2.8.31 -->
 <!-- badge:version +1.7 -->
 
-Using the [`receive_audio_frame`][pupil_labs.realtime_api.simple.device.receive_audio_frame] method, you can receive audio frames, which you can use it to listen live, record, or perform real-time analysis like speech-to-text or sound analysis.
+Using the [`receive_audio_frame`][pupil_labs.realtime_api.simple.Device.receive_audio_frame] method, you can receive audio frames, which you can use it to listen live, record, or perform real-time analysis like speech-to-text or sound analysis.
 
 The data returned is an instance of [`AudioFrame`][pupil_labs.realtime_api.streaming.audio.AudioFrame].
 
