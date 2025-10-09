@@ -20,10 +20,10 @@ classifiers = [
 
 dependencies = [
     "aiohttp[speedups]>=3.11.14",
-    "aiortsp @ git+https://github.com/mikelgg93/aiortsp.git",
     "av>=14.2.0",
     "beaupy>=3.10.1",
     "deprecated>=1.2.18",
+    "dpkt>=1.9.8",
     "numpy",
     "pupil-labs-neon-recording>=1.0.1",
     "pupil-labs-video>=1.0.3",
@@ -86,19 +86,16 @@ branch = true
 source = ["pupil_labs"]
 
 [tool.deptry.per_rule_ignores]
-DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "sounddevice", "audio_player"]
+DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "sounddevice", "audio_player", "aiortsp", "dpkt"]
 DEP002 = ["opencv-python"]
-DEP003 = ["pupil_labs", "typing_extensions", "pydantic_core"]
-DEP004 = ["cv2", "mkdocs", "rich", "librosa", "whisper", "speech_recognition", "sounddevice"]
+DEP003 = ["pupil_labs", "typing_extensions", "pydantic_core", "aiortsp", "setuptools"]
+DEP004 = ["cv2", "mkdocs", "rich", "librosa", "whisper", "speech_recognition", "sounddevice", "pytest"]
 
 [tool.hatch.version]
 source = "uv-dynamic-versioning"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/pupil_labs"]
+packages = ["src/pupil_labs", "vendor/aiortsp/aiortsp"]
 
-[tool.hatch.metadata]
-allow-direct-references = true
-
-[tool.uv.sources]
-aiortsp = { git = "https://github.com/mikelgg93/aiortsp.git" }
+[tool.hatch.build.targets.sdist]
+include = ["src/pupil_labs", "vendor/aiortsp/aiortsp"]

@@ -11,11 +11,13 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.13.0"
+    rev: "v0.14.0"
     hooks:
       - id: ruff
         args: [--exit-non-zero-on-fix]
+        exclude: "vendor/aiortsp"
       - id: ruff-format
+        exclude: "vendor/aiortsp"
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: "v3.1.0"
