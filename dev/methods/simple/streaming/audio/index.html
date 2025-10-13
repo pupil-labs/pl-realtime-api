@@ -1716,7 +1716,7 @@
 <p><span class="mdx-badge mdx-badge--product" title="Only available for: Neon"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.41 11.58-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42M13 20l-9-9V4h7l9 9M6.5 5A1.5 1.5 0 1 1 5 6.5 1.5 1.5 0 0 1 6.5 5"/></svg></span></span><span class="mdx-badge__text">Neon</span></span>
 <span class="mdx-badge mdx-badge--companion" title="Companion App version: +2.8.31"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 19H7V5h10m0-4H7c-1.11 0-2 .89-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2"/></svg></span></span><span class="mdx-badge__text">+2.8.31</span></span>
 <span class="mdx-badge mdx-badge--version" title="Minimum Real-Time API version: +1.7"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 7H5a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2m0 4H5V9h2m7-2h-4v10h2v-4h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2m0 4h-2V9h2m6 0v6h1v2h-4v-2h1V9h-1V7h4v2Z"/></svg></span></span><span class="mdx-badge__text">+1.7</span></span></p>
-<p>Using the <a class="autorefs autorefs-internal" title="            receive_audio_frame" href="../../../../api/simple/#pupil_labs.realtime_api.simple.Device.receive_audio_frame"><code>receive_audio_frame</code></a> method, you can receive audio frames, which you can use it to listen live, record, or perform real-time analysis like speech-to-text or sound analysis.</p>
+<p>Using the <a class="autorefs autorefs-internal" title="            receive_audio_frame" href="../../../../api/simple/#pupil_labs.realtime_api.simple.Device.receive_audio_frame"><code>receive_audio_frame</code></a> method, you can receive audio frames, which you can use it to play them live, record, or perform real-time analysis like speech-to-text or sound analysis.</p>
 <p>The data returned is an instance of <a class="autorefs autorefs-internal" title="            AudioFrame" href="../../../async/streaming/audio/#pupil_labs.realtime_api.streaming.audio.AudioFrame"><code>AudioFrame</code></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">AudioFrame</span><span class="p">(</span>
     <span class="n">av_frame</span><span class="o">=&lt;</span><span class="n">av</span><span class="o">.</span><span class="n">AudioFrame</span> <span class="n">pts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1024</span> <span class="n">samples</span> <span class="n">at</span> <span class="mi">8000</span><span class="n">Hz</span><span class="p">,</span> <span class="n">mono</span><span class="p">,</span> <span class="n">fltp</span> <span class="n">at</span> <span class="mh">0x1189e0ac0</span><span class="o">&gt;</span><span class="p">,</span>
@@ -2053,8 +2053,8 @@ as av.AudioFrames.</p>
     </div>
 
 </div></details>
-<p>By default, audio is streamed in <strong>mono</strong> using the <strong>AAC codec</strong>. The stream is downsampled from the original 48 kHz source to a sampling rate of <strong>8 kHz</strong> to save bandwidth, and uses a <strong>32-bit floating-point planar (fltp)</strong> format.</p>
-<p>The audio stream does not have it's own RTSP stream but is <strong>multiplexed</strong> with video, so we create a virtual sensor component using the Scene Camera stream.</p>
+<p>By default, the audio signal is streamed in <strong>mono</strong> using the <strong>AAC codec</strong>. The stream is downsampled from the original 48 kHz source to a sampling rate of <strong>8 kHz</strong> to save bandwidth, and uses a <strong>32-bit floating-point planar (fltp)</strong> format.</p>
+<p>The audio stream does not have it's own RTSP stream but is <strong>multiplexed</strong> with video, so in this client, we create a virtual sensor component using the Scene Camera stream.</p>
 <h2 id="working-with-audio-data">Working with Audio Data<a class="headerlink" href="#working-with-audio-data" title="Permanent link">&para;</a></h2>
 <p>You can easily receive audio frames and convert them to NumPy arrays using the <a class="autorefs autorefs-internal" title="            to_ndarray" href="../../../async/streaming/audio/#pupil_labs.realtime_api.streaming.audio.AudioFrame.to_ndarray"><code>to_ndarray</code></a> method and feed these to any audio library of your choice like <a href="https://librosa.org/"><code>librosa</code></a> for analysis.</p>
 <details class="example">
@@ -2103,9 +2103,9 @@ as av.AudioFrames.</p>
 </code></pre></div></td></tr></table></div>
 </details>
 <h2 id="playing-audio">Playing Audio<a class="headerlink" href="#playing-audio" title="Permanent link">&para;</a></h2>
-<p>Audio Playback in realtime can be tricky, here we use <a href="https://python-sounddevice.readthedocs.io/">SoundDevice</a>. This library digest NumPy arrays and allows to play them back quickly. The only caveat is that it does not accept 32 bit planar audio format, thus, we have to resample it.</p>
-<p>For commodity, we included a PyAv <code>AudioResampler</code> object to the AudioFrame class, it lazy loads, and calling <a class="autorefs autorefs-internal" title="            to_resampled_ndarray" href="../../../async/streaming/audio/#pupil_labs.realtime_api.streaming.audio.AudioFrame.to_resampled_ndarray"><code>to_resampled_ndarray</code></a> will convert convert the av.AudioFrame to a NumPy array in signed 16-bit integer format, which is supported by SoundDevice for playback.</p>
-<p>To simplify development and ensure audio does not block your application, the examples include an <a class="autorefs autorefs-internal" title="            AudioPlayer" href="../../../async/streaming/audio/#audio_player.AudioPlayer"><code>AudioPlayer</code></a> class. It handles audio buffering and playback in a background thread, using a circular buffer to guarantee smooth playback without glitches or silence.</p>
+<p>Audio Playback in realtime can be tricky, on the examples we propose <a href="https://python-sounddevice.readthedocs.io/">SoundDevice</a>. This library digest NumPy arrays and allows to play them back quickly, with the only caveat that it does not accept 32 bit planar audio format, thus, we have to resample it.</p>
+<p>For commodity, we included a PyAv <code>AudioResampler</code> object to the AudioFrame class, it lazy loads, and calling <a class="autorefs autorefs-internal" title="            to_resampled_ndarray" href="../../../async/streaming/audio/#pupil_labs.realtime_api.streaming.audio.AudioFrame.to_resampled_ndarray"><code>to_resampled_ndarray</code></a> will convert convert the <code>av.AudioFrame</code> to a NumPy array in signed 16-bit integer format. We also include an <a class="autorefs autorefs-internal" title="            AudioPlayer" href="../../../async/streaming/audio/#pupil_labs.realtime_api.audio_player.AudioPlayer"><code>AudioPlayer</code></a> class. It handles audio buffering and playback in a background thread, using a circular buffer to guarantee smooth playback without glitches or silence, you can find it in the <code>audio_player.py</code> file.</p>
+<p>You can find a simple example below that streams audio and plays it back using the <code>AudioPlayer</code> class.</p>
 <details class="quote">
 <summary>AudioPlayer</summary>
 
@@ -2114,11 +2114,11 @@ as av.AudioFrames.</p>
 
 
 
-<h1 id="audio_player.AudioPlayer" class="doc doc-heading">
+<h1 id="pupil_labs.realtime_api.audio_player.AudioPlayer" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">AudioPlayer</span>
 
 
-<a href="#audio_player.AudioPlayer" class="headerlink" title="Permanent link">&para;</a></h1>
+<a href="#pupil_labs.realtime_api.audio_player.AudioPlayer" class="headerlink" title="Permanent link">&para;</a></h1>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">AudioPlayer</span><span class="p">(</span><span class="n">samplerate</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="n">channels</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s1">&#39;int16&#39;</span><span class="p">)</span>
 </code></pre></div>
 
@@ -2141,28 +2141,28 @@ as av.AudioFrames.</p>
 <p><span class="doc-section-title">Methods:</span></p>
     <ul>
           <li class="doc-section-item field-body">
-            <b><code><a class="autorefs autorefs-internal" title="            add_data (audio_player.AudioPlayer.add_data)" href="../../../async/streaming/audio/#audio_player.AudioPlayer.add_data">add_data</a></code></b>
+            <b><code><a class="autorefs autorefs-internal" title="            add_data (pupil_labs.realtime_api.audio_player.AudioPlayer.add_data)" href="../../../async/streaming/audio/#pupil_labs.realtime_api.audio_player.AudioPlayer.add_data">add_data</a></code></b>
             –
             <div class="doc-md-description">
               <p>Directly write data to the shared RingBuffer.</p>
             </div>
           </li>
           <li class="doc-section-item field-body">
-            <b><code><a class="autorefs autorefs-internal" title="            close (audio_player.AudioPlayer.close)" href="../../../async/streaming/audio/#audio_player.AudioPlayer.close">close</a></code></b>
+            <b><code><a class="autorefs autorefs-internal" title="            close (pupil_labs.realtime_api.audio_player.AudioPlayer.close)" href="../../../async/streaming/audio/#pupil_labs.realtime_api.audio_player.AudioPlayer.close">close</a></code></b>
             –
             <div class="doc-md-description">
               <p>Signal the thread to stop and clean up resources.</p>
             </div>
           </li>
           <li class="doc-section-item field-body">
-            <b><code><a class="autorefs autorefs-internal" title="            get_buffer_size (audio_player.AudioPlayer.get_buffer_size)" href="../../../async/streaming/audio/#audio_player.AudioPlayer.get_buffer_size">get_buffer_size</a></code></b>
+            <b><code><a class="autorefs autorefs-internal" title="            get_buffer_size (pupil_labs.realtime_api.audio_player.AudioPlayer.get_buffer_size)" href="../../../async/streaming/audio/#pupil_labs.realtime_api.audio_player.AudioPlayer.get_buffer_size">get_buffer_size</a></code></b>
             –
             <div class="doc-md-description">
               <p>Get the current number of samples in the buffer for debugging.</p>
             </div>
           </li>
           <li class="doc-section-item field-body">
-            <b><code><a class="autorefs autorefs-internal" title="            run (audio_player.AudioPlayer.run)" href="../../../async/streaming/audio/#audio_player.AudioPlayer.run">run</a></code></b>
+            <b><code><a class="autorefs autorefs-internal" title="            run (pupil_labs.realtime_api.audio_player.AudioPlayer.run)" href="../../../async/streaming/audio/#pupil_labs.realtime_api.audio_player.AudioPlayer.run">run</a></code></b>
             –
             <div class="doc-md-description">
               <p>Run the main entrypoint for the thread.</p>
@@ -2173,20 +2173,20 @@ as av.AudioFrames.</p>
 
 
                   <details class="quote">
-                    <summary>Source code in <code>examples/audio_player.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
+                    <summary>Source code in <code>src/pupil_labs/realtime_api/audio_player.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samplerate</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;int16&quot;</span><span class="p">):</span>
+<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samplerate</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;int16&quot;</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">samplerate</span> <span class="o">=</span> <span class="n">samplerate</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span>
@@ -2198,7 +2198,7 @@ as av.AudioFrames.</p>
         <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>
         <span class="n">channels</span><span class="o">=</span><span class="n">channels</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">:</span> <span class="n">sd</span><span class="o">.</span><span class="n">OutputStream</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -2217,11 +2217,11 @@ as av.AudioFrames.</p>
 <div class="doc doc-object doc-function">
 
 
-<h2 id="audio_player.AudioPlayer.add_data" class="doc doc-heading">
+<h2 id="pupil_labs.realtime_api.audio_player.AudioPlayer.add_data" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">add_data</span>
 
 
-<a href="#audio_player.AudioPlayer.add_data" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#pupil_labs.realtime_api.audio_player.AudioPlayer.add_data" class="headerlink" title="Permanent link">&para;</a></h2>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n"><span title="numpy.typing.NDArray">NDArray</span></span><span class="p">[</span><span class="n"><span title="numpy.int16">int16</span></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
@@ -2231,10 +2231,10 @@ as av.AudioFrames.</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>examples/audio_player.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <summary>Source code in <code>src/pupil_labs/realtime_api/audio_player.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Directly write data to the shared RingBuffer.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -2246,11 +2246,11 @@ as av.AudioFrames.</p>
 <div class="doc doc-object doc-function">
 
 
-<h2 id="audio_player.AudioPlayer.close" class="doc doc-heading">
+<h2 id="pupil_labs.realtime_api.audio_player.AudioPlayer.close" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">close</span>
 
 
-<a href="#audio_player.AudioPlayer.close" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#pupil_labs.realtime_api.audio_player.AudioPlayer.close" class="headerlink" title="Permanent link">&para;</a></h2>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">close</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
@@ -2260,13 +2260,13 @@ as av.AudioFrames.</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>examples/audio_player.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <summary>Source code in <code>src/pupil_labs/realtime_api/audio_player.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Signal the thread to stop and clean up resources.&quot;&quot;&quot;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Closing audio player...&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
@@ -2281,11 +2281,11 @@ as av.AudioFrames.</p>
 <div class="doc doc-object doc-function">
 
 
-<h2 id="audio_player.AudioPlayer.get_buffer_size" class="doc doc-heading">
+<h2 id="pupil_labs.realtime_api.audio_player.AudioPlayer.get_buffer_size" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_buffer_size</span>
 
 
-<a href="#audio_player.AudioPlayer.get_buffer_size" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#pupil_labs.realtime_api.audio_player.AudioPlayer.get_buffer_size" class="headerlink" title="Permanent link">&para;</a></h2>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_buffer_size</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span>
 </code></pre></div>
 
@@ -2295,10 +2295,10 @@ as av.AudioFrames.</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>examples/audio_player.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_buffer_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+              <summary>Source code in <code>src/pupil_labs/realtime_api/audio_player.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_buffer_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the current number of samples in the buffer for debugging.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="o">.</span><span class="n">size</span>
 </code></pre></div></td></tr></table></div>
@@ -2310,11 +2310,11 @@ as av.AudioFrames.</p>
 <div class="doc doc-object doc-function">
 
 
-<h2 id="audio_player.AudioPlayer.run" class="doc doc-heading">
+<h2 id="pupil_labs.realtime_api.audio_player.AudioPlayer.run" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">run</span>
 
 
-<a href="#audio_player.AudioPlayer.run" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#pupil_labs.realtime_api.audio_player.AudioPlayer.run" class="headerlink" title="Permanent link">&para;</a></h2>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">run</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
@@ -2324,8 +2324,14 @@ as av.AudioFrames.</p>
 
 
             <details class="quote">
-              <summary>Source code in <code>examples/audio_player.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">142</span>
+              <summary>Source code in <code>src/pupil_labs/realtime_api/audio_player.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span>
 <span class="normal">145</span>
@@ -2336,13 +2342,7 @@ as av.AudioFrames.</p>
 <span class="normal">150</span>
 <span class="normal">151</span>
 <span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the main entrypoint for the thread.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">OutputStream</span><span class="p">(</span>
@@ -2425,21 +2425,7 @@ as av.AudioFrames.</p>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-
-<span class="c1"># Allow for absloute imports, to import audio_player from the parent directory.</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">)))</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">audio_player</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioPlayer</span>
-
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.audio_player</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioPlayer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.simple</span><span class="w"> </span><span class="kn">import</span> <span class="n">discover_one_device</span>
 
 
@@ -2492,8 +2478,12 @@ as av.AudioFrames.</p>
     <span class="n">main</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
 </details>
+<div class="admonition abstract">
+<p class="admonition-title">Note</p>
+<p>Now, you can also use a different audio library like <a href="https://people.csail.mit.edu/hubert/pyaudio/">PyAudio</a> or <a href="https://www.pygame.org/news">pygame</a> to play back the audio data, but you might need to install <code>portaudio</code>, and the latter is more suited for game development.</p>
+</div>
 <h2 id="playing-video-and-audio">Playing Video and Audio<a class="headerlink" href="#playing-video-and-audio" title="Permanent link">&para;</a></h2>
-<p>Here you can find an example that shows how to play both video with gaze overlay and audio using OpenCV and SoundDevice.</p>
+<p>Here you can find an example that shows how to play both video with gaze overlay and audio using OpenCV and the AudioPlayer class.</p>
 <details class="example">
 <summary>Check the whole example code here</summary>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stream_video_gaze_and_audio.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -2586,29 +2576,17 @@ as av.AudioFrames.</p>
 <span class="normal">88</span>
 <span class="normal">89</span>
 <span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># Allow for absloute imports, to import audio_player from the parent directory.</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">)))</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">audio_player</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioPlayer</span>
 
 <span class="c1"># Workaround for https://github.com/opencv/opencv/issues/21952</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;cv/av bug&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.audio_player</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioPlayer</span>  <span class="c1"># noqa: E402</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.simple</span><span class="w"> </span><span class="kn">import</span> <span class="n">discover_one_device</span>  <span class="c1"># noqa: E402</span>
 
-<span class="c1"># NOTE: Audio playback is done in a separate process with SoundDevice and a circular</span>
+<span class="c1"># NOTE: Audio playback is done in a separate thread with SoundDevice and a circular</span>
 <span class="c1"># buffer to avoid blocking the main thread and ensure smooth playback.</span>
 <span class="c1"># An AudioPlayer class is provided in the realtime_api package for this purpose.</span>
 
