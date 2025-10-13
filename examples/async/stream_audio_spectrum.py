@@ -3,16 +3,7 @@ import contextlib
 import logging
 import os
 
-try:
-    import librosa
-except ImportError:
-    raise ImportError(
-        "librosa library not found. Please install with: pip install librosa to run"
-        "this example or install pl-realtime with examples extras: "
-        "pip install pupil-labs-realtime-api[examples]"
-        "uv pip install pupil-labs-realtime-api --group examples"
-    ) from None
-
+import librosa
 import numpy as np
 from rich.align import Align
 from rich.live import Live

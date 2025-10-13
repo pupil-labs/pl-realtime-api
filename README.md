@@ -12,14 +12,16 @@
 
 ## Installation
 
-```
+```sh
 pip install pupil-labs-realtime-api
+# pip install -e git+https://github.com/pupil-labs/pl-realtime-api.git # from source
 ```
 
-Or, to install directly from the repository:
+If you want to run the examples, you can install the package with the `examples` extra dependencies:
 
-```bash
-pip install -e git+https://github.com/pupil-labs/pl-realtime-api.git
+```sh
+pip install "pupil-labs-realtime-api[examples]"
+# uv pip install pupil-labs-realtime-api --group examples # using uv
 ```
 
 > [!IMPORTANT]

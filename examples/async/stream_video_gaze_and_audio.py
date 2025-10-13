@@ -10,7 +10,11 @@ import numpy as np
 import numpy.typing as npt
 import sounddevice as sd
 
-from pupil_labs.realtime_api import (
+# Workaround for https://github.com/opencv/opencv/issues/21952
+cv2.imshow("cv/av bug", np.zeros(1))
+cv2.destroyAllWindows()
+
+from pupil_labs.realtime_api import (  # noqa: E402
     Device,
     Network,
     receive_audio_frames,
@@ -22,10 +26,6 @@ logging.basicConfig(level=logging.INFO)
 
 # Use a threading event to signal the audio playback thread to stop
 stop_audio_event = threading.Event()
-
-# OpenCV workaround for a known issue
-cv2.imshow("cv/av bug", np.zeros(1))
-cv2.destroyAllWindows()
 
 
 def audio_playback_thread_target(

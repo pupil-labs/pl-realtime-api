@@ -4,17 +4,7 @@ from typing import Any
 
 import av
 import numpy as np
-
-try:
-    import speech_recognition as sr
-
-except ImportError:
-    raise ImportError(
-        "speech_recognition library not found. Please install with: pip install "
-        "speechrecognition to run this example or install pl-realtime with examples "
-        "extras: pip install pupil-labs-realtime-api[examples]"
-        "uv pip install pupil-labs-realtime-api --group examples"
-    ) from None
+import speech_recognition as sr
 
 from pupil_labs.realtime_api.simple import discover_one_device
 

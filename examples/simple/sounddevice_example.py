@@ -1,4 +1,7 @@
-from pupil_labs.realtime_api.audio_player import AudioPlayer
+from collections import deque
+
+import sounddevice as sd
+
 from pupil_labs.realtime_api.simple import discover_one_device
 
 
@@ -13,20 +16,24 @@ def main():
     device.streaming_start(
         "audio"
     )  # optional, if not called, stream is started on-demand
-    player: AudioPlayer | None = None
+    stream = None
+    buf = deque()
     try:
         while True:
             audio_frame = device.receive_audio_frame(timeout_seconds=5)
             if audio_frame:
-                if not player:
+                buf.append(next(audio_frame.to_resampled_ndarray()).T)
+                if not stream:
                     # Initialize the player with the correct parameters from first frame
-                    player = AudioPlayer(
+                    stream = sd.OutputStream(
                         samplerate=audio_frame.av_frame.sample_rate,
                         channels=audio_frame.av_frame.layout.nb_channels,
                         dtype="int16",
+                        blocksize=0,  # Let the device choose the optimal size for low latency  # noqa: E501
+                        latency="low",
                     )
                     # Start the player process
-                    player.start()
+                    stream.start()
                     print(
                         f"Audio stream parameters: "
                         f"Sample Rate: {audio_frame.av_frame.sample_rate}, "
@@ -34,8 +41,9 @@ def main():
                         f"Layout: {audio_frame.av_frame.layout.name}"
                     )
                     print("Started audio playback.")
-                else:
-                    player.add_data(next(audio_frame.to_resampled_ndarray()).T)
+
+                while buf:
+                    stream.write(buf.popleft())
 
     except KeyboardInterrupt:
         pass
@@ -43,8 +51,8 @@ def main():
         print("Stopping...")
         # device.streaming_stop()  # optional, if not called, stream is stopped on close
         device.close()  # explicitly stop auto-update
-        if player:
-            player.close()
+        if stream:
+            stream.close()
 
 
 if __name__ == "__main__":

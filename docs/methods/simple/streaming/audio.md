@@ -4,7 +4,7 @@
 <!-- badge:companion +2.8.31 -->
 <!-- badge:version +1.7 -->
 
-Using the [`receive_audio_frame`][pupil_labs.realtime_api.simple.Device.receive_audio_frame] method, you can receive audio frames, which you can use it to listen live, record, or perform real-time analysis like speech-to-text or sound analysis.
+Using the [`receive_audio_frame`][pupil_labs.realtime_api.simple.Device.receive_audio_frame] method, you can receive audio frames, which you can use it to play them live, record, or perform real-time analysis like speech-to-text or sound analysis.
 
 The data returned is an instance of [`AudioFrame`][pupil_labs.realtime_api.streaming.audio.AudioFrame].
 
@@ -20,9 +20,9 @@ AudioFrame(
 
     ::: pupil_labs.realtime_api.streaming.audio.AudioFrame
 
-By default, audio is streamed in **mono** using the **AAC codec**. The stream is downsampled from the original 48 kHz source to a sampling rate of **8 kHz** to save bandwidth, and uses a **32-bit floating-point planar (fltp)** format.
+By default, the audio signal is streamed in **mono** using the **AAC codec**. The stream is downsampled from the original 48 kHz source to a sampling rate of **8 kHz** to save bandwidth, and uses a **32-bit floating-point planar (fltp)** format.
 
-The audio stream does not have it's own RTSP stream but is **multiplexed** with video, so we create a virtual sensor component using the Scene Camera stream.
+The audio stream does not have it's own RTSP stream but is **multiplexed** with video, so in this client, we create a virtual sensor component using the Scene Camera stream.
 
 ## Working with Audio Data
 
@@ -36,15 +36,15 @@ You can easily receive audio frames and convert them to NumPy arrays using the [
 
 ## Playing Audio
 
-Audio Playback in realtime can be tricky, here we use [SoundDevice](https://python-sounddevice.readthedocs.io/). This library digest NumPy arrays and allows to play them back quickly. The only caveat is that it does not accept 32 bit planar audio format, thus, we have to resample it.
+Audio Playback in realtime can be tricky, on the examples we propose [SoundDevice](https://python-sounddevice.readthedocs.io/). This library digest NumPy arrays and allows to play them back quickly, with the only caveat that it does not accept 32 bit planar audio format, thus, we have to resample it.
 
-For commodity, we included a PyAv `AudioResampler` object to the AudioFrame class, it lazy loads, and calling [`to_resampled_ndarray`][pupil_labs.realtime_api.streaming.audio.AudioFrame.to_resampled_ndarray] will convert convert the av.AudioFrame to a NumPy array in signed 16-bit integer format, which is supported by SoundDevice for playback.
+For commodity, we included a PyAv `AudioResampler` object to the AudioFrame class, it lazy loads, and calling [`to_resampled_ndarray`][pupil_labs.realtime_api.streaming.audio.AudioFrame.to_resampled_ndarray] will convert convert the `av.AudioFrame` to a NumPy array in signed 16-bit integer format. We also include an [`AudioPlayer`][pupil_labs.realtime_api.audio_player.AudioPlayer] class. It handles audio buffering and playback in a background thread, using a circular buffer to guarantee smooth playback without glitches or silence, you can find it in the `audio_player.py` file.
 
-To simplify development and ensure audio does not block your application, the examples include an [`AudioPlayer`][audio_player.AudioPlayer] class. It handles audio buffering and playback in a background thread, using a circular buffer to guarantee smooth playback without glitches or silence.
+You can find a simple example below that streams audio and plays it back using the `AudioPlayer` class.
 
 ??? quote "AudioPlayer"
 
-    ::: audio_player.AudioPlayer
+    ::: pupil_labs.realtime_api.audio_player.AudioPlayer
 
 ??? example "Check the whole example code here"
 
@@ -52,9 +52,13 @@ To simplify development and ensure audio does not block your application, the ex
     --8<-- "examples/simple/stream_audio_and_play.py"
     ```
 
+!!! abstract "Note"
+
+    Now, you can also use a different audio library like [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/) or [pygame](https://www.pygame.org/news) to play back the audio data, but you might need to install `portaudio`, and the latter is more suited for game development.
+
 ## Playing Video and Audio
 
-Here you can find an example that shows how to play both video with gaze overlay and audio using OpenCV and SoundDevice.
+Here you can find an example that shows how to play both video with gaze overlay and audio using OpenCV and the AudioPlayer class.
 
 ??? example "Check the whole example code here"
 

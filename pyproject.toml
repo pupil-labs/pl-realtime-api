@@ -28,6 +28,7 @@ dependencies = [
     "pupil-labs-neon-recording>=1.0.1",
     "pupil-labs-video>=1.0.3",
     "pydantic>=2.10.6",
+    "sounddevice>=0.5.2",
     "websockets>=15.0.1",
     "zeroconf>=0.146.1",
 ]
@@ -68,7 +69,7 @@ dev = [
     "tomli>=2.0; python_version < '3.11'",
     "types-deprecated>=1.2.15.20250304",
 ]
-examples = ["opencv-python", "sounddevice", "rich", "librosa", "speechrecognition", "openai-whisper"]
+examples = ["opencv-python", "rich", "librosa", "speechrecognition", "openai-whisper"]
 
 [build-system]
 requires = ["hatchling", "uv-dynamic-versioning"]
@@ -86,10 +87,10 @@ branch = true
 source = ["pupil_labs"]
 
 [tool.deptry.per_rule_ignores]
-DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "sounddevice", "audio_player", "aiortsp", "dpkt"]
+DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "pyaudio", "audio_player", "aiortsp", "dpkt"]
 DEP002 = ["opencv-python"]
 DEP003 = ["pupil_labs", "typing_extensions", "pydantic_core", "aiortsp", "setuptools"]
-DEP004 = ["cv2", "mkdocs", "rich", "librosa", "whisper", "speech_recognition", "sounddevice", "pytest"]
+DEP004 = ["cv2", "mkdocs", "rich", "librosa", "whisper", "speech_recognition", "pytest"]
 
 [tool.hatch.version]
 source = "uv-dynamic-versioning"

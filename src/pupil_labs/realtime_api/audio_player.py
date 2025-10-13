@@ -1,18 +1,10 @@
 import logging
 import threading
+from typing import Any
 
 import numpy as np
 import numpy.typing as npt
-
-try:
-    import sounddevice as sd
-except ImportError:
-    raise ImportError(
-        "sounddevice library not found. Please install with: pip install sounddevice to"
-        "run this example or install pl-realtime with examples extras: "
-        "pip install pupil-labs-realtime-api[examples]"
-        "uv pip install pupil-labs-realtime-api --group examples"
-    ) from None
+import sounddevice as sd
 
 
 class RingBuffer:
@@ -129,9 +121,11 @@ class AudioPlayer(threading.Thread):
             dtype=np.int16,
             channels=channels,
         )
-        self.stream = None
+        self.stream: sd.OutputStream | None = None
 
-    def _callback(self, outdata: npt.NDArray[np.int16], frames: int, *args) -> None:
+    def _callback(
+        self, outdata: npt.NDArray[np.int16], frames: int, *args: Any
+    ) -> None:
         """Retrieve frames to play from the buffer."""
         audio_data = self._buffer.read(frames)
         num_played = len(audio_data)

@@ -1,20 +1,16 @@
 import cv2
 import numpy as np
+import pyaudio
 
 # Workaround for https://github.com/opencv/opencv/issues/21952
 cv2.imshow("cv/av bug", np.zeros(1))
 cv2.destroyAllWindows()
 
-from pupil_labs.realtime_api.audio_player import AudioPlayer  # noqa: E402
 from pupil_labs.realtime_api.simple import discover_one_device  # noqa: E402
-
-# NOTE: Audio playback is done in a separate thread with SoundDevice and a circular
-# buffer to avoid blocking the main thread and ensure smooth playback.
-# An AudioPlayer class is provided in the realtime_api package for this purpose.
 
 
 def main():
-    # Look for devices. Returns as soon as it has found the first device.
+    """Connect to a device, receive data, and play audio."""
     print("Looking for the next best device...")
     device = discover_one_device(max_search_duration_seconds=10)
     if device is None:
@@ -22,9 +18,16 @@ def main():
         raise SystemExit(-1)
 
     print(f"Connecting to {device}...")
-    player = AudioPlayer(samplerate=8000, channels=1, dtype="int16")
+
+    p = pyaudio.PyAudio()
+
+    SAMPLE_RATE = 8000
+    CHANNELS = 1
+    FORMAT = pyaudio.paFloat32
+
+    stream = p.open(format=FORMAT, channels=CHANNELS, rate=SAMPLE_RATE, output=True)
+
     try:
-        player.start()
         while True:
             matched = device.receive_matched_scene_video_frame_and_audio(
                 timeout_seconds=5
@@ -34,40 +37,39 @@ def main():
 
             frame, audio, gaze = matched
 
-            # We add all audio frames to the player's queue
             for audio_frame in audio:
-                player.add_data(next(audio_frame.to_resampled_ndarray()).T)
+                stream.write(audio_frame.to_ndarray().tobytes())
 
-            buffer_fill_ms = 1000 * player.get_buffer_size() / player.samplerate
-
-            # We display the number of audio frames received with the video frame
             time_diff_ms = [
                 frame.timestamp_unix_seconds - af.timestamp_unix_seconds for af in audio
             ]
+
+            # Display status text on the video frame
             if audio:
                 cv2.putText(
                     frame.bgr_pixels,
                     (
-                        f"Audio frames: {len(audio)} / "
-                        f"Buffer: {buffer_fill_ms:.0f} ms / "
-                        f"Mean diff. audio-scene: {np.mean(time_diff_ms) * 1000:.0f} ms"
+                        f"Audio frames: {len(audio)} (float32) / "
+                        f"Mean diff: {np.mean(time_diff_ms) * 1000:.0f} ms"
                     ),
                     (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    1,
+                    0.8,
                     (0, 255, 0),
                     2,
                 )
             else:
                 cv2.putText(
                     frame.bgr_pixels,
-                    f"No audio / Buffer: {buffer_fill_ms:.0f} ms",
+                    "No audio received",
                     (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1,
                     (0, 0, 255),
                     2,
                 )
+
+            # Draw the gaze point on the frame
             if gaze:
                 cv2.circle(
                     frame.bgr_pixels,
@@ -76,15 +78,21 @@ def main():
                     color=(0, 0, 255),
                     thickness=15,
                 )
-            cv2.imshow("Scene camera and audio", frame.bgr_pixels)
+
+            # Show the video frame
+            cv2.imshow("Scene Camera with PyAudio Playback (float32)", frame.bgr_pixels)
+
             if cv2.waitKey(1) & 0xFF == 27:
                 break
     except KeyboardInterrupt:
         pass
     finally:
         print("Stopping...")
-        player.close()
-        device.close()  # explicitly stop auto-update
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+        if device:
+            device.close()
 
 
 if __name__ == "__main__":

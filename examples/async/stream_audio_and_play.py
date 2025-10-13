@@ -1,14 +1,7 @@
 import asyncio
 import contextlib
 import logging
-import os
-import sys
 import typing as T
-
-# Allow for absloute imports, to import audio_player from the parent directory.
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from audio_player import AudioPlayer
 
 from pupil_labs.realtime_api import (
     AudioFrame,
@@ -16,6 +9,7 @@ from pupil_labs.realtime_api import (
     Network,
     receive_audio_frames,
 )
+from pupil_labs.realtime_api.audio_player import AudioPlayer
 
 logging.basicConfig(level=logging.INFO)
 
