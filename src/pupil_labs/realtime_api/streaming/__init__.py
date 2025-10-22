@@ -1,6 +1,6 @@
 from typing import TypeVar
 
-from pupil_labs.neon_recording.stream.imu.imu_pb2 import ImuPacket  # type: ignore
+from pupil_labs.neon_recording.timeseries.imu.imu_pb2 import ImuPacket  # type: ignore
 
 from .audio import AudioFrame, RTSPAudioStreamer, receive_audio_frames
 from .base import (

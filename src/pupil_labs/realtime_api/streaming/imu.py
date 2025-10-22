@@ -4,7 +4,7 @@ from collections.abc import AsyncIterator
 from typing import Any, NamedTuple, cast
 
 from deprecated import deprecated
-from pupil_labs.neon_recording.stream.imu.imu_pb2 import ImuPacket  # type: ignore
+from pupil_labs.neon_recording.timeseries.imu.imu_pb2 import ImuPacket  # type: ignore
 
 from .base import RTSPRawStreamer
 

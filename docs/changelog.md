@@ -1,4 +1,11 @@
-## 1.7
+## 1.7.3
+-   Uses updated `pupil-labs-neon-recording` package and fixes IMU import
+
+## 1.7.2
+
+-   Bundles `AudioPlayer` convenience class
+
+## 1.7.1
 
 -   Adds audio support in simple and async API
     -   Simple API

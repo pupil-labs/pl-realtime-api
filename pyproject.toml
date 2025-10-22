@@ -25,7 +25,7 @@ dependencies = [
     "deprecated>=1.2.18",
     "dpkt>=1.9.8",
     "numpy",
-    "pupil-labs-neon-recording>=1.0.1",
+    "pupil-labs-neon-recording>=2.0.0",
     "pupil-labs-video>=1.0.3",
     "pydantic>=2.10.6",
     "sounddevice>=0.5.2",
