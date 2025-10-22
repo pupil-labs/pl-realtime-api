@@ -1,4 +1,5 @@
 ## 1.7.3
+
 -   Uses updated `pupil-labs-neon-recording` package and fixes IMU import
 
 ## 1.7.2
