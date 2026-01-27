@@ -8,6 +8,8 @@
 [![pypi version](https://img.shields.io/pypi/v/pupil-labs-realtime-api.svg)](https://pypi.org/project/pupil-labs-realtime-api/)
 [![python versions](https://img.shields.io/pypi/pyversions/pupil-labs-realtime-api)](https://pypi.org/project/pupil-labs-realtime-api/)
 
+[![Real-time Python API banner](https://raw.githubusercontent.com/pupil-labs/pl-realtime-api/refs/heads/main/docs/assets/banner.png)](https://pupil-labs.com/)
+
 `pupil_labs.realtime_api` is a Python module that wraps around the [Pupil Labs Real-Time Network API](https://github.com/pupil-labs/realtime-network-api) while offering some convenience functions sucha as gaze ↔ frame matching, and exposing easy-to-use functions and classes to get started without having to know much about advanced programming or network communication!
 
 ## Installation
