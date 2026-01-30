@@ -336,12 +336,13 @@ class EyestateEyelidGazeData(NamedTuple):
         """Get the timestamp in nanoseconds since Unix epoch."""
         return int(self.timestamp_unix_seconds * 1e9)
 
+
 class EyestateEyelidDualMonoGazeData(NamedTuple):
     """Gaze data with additional eyelid state information.
 
-       Contains binocular gaze point, left and right monocular gaze points,
-       pupil diameter, eyeball center coordinates, optical axis coordinates, as well as
-       eyelid angles and aperture for both left and right eyes.
+    Contains binocular gaze point, left and right monocular gaze points,
+    pupil diameter, eyeball center coordinates, optical axis coordinates, as well as
+    eyelid angles and aperture for both left and right eyes.
     """
 
     x: float
@@ -440,7 +441,7 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
             gaze_mono_left_x,
             gaze_mono_left_y,
             gaze_mono_right_x,
-            gaze_mono_right_y
+            gaze_mono_right_y,
         ) = struct.unpack("!ffBffffffffffffffffffffffff", data.raw)
         return cls(
             x,
@@ -481,6 +482,7 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
     def timestamp_unix_ns(self):
         return int(self.timestamp_unix_seconds * 1e9)
 
+
 class BinoAndDualMonoGazeData(NamedTuple):
     """Binocular and dual monocular gaze data
 
@@ -518,8 +520,19 @@ class BinoAndDualMonoGazeData(NamedTuple):
             parsed values.
 
         """
-        x, y, worn, mono_left_x, mono_left_y, mono_right_x, mono_right_y = struct.unpack("!ffBffff", data.raw)
-        return cls(x, y, worn == 255, mono_left_x, mono_left_y, mono_right_x, mono_right_y, data.timestamp_unix_seconds)
+        x, y, worn, mono_left_x, mono_left_y, mono_right_x, mono_right_y = (
+            struct.unpack("!ffBffff", data.raw)
+        )
+        return cls(
+            x,
+            y,
+            worn == 255,
+            mono_left_x,
+            mono_left_y,
+            mono_right_x,
+            mono_right_y,
+            data.timestamp_unix_seconds,
+        )
 
     @property
     def datetime(self) -> datetime.datetime:
@@ -531,8 +544,14 @@ class BinoAndDualMonoGazeData(NamedTuple):
         """Get the timestamp in nanoseconds since Unix epoch."""
         return int(self.timestamp_unix_seconds * 1e9)
 
+
 GazeDataType = (
-    GazeData | DualMonocularGazeData | EyestateGazeData | EyestateEyelidGazeData | EyestateEyelidDualMonoGazeData | BinoAndDualMonoGazeData
+    GazeData
+    | DualMonocularGazeData
+    | EyestateGazeData
+    | EyestateEyelidGazeData
+    | EyestateEyelidDualMonoGazeData
+    | BinoAndDualMonoGazeData
 )
 """Type alias for various gaze data types."""
 
@@ -565,7 +584,6 @@ async def receive_gaze_data(
     async with RTSPGazeStreamer(url, *args, **kwargs) as streamer:
         async for datum in streamer.receive():
             yield cast(GazeDataType, datum)
-
 
 
 class RTSPGazeStreamer(RTSPRawStreamer):
@@ -607,7 +625,7 @@ class RTSPGazeStreamer(RTSPRawStreamer):
             65: EyestateGazeData,
             89: EyestateEyelidGazeData,
             105: EyestateEyelidDualMonoGazeData,
-            25: BinoAndDualMonoGazeData
+            25: BinoAndDualMonoGazeData,
         }
         async for data in super().receive():
             try:
