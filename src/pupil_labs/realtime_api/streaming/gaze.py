@@ -475,11 +475,11 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
         )
 
     @property
-    def datetime(self):
+    def datetime(self) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(self.timestamp_unix_seconds)
 
     @property
-    def timestamp_unix_ns(self):
+    def timestamp_unix_ns(self) -> int:
         return int(self.timestamp_unix_seconds * 1e9)
 
 
