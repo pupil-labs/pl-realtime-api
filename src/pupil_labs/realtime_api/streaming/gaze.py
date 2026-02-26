@@ -45,7 +45,7 @@ class GazeData(NamedTuple):
             GazeData: An instance of GazeData with the parsed values.
 
         """
-        x, y, worn = struct.unpack("!ffB", data.raw[:cls.EXPECTED_BYTE_COUNT])
+        x, y, worn = struct.unpack("!ffB", data.raw[: cls.EXPECTED_BYTE_COUNT])
         return cls(x, y, worn == 255, data.timestamp_unix_seconds)
 
     @property
@@ -88,7 +88,9 @@ class DualMonocularGazeData(NamedTuple):
                 values.
 
         """
-        x1, y1, worn, x2, y2 = struct.unpack("!ffBff", data.raw[:cls.EXPECTED_BYTE_COUNT])
+        x1, y1, worn, x2, y2 = struct.unpack(
+            "!ffBff", data.raw[: cls.EXPECTED_BYTE_COUNT]
+        )
         return cls(
             Point(x1, y1), Point(x2, y2), worn == 255, data.timestamp_unix_seconds
         )
@@ -179,7 +181,7 @@ class EyestateGazeData(NamedTuple):
             optical_axis_right_x,
             optical_axis_right_y,
             optical_axis_right_z,
-        ) = struct.unpack("!ffBffffffffffffff", data.raw[:cls.EXPECTED_BYTE_COUNT])
+        ) = struct.unpack("!ffBffffffffffffff", data.raw[: cls.EXPECTED_BYTE_COUNT])
         return cls(
             x,
             y,
@@ -306,7 +308,9 @@ class EyestateEyelidGazeData(NamedTuple):
             eyelid_angle_top_right,
             eyelid_angle_bottom_right,
             eyelid_aperture_right,
-        ) = struct.unpack("!ffBffffffffffffffffffff", data.raw[:cls.EXPECTED_BYTE_COUNT])
+        ) = struct.unpack(
+            "!ffBffffffffffffffffffff", data.raw[: cls.EXPECTED_BYTE_COUNT]
+        )
         return cls(
             x,
             y,
@@ -452,7 +456,9 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
             gaze_mono_left_y,
             gaze_mono_right_x,
             gaze_mono_right_y,
-        ) = struct.unpack("!ffBffffffffffffffffffffffff", data.raw[:cls.EXPECTED_BYTE_COUNT])
+        ) = struct.unpack(
+            "!ffBffffffffffffffffffffffff", data.raw[: cls.EXPECTED_BYTE_COUNT]
+        )
         return cls(
             x,
             y,
@@ -533,7 +539,7 @@ class BinoAndDualMonoGazeData(NamedTuple):
 
         """
         x, y, worn, mono_left_x, mono_left_y, mono_right_x, mono_right_y = (
-            struct.unpack("!ffBffff", data.raw[:cls.EXPECTED_BYTE_COUNT])
+            struct.unpack("!ffBffff", data.raw[: cls.EXPECTED_BYTE_COUNT])
         )
         return cls(
             x,
@@ -632,7 +638,8 @@ class RTSPGazeStreamer(RTSPRawStreamer):
 
         """
         data_class_by_raw_len = {
-            cls.EXPECTED_BYTE_COUNT: cls for cls in [
+            cls.EXPECTED_BYTE_COUNT: cls
+            for cls in [
                 GazeData,
                 DualMonocularGazeData,
                 BinoAndDualMonoGazeData,
