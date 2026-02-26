@@ -2429,6 +2429,16 @@ The BGR format is commonly used in computer vision applications.</p>
     <span class="n">receive_gaze_data</span><span class="p">,</span>
     <span class="n">receive_video_frames</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.streaming.gaze</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: E402</span>
+    <span class="n">BinoAndDualMonoGazeData</span><span class="p">,</span>
+    <span class="n">EyestateEyelidDualMonoGazeData</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">LEGEND</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;mono_right&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># right eye monocular gaze</span>
+    <span class="s2">&quot;mono_left&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># left eye monocular gaze</span>
+    <span class="s2">&quot;bino&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>  <span class="c1"># binocular gaze</span>
+<span class="p">}</span>
 
 
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
@@ -2494,10 +2504,45 @@ The BGR format is commonly used in computer vision applications.</p>
         <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
             <span class="n">bgr_buffer</span><span class="p">,</span>
             <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gaze_datum</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">gaze_datum</span><span class="o">.</span><span class="n">y</span><span class="p">)),</span>
-            <span class="n">radius</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
-            <span class="n">thickness</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+            <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">gaze_datum</span><span class="p">,</span> <span class="p">(</span><span class="n">BinoAndDualMonoGazeData</span><span class="p">,</span> <span class="n">EyestateEyelidDualMonoGazeData</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
+                <span class="n">bgr_buffer</span><span class="p">,</span>
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gaze_datum</span><span class="o">.</span><span class="n">mono_right_x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">gaze_datum</span><span class="o">.</span><span class="n">mono_right_y</span><span class="p">)),</span>
+                <span class="n">radius</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
+                <span class="n">bgr_buffer</span><span class="p">,</span>
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gaze_datum</span><span class="o">.</span><span class="n">mono_left_x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">gaze_datum</span><span class="o">.</span><span class="n">mono_left_y</span><span class="p">)),</span>
+                <span class="n">radius</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">eye</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">LEGEND</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
+                    <span class="n">bgr_buffer</span><span class="p">,</span>
+                    <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">LEGEND</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">eye</span><span class="p">)),</span>
+                    <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">LEGEND</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">eye</span><span class="p">)),</span>
+                    <span class="n">color</span><span class="p">,</span>
+                    <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span>
+                    <span class="n">bgr_buffer</span><span class="p">,</span>
+                    <span class="n">eye</span><span class="p">,</span>
+                    <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">LEGEND</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">eye</span><span class="p">)),</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span>
+                    <span class="mf">0.5</span><span class="p">,</span>
+                    <span class="n">color</span><span class="p">,</span>
+                    <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">LINE_AA</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Scene camera with gaze overlay&quot;</span><span class="p">,</span> <span class="n">bgr_buffer</span><span class="p">)</span>
         <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>

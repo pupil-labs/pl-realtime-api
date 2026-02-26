@@ -2506,7 +2506,52 @@ It represents a matched pair of scene video frame and gaze data.</p>
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Workaround for https://github.com/opencv/opencv/issues/21952</span>
@@ -2514,6 +2559,16 @@ It represents a matched pair of scene video frame and gaze data.</p>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.simple</span><span class="w"> </span><span class="kn">import</span> <span class="n">discover_one_device</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pupil_labs.realtime_api.streaming.gaze</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: E402</span>
+    <span class="n">BinoAndDualMonoGazeData</span><span class="p">,</span>
+    <span class="n">EyestateEyelidDualMonoGazeData</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">LEGEND</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;mono_right&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># right eye monocular gaze</span>
+    <span class="s2">&quot;mono_left&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># left eye monocular gaze</span>
+    <span class="s2">&quot;bino&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>  <span class="c1"># binocular gaze</span>
+<span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
@@ -2532,10 +2587,45 @@ It represents a matched pair of scene video frame and gaze data.</p>
             <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
                 <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">,</span>
                 <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">y</span><span class="p">)),</span>
-                <span class="n">radius</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+                <span class="n">radius</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
                 <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
-                <span class="n">thickness</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">gaze</span><span class="p">,</span> <span class="p">(</span><span class="n">BinoAndDualMonoGazeData</span><span class="p">,</span> <span class="n">EyestateEyelidDualMonoGazeData</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
+                    <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">,</span>
+                    <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">mono_right_x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">mono_right_y</span><span class="p">)),</span>
+                    <span class="n">radius</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
+                    <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">,</span>
+                    <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">mono_left_x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">gaze</span><span class="o">.</span><span class="n">mono_left_y</span><span class="p">)),</span>
+                    <span class="n">radius</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">eye</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">LEGEND</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span>
+                        <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">,</span>
+                        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">LEGEND</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">eye</span><span class="p">)),</span>
+                        <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">LEGEND</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">eye</span><span class="p">)),</span>
+                        <span class="n">color</span><span class="p">,</span>
+                        <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span>
+                        <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">,</span>
+                        <span class="n">eye</span><span class="p">,</span>
+                        <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">LEGEND</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">eye</span><span class="p">)),</span>
+                        <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span>
+                        <span class="mf">0.5</span><span class="p">,</span>
+                        <span class="n">color</span><span class="p">,</span>
+                        <span class="mi">1</span><span class="p">,</span>
+                        <span class="n">cv2</span><span class="o">.</span><span class="n">LINE_AA</span><span class="p">,</span>
+                    <span class="p">)</span>
 
             <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Scene camera with gaze overlay&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">bgr_pixels</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>

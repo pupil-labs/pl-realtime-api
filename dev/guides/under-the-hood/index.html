@@ -1669,26 +1669,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#decoding-video-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Decoding Video Data
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#service-discovery-in-the-local-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Service discovery in the local network
-    </span>
-  </a>
   
 </li>
       
@@ -1935,26 +1917,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#decoding-video-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Decoding Video Data
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#service-discovery-in-the-local-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      Service discovery in the local network
-    </span>
-  </a>
   
 </li>
       
@@ -2191,6 +2155,14 @@ time base and unit returned by <code>time.time_ns</code>.</p>
 <li><code>worn</code> - Boolean indicating whether the user is wearing the device. The value is
    encoded as an unsigned 8-bit integer as either <code>255</code> (device is being worn) or <code>0</code> (device is <em>not</em> being worn).</li>
 </ol>
+<p><strong>Dual Monocular Gaze Data in Neon</strong>
+Starting from Neon Companion app version +2.9.31, both binocular and monocular gaze data are estimated simultaneously in Neon. In this case, the following additional parameters are included:</p>
+<ol>
+<li><code>mono_left_x</code> - Horizontal component of the left eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.</li>
+<li><code>mono_left_y</code> - Vertical component of the left eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.</li>
+<li><code>mono_right_x</code> - Horizontal component of the right eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.</li>
+<li><code>mono_right_y</code> - Vertical component of the right eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.</li>
+</ol>
 <p><strong>Eye State Data (Optional)</strong></p>
 <p>If eye state computation is enabled (not available for Pupil Invisible), additional parameters are included(all encoded as a 32-bit float):</p>
 <ol>
@@ -2211,7 +2183,195 @@ time base and unit returned by <code>time.time_ns</code>.</p>
 <li><strong><code>timestamp_unix_seconds</code></strong>: Unix timestamp representing the time of data capture.</li>
 </ol>
 <p>Each RTP packet contains one gaze datum. The payload length varies:</p>
-<ul>
+<details class="quote">
+<summary>Have a look at RTSPGazeStreamer.receive for payload unpacking details</summary>
+</details>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="pupil_labs.realtime_api.streaming.gaze.RTSPGazeStreamer.receive" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">receive</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.RTSPGazeStreamer.receive" class="headerlink" title="Permanent link">&para;</a></h1>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">receive</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.AsyncIterator" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.AsyncIterator">AsyncIterator</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            GazeDataType
+
+
+  
+      module-attribute
+   (pupil_labs.realtime_api.streaming.gaze.GazeDataType)" href="../../api/async/#pupil_labs.realtime_api.streaming.gaze.GazeDataType">GazeDataType</a></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Receive and parse gaze data from the RTSP stream.</p>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="collections.abc.AsyncIterator" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.AsyncIterator">AsyncIterator</a>[<a class="autorefs autorefs-internal" title="            GazeDataType
+
+
+  
+      module-attribute
+   (pupil_labs.realtime_api.streaming.gaze.GazeDataType)" href="../../api/async/#pupil_labs.realtime_api.streaming.gaze.GazeDataType">GazeDataType</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>GazeDataType</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="collections.abc.AsyncIterator" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.AsyncIterator">AsyncIterator</a>[<a class="autorefs autorefs-internal" title="            GazeDataType
+
+
+  
+      module-attribute
+   (pupil_labs.realtime_api.streaming.gaze.GazeDataType)" href="../../api/async/#pupil_labs.realtime_api.streaming.gaze.GazeDataType">GazeDataType</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>Parsed gaze data of various types. The type of gaze data object is</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" title="collections.abc.AsyncIterator" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.AsyncIterator">AsyncIterator</a>[<a class="autorefs autorefs-internal" title="            GazeDataType
+
+
+  
+      module-attribute
+   (pupil_labs.realtime_api.streaming.gaze.GazeDataType)" href="../../api/async/#pupil_labs.realtime_api.streaming.gaze.GazeDataType">GazeDataType</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>determined by the length of the raw data packet:</p>
+          </div>
+        </li>
+    </ul>
+        <ul>
+<li>9 bytes: GazeData (basic gaze position)</li>
+<li>17 bytes: DualMonocularGazeData (left and right eye positions)</li>
+<li>65 bytes: EyestateGazeData (gaze with eye state)</li>
+<li>89 bytes: EyestateEyelidGazeData (gaze with eye state and eyelid info)</li>
+<li>105 bytes: EyestateEyelidDualMonoGazeData (binocular and dual monocular gaze
+  with eyestate and eyelid info)</li>
+<li>25 bytes: BinoAndDualMonoGazeData (binocular and dual monocular gaze)</li>
+</ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#KeyError">KeyError</a></code>
+            –
+          <div class="doc-md-description">
+            <p>If the data length does not match any known format.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code>
+            –
+          <div class="doc-md-description">
+            <p>If there is an error parsing the gaze data.</p>
+          </div>
+        </li>
+    </ul>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/pupil_labs/realtime_api/streaming/gaze.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span>
+<span class="normal">601</span>
+<span class="normal">602</span>
+<span class="normal">603</span>
+<span class="normal">604</span>
+<span class="normal">605</span>
+<span class="normal">606</span>
+<span class="normal">607</span>
+<span class="normal">608</span>
+<span class="normal">609</span>
+<span class="normal">610</span>
+<span class="normal">611</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span>
+<span class="normal">616</span>
+<span class="normal">617</span>
+<span class="normal">618</span>
+<span class="normal">619</span>
+<span class="normal">620</span>
+<span class="normal">621</span>
+<span class="normal">622</span>
+<span class="normal">623</span>
+<span class="normal">624</span>
+<span class="normal">625</span>
+<span class="normal">626</span>
+<span class="normal">627</span>
+<span class="normal">628</span>
+<span class="normal">629</span>
+<span class="normal">630</span>
+<span class="normal">631</span>
+<span class="normal">632</span>
+<span class="normal">633</span>
+<span class="normal">634</span>
+<span class="normal">635</span>
+<span class="normal">636</span>
+<span class="normal">637</span>
+<span class="normal">638</span>
+<span class="normal">639</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
+    <span class="bp">self</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">GazeDataType</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive and parse gaze data from the RTSP stream.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        GazeDataType</span>
+
+<span class="sd">        Parsed gaze data of various types. The type of gaze data object is</span>
+<span class="sd">        determined by the length of the raw data packet:</span>
+<span class="sd">    - 9 bytes: GazeData (basic gaze position)</span>
+<span class="sd">    - 17 bytes: DualMonocularGazeData (left and right eye positions)</span>
+<span class="sd">    - 65 bytes: EyestateGazeData (gaze with eye state)</span>
+<span class="sd">    - 89 bytes: EyestateEyelidGazeData (gaze with eye state and eyelid info)</span>
+<span class="sd">    - 105 bytes: EyestateEyelidDualMonoGazeData (binocular and dual monocular gaze</span>
+<span class="sd">      with eyestate and eyelid info)</span>
+<span class="sd">    - 25 bytes: BinoAndDualMonoGazeData (binocular and dual monocular gaze)</span>
+
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyError: If the data length does not match any known format.</span>
+<span class="sd">        Exception: If there is an error parsing the gaze data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_class_by_raw_len</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">9</span><span class="p">:</span> <span class="n">GazeData</span><span class="p">,</span>
+        <span class="mi">17</span><span class="p">:</span> <span class="n">DualMonocularGazeData</span><span class="p">,</span>
+        <span class="mi">65</span><span class="p">:</span> <span class="n">EyestateGazeData</span><span class="p">,</span>
+        <span class="mi">89</span><span class="p">:</span> <span class="n">EyestateEyelidGazeData</span><span class="p">,</span>
+        <span class="mi">105</span><span class="p">:</span> <span class="n">EyestateEyelidDualMonoGazeData</span><span class="p">,</span>
+        <span class="mi">25</span><span class="p">:</span> <span class="n">BinoAndDualMonoGazeData</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">receive</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="n">data_class_by_raw_len</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">)]</span>
+            <span class="k">yield</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_raw</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw gaze data has unexpected length: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to parse gaze data </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div><ul>
 <li><strong>21 bytes</strong>: When only gaze data is included. To unpack - (!ffB)</li>
 <li><strong>77 bytes</strong>: When both gaze and eye state data are included. To unpack - (!ffBffffffffffffff)</li>
 </ul>

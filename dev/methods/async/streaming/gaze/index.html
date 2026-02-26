@@ -1216,19 +1216,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Stream Gaze
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1240,34 +1227,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#full-code-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Full Code Examples
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1731,23 +1690,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#full-code-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Full Code Examples
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1786,9 +1728,10 @@
 <ul>
 <li><a class="autorefs autorefs-internal" title="            GazeData" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.GazeData">GazeData</a> object for Pupil Invisible or Neon without "Compute eye state" enabled.</li>
 <li><a class="autorefs autorefs-internal" title="            EyestateGazeData" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateGazeData">EyestateGazeData</a> or <a class="autorefs autorefs-internal" title="            EyestateEyelidGazeData" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidGazeData">EyestateEyelidGazeData</a> for Neon with "Compute eye state" enabled, depending on the version of the Neon Companion app.</li>
+<li>Starting from Neon Companion app version +2.9.31, both binocular and monocular gaze data are exposed, it can return <a class="autorefs autorefs-internal" title="            BinoAndDualMonoGazeData" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData">BinoAndDualMonoGazeData</a> or <a class="autorefs autorefs-internal" title="            EyestateEyelidDualMonoGazeData" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData">EyestateEyelidDualMonoGazeData</a>.</li>
 </ul>
 <p>See below samples for each type of gaze data.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="gaze-data" name="__tabbed_1" type="radio" /><input id="with-eye-state" name="__tabbed_1" type="radio" /><input id="with-eye-lid-data" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="gaze-data">Gaze data</label><label for="with-eye-state">With Eye State</label><label for="with-eye-lid-data">With Eye Lid data</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="gaze-data" name="__tabbed_1" type="radio" /><input id="gaze-data-dual-mono" name="__tabbed_1" type="radio" /><input id="with-eye-state" name="__tabbed_1" type="radio" /><input id="with-eye-lid-data" name="__tabbed_1" type="radio" /><input id="dual-mono-and-eye-state--eye-lid" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="gaze-data">Gaze data</label><label for="gaze-data-dual-mono">Gaze data (Dual Mono)</label><label for="with-eye-state">With Eye State</label><label for="with-eye-lid-data">With Eye Lid data</label><label for="dual-mono-and-eye-state--eye-lid">Dual Mono and Eye State &amp; Eye Lid</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="n">GazeData</span><span class="p">(</span>
@@ -1798,6 +1741,542 @@
     <span class="n">timestamp_unix_seconds</span><span class="o">=</span><span class="mf">1744294828.3579288</span>
 <span class="p">)</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><span class="mdx-badge mdx-badge--product" title="Only available for: Neon"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.41 11.58-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42M13 20l-9-9V4h7l9 9M6.5 5A1.5 1.5 0 1 1 5 6.5 1.5 1.5 0 0 1 6.5 5"/></svg></span></span><span class="mdx-badge__text">Neon</span></span>
+ <span class="mdx-badge mdx-badge--companion" title="Companion App version: +2.9.31"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 19H7V5h10m0-4H7c-1.11 0-2 .89-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2"/></svg></span></span><span class="mdx-badge__text">+2.9.31</span></span>
+ <span class="mdx-badge mdx-badge--version" title="Minimum Real-Time API version: +1.8.0"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 7H5a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2m0 4H5V9h2m7-2h-4v10h2v-4h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2m0 4h-2V9h2m6 0v6h1v2h-4v-2h1V9h-1V7h4v2Z"/></svg></span></span><span class="mdx-badge__text">+1.8.0</span></span></p>
+<div class="highlight"><pre><span></span><code><span class="n">BinoAndDualMonoGazeData</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mf">848.9487915039062</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mf">474.46356201171875</span><span class="p">,</span>
+    <span class="n">worn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">mono_left_x</span><span class="o">=</span><span class="mf">895.11083984375</span><span class="p">,</span>
+    <span class="n">mono_left_y</span><span class="o">=</span><span class="mf">477.2065734863281</span><span class="p">,</span>
+    <span class="n">mono_right_x</span><span class="o">=</span><span class="mf">800.8253173828125</span><span class="p">,</span>
+    <span class="n">mono_right_y</span><span class="o">=</span><span class="mf">469.348388671875</span><span class="p">,</span>
+    <span class="n">timestamp_unix_seconds</span><span class="o">=</span><span class="mf">1772109976.1031907</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This method exposes gaze data for Neon in Dual Mono mode, which includes binocular and monocular gaze data.</p>
+<details class="quote">
+<summary>BinoAndDualMonoGazeData</summary>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h1 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">BinoAndDualMonoGazeData</span>
+
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData" class="headerlink" title="Permanent link">&para;</a></h1>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" title="typing.NamedTuple" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple">NamedTuple</a></code></p>
+
+
+        <p>Binocular and dual monocular gaze data</p>
+<p>Represents the binocular 2D gaze point, the left and right dual monocular gaze
+points, on the scene camera coordinates with a timestamp in seconds unix epoch and
+an indicator of whether the glasses are being worn.</p>
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            from_raw
+
+
+  
+      classmethod
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.from_raw)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.from_raw">from_raw</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Create a BinoAndDualMonoGazeData instance from raw data.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            datetime
+
+
+  
+      property
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.datetime)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.datetime">datetime</a></code></b>
+              (<code><span title="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.datetime.datetime">datetime</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>Get the timestamp as a datetime object.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            mono_left_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_x">mono_left_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the left monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            mono_left_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_y">mono_left_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the left monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            mono_right_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_x">mono_right_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the right monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            mono_right_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_y">mono_right_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the right monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            timestamp_unix_ns
+
+
+  
+      property
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.timestamp_unix_ns)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.timestamp_unix_ns">timestamp_unix_ns</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Get the timestamp in nanoseconds since Unix epoch.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            worn
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.worn)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.worn">worn</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Whether the glasses are being worn.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.x">x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.y">y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the gaze point.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.datetime" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">datetime</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.datetime" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">datetime</span><span class="p">:</span> <span class="n"><span title="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.datetime.datetime">datetime</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Get the timestamp as a datetime object.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">mono_left_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mono_left_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the left monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">mono_left_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_left_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mono_left_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the left monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">mono_right_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mono_right_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the right monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">mono_right_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.mono_right_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mono_right_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the right monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.timestamp_unix_ns" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">timestamp_unix_ns</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.timestamp_unix_ns" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">timestamp_unix_ns</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Get the timestamp in nanoseconds since Unix epoch.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.worn" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">worn</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.worn" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">worn</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Whether the glasses are being worn.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the gaze point.</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.from_raw" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">from_raw</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData.from_raw" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">from_raw</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            RTSPData (pupil_labs.realtime_api.streaming.base.RTSPData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.base.RTSPData">RTSPData</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            BinoAndDualMonoGazeData (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData">BinoAndDualMonoGazeData</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create a BinoAndDualMonoGazeData instance from raw data.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>data</code></b>
+              (<code><a class="autorefs autorefs-internal" title="            RTSPData (pupil_labs.realtime_api.streaming.base.RTSPData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.base.RTSPData">RTSPData</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The raw data received from the RTSP stream.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<b><code>BinoAndDualMonoGazeData</code></b> (              <code><a class="autorefs autorefs-internal" title="            BinoAndDualMonoGazeData (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData">BinoAndDualMonoGazeData</a></code>
+)          –
+          <div class="doc-md-description">
+            <p>An instance of BinoAndDualMonoGazeData with the</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            BinoAndDualMonoGazeData (pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData">BinoAndDualMonoGazeData</a></code>
+          –
+          <div class="doc-md-description">
+            <p>parsed values.</p>
+          </div>
+        </li>
+    </ul>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/pupil_labs/realtime_api/streaming/gaze.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">511</span>
+<span class="normal">512</span>
+<span class="normal">513</span>
+<span class="normal">514</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span>
+<span class="normal">518</span>
+<span class="normal">519</span>
+<span class="normal">520</span>
+<span class="normal">521</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
+<span class="normal">524</span>
+<span class="normal">525</span>
+<span class="normal">526</span>
+<span class="normal">527</span>
+<span class="normal">528</span>
+<span class="normal">529</span>
+<span class="normal">530</span>
+<span class="normal">531</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span>
+<span class="normal">535</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_raw</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">RTSPData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BinoAndDualMonoGazeData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a BinoAndDualMonoGazeData instance from raw data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (RTSPData): The raw data received from the RTSP stream.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        BinoAndDualMonoGazeData: An instance of BinoAndDualMonoGazeData with the</span>
+<span class="sd">        parsed values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">worn</span><span class="p">,</span> <span class="n">mono_left_x</span><span class="p">,</span> <span class="n">mono_left_y</span><span class="p">,</span> <span class="n">mono_right_x</span><span class="p">,</span> <span class="n">mono_right_y</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;!ffBffff&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">worn</span> <span class="o">==</span> <span class="mi">255</span><span class="p">,</span>
+        <span class="n">mono_left_x</span><span class="p">,</span>
+        <span class="n">mono_left_y</span><span class="p">,</span>
+        <span class="n">mono_right_x</span><span class="p">,</span>
+        <span class="n">mono_right_y</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">timestamp_unix_seconds</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div></details>
 </div>
 <div class="tabbed-block">
 <p><span class="mdx-badge mdx-badge--product" title="Only available for: Neon"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.41 11.58-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42M13 20l-9-9V4h7l9 9M6.5 5A1.5 1.5 0 1 1 5 6.5 1.5 1.5 0 0 1 6.5 5"/></svg></span></span><span class="mdx-badge__text">Neon</span></span>
@@ -1858,6 +2337,1357 @@
 <span class="p">)</span>
 </code></pre></div>
 This method also provides <a href="https://docs.pupil-labs.com/neon/data-collection/data-streams/#eye-openness">eye openness</a> data.</p>
+</div>
+<div class="tabbed-block">
+<p><span class="mdx-badge mdx-badge--product" title="Only available for: Neon"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.41 11.58-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9A2 2 0 0 0 13 22a2 2 0 0 0 1.41-.59l7-7A2 2 0 0 0 22 13a2 2 0 0 0-.59-1.42M13 20l-9-9V4h7l9 9M6.5 5A1.5 1.5 0 1 1 5 6.5 1.5 1.5 0 0 1 6.5 5"/></svg></span></span><span class="mdx-badge__text">Neon</span></span>
+<span class="mdx-badge mdx-badge--companion" title="Companion App version: +2.9.31"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 19H7V5h10m0-4H7c-1.11 0-2 .89-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2"/></svg></span></span><span class="mdx-badge__text">+2.9.31</span></span>
+<span class="mdx-badge mdx-badge--version" title="Minimum Real-Time API version: +1.8.0"><span class="mdx-badge__icon"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 7H5a2 2 0 0 0-2 2v8h2v-4h2v4h2V9a2 2 0 0 0-2-2m0 4H5V9h2m7-2h-4v10h2v-4h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2m0 4h-2V9h2m6 0v6h1v2h-4v-2h1V9h-1V7h4v2Z"/></svg></span></span><span class="mdx-badge__text">+1.8.0</span></span></p>
+<p><div class="highlight"><pre><span></span><code><span class="n">EyestateEyelidDualMonoGazeData</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mf">852.3287353515625</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mf">517.3056030273438</span><span class="p">,</span>
+    <span class="n">worn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">pupil_diameter_left</span><span class="o">=</span><span class="mf">4.567640781402588</span><span class="p">,</span>
+    <span class="n">eyeball_center_left_x</span><span class="o">=-</span><span class="mf">32.25</span><span class="p">,</span>
+    <span class="n">eyeball_center_left_y</span><span class="o">=</span><span class="mf">18.6875</span><span class="p">,</span>
+    <span class="n">eyeball_center_left_z</span><span class="o">=-</span><span class="mf">44.9375</span><span class="p">,</span>
+    <span class="n">optical_axis_left_x</span><span class="o">=</span><span class="mf">0.20407231152057648</span><span class="p">,</span>
+    <span class="n">optical_axis_left_y</span><span class="o">=-</span><span class="mf">0.020999005064368248</span><span class="p">,</span>
+    <span class="n">optical_axis_left_z</span><span class="o">=</span><span class="mf">0.9787306189537048</span><span class="p">,</span>
+    <span class="n">pupil_diameter_right</span><span class="o">=</span><span class="mf">3.035294771194458</span><span class="p">,</span>
+    <span class="n">eyeball_center_right_x</span><span class="o">=</span><span class="mf">30.15625</span><span class="p">,</span>
+    <span class="n">eyeball_center_right_y</span><span class="o">=</span><span class="mf">14.375</span><span class="p">,</span>
+    <span class="n">eyeball_center_right_z</span><span class="o">=-</span><span class="mf">43.3125</span><span class="p">,</span>
+    <span class="n">optical_axis_right_x</span><span class="o">=-</span><span class="mf">0.08533422648906708</span><span class="p">,</span>
+    <span class="n">optical_axis_right_y</span><span class="o">=-</span><span class="mf">0.019046271219849586</span><span class="p">,</span>
+    <span class="n">optical_axis_right_z</span><span class="o">=</span><span class="mf">0.9961703419685364</span><span class="p">,</span>
+    <span class="n">eyelid_angle_top_left</span><span class="o">=-</span><span class="mf">0.63037109375</span><span class="p">,</span>
+    <span class="n">eyelid_angle_bottom_left</span><span class="o">=-</span><span class="mf">1.138671875</span><span class="p">,</span>
+    <span class="n">eyelid_aperture_left</span><span class="o">=</span><span class="mf">6.09653902053833</span><span class="p">,</span>
+    <span class="n">eyelid_angle_top_right</span><span class="o">=-</span><span class="mf">0.06329345703125</span><span class="p">,</span>
+    <span class="n">eyelid_angle_bottom_right</span><span class="o">=</span><span class="mf">0.1409912109375</span><span class="p">,</span>
+    <span class="n">eyelid_aperture_right</span><span class="o">=</span><span class="mf">2.228158473968506</span><span class="p">,</span>
+    <span class="n">gaze_mono_left_x</span><span class="o">=</span><span class="mf">864.9857177734375</span><span class="p">,</span>
+    <span class="n">gaze_mono_left_y</span><span class="o">=</span><span class="mf">526.5974731445312</span><span class="p">,</span>
+    <span class="n">gaze_mono_right_x</span><span class="o">=</span><span class="mf">834.6492309570312</span><span class="p">,</span>
+    <span class="n">gaze_mono_right_y</span><span class="o">=</span><span class="mf">481.4454040527344</span><span class="p">,</span>
+    <span class="n">timestamp_unix_seconds</span><span class="o">=</span><span class="mf">1772108289.6118817</span>
+<span class="p">)</span>
+</code></pre></div>
+ This method exposes binocular and monocular gaze data, <a href="https://docs.pupil-labs.com/neon/data-collection/data-streams/#pupil-diameters">pupil diameter</a>, and <a href="https://docs.pupil-labs.com/neon/data-collection/data-streams/#_3d-eye-poses">eye poses</a>.</p>
+<details class="quote">
+<summary>EyestateEyelidDualMonoGazeData</summary>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h1 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">EyestateEyelidDualMonoGazeData</span>
+
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData" class="headerlink" title="Permanent link">&para;</a></h1>
+
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" title="typing.NamedTuple" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple">NamedTuple</a></code></p>
+
+
+        <p>Gaze data with additional eyelid state information.</p>
+<p>Contains binocular gaze point, left and right monocular gaze points,
+pupil diameter, eyeball center coordinates, optical axis coordinates, as well as
+eyelid angles and aperture for both left and right eyes.</p>
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            from_raw
+
+
+  
+      classmethod
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.from_raw)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.from_raw">from_raw</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Create an EyestateEyelidDualMonoGazeData instance from raw data.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyeball_center_left_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_x">eyeball_center_left_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the eyeball center for the left eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyeball_center_left_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_y">eyeball_center_left_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the eyeball center for the left eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyeball_center_left_z
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_z)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_z">eyeball_center_left_z</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Z coordinate of the eyeball center for the left eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyeball_center_right_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_x">eyeball_center_right_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the eyeball center for the right eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyeball_center_right_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_y">eyeball_center_right_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the eyeball center for the right eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyeball_center_right_z
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_z)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_z">eyeball_center_right_z</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Z coordinate of the eyeball center for the right eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyelid_angle_bottom_left
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_left)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_left">eyelid_angle_bottom_left</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Angle of the bottom eyelid for the left eye(rad).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyelid_angle_bottom_right
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_right)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_right">eyelid_angle_bottom_right</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Angle of the bottom eyelid for the right eye (rad).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyelid_angle_top_left
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_left)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_left">eyelid_angle_top_left</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Angle of the top eyelid for the left eye(rad).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyelid_angle_top_right
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_right)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_right">eyelid_angle_top_right</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Angle of the top eyelid for the right eye (rad).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyelid_aperture_left
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_left)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_left">eyelid_aperture_left</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Aperture of the eyelid for the left eye (mm).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            eyelid_aperture_right
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_right)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_right">eyelid_aperture_right</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Aperture of the eyelid for the right eye (mm).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            gaze_mono_left_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_x">gaze_mono_left_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the left monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            gaze_mono_left_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_y">gaze_mono_left_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the left monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            gaze_mono_right_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_x">gaze_mono_right_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the right monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            gaze_mono_right_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_y">gaze_mono_right_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the right monocular gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            optical_axis_left_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_x">optical_axis_left_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the optical axis for the left eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            optical_axis_left_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_y">optical_axis_left_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the optical axis for the left eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            optical_axis_left_z
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_z)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_z">optical_axis_left_z</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Z coordinate of the optical axis for the left eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            optical_axis_right_x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_x">optical_axis_right_x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the optical axis for the right eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            optical_axis_right_y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_y">optical_axis_right_y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the optical axis for the right eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            optical_axis_right_z
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_z)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_z">optical_axis_right_z</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Z coordinate of the optical axis for the right eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            pupil_diameter_left
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_left)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_left">pupil_diameter_left</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Pupil diameter for the left eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            pupil_diameter_right
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_right)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_right">pupil_diameter_right</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Pupil diameter for the right eye.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            timestamp_unix_seconds
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.timestamp_unix_seconds)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.timestamp_unix_seconds">timestamp_unix_seconds</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Timestamp in seconds since Unix epoch.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            worn
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.worn)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.worn">worn</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Whether the glasses are being worn.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            x
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.x)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.x">x</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>X coordinate of the gaze point.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            y
+
+
+  
+      instance-attribute
+   (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.y)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.y">y</a></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>Y coordinate of the gaze point.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyeball_center_left_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyeball_center_left_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the eyeball center for the left eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyeball_center_left_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyeball_center_left_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the eyeball center for the left eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_z" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyeball_center_left_z</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_left_z" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyeball_center_left_z</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Z coordinate of the eyeball center for the left eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyeball_center_right_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyeball_center_right_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the eyeball center for the right eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyeball_center_right_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyeball_center_right_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the eyeball center for the right eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_z" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyeball_center_right_z</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyeball_center_right_z" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyeball_center_right_z</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Z coordinate of the eyeball center for the right eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_left" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyelid_angle_bottom_left</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_left" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyelid_angle_bottom_left</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Angle of the bottom eyelid for the left eye(rad).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_right" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyelid_angle_bottom_right</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_bottom_right" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyelid_angle_bottom_right</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Angle of the bottom eyelid for the right eye (rad).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_left" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyelid_angle_top_left</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_left" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyelid_angle_top_left</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Angle of the top eyelid for the left eye(rad).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_right" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyelid_angle_top_right</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_angle_top_right" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyelid_angle_top_right</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Angle of the top eyelid for the right eye (rad).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_left" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyelid_aperture_left</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_left" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyelid_aperture_left</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Aperture of the eyelid for the left eye (mm).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_right" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">eyelid_aperture_right</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.eyelid_aperture_right" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">eyelid_aperture_right</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Aperture of the eyelid for the right eye (mm).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">gaze_mono_left_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">gaze_mono_left_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the left monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">gaze_mono_left_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_left_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">gaze_mono_left_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the left monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">gaze_mono_right_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">gaze_mono_right_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the right monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">gaze_mono_right_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.gaze_mono_right_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">gaze_mono_right_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the right monocular gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">optical_axis_left_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">optical_axis_left_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the optical axis for the left eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">optical_axis_left_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">optical_axis_left_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the optical axis for the left eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_z" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">optical_axis_left_z</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_left_z" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">optical_axis_left_z</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Z coordinate of the optical axis for the left eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">optical_axis_right_x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">optical_axis_right_x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the optical axis for the right eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">optical_axis_right_y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">optical_axis_right_y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the optical axis for the right eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_z" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">optical_axis_right_z</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.optical_axis_right_z" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">optical_axis_right_z</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Z coordinate of the optical axis for the right eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_left" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">pupil_diameter_left</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_left" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">pupil_diameter_left</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Pupil diameter for the left eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_right" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">pupil_diameter_right</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.pupil_diameter_right" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">pupil_diameter_right</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Pupil diameter for the right eye.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.timestamp_unix_seconds" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">timestamp_unix_seconds</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.timestamp_unix_seconds" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">timestamp_unix_seconds</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Timestamp in seconds since Unix epoch.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.worn" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">worn</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.worn" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">worn</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Whether the glasses are being worn.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.x" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">x</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.x" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>X coordinate of the gaze point.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.y" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">y</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.y" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Y coordinate of the gaze point.</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.from_raw" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">from_raw</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData.from_raw" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">from_raw</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            RTSPData (pupil_labs.realtime_api.streaming.base.RTSPData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.base.RTSPData">RTSPData</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            EyestateEyelidDualMonoGazeData (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData">EyestateEyelidDualMonoGazeData</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Create an EyestateEyelidDualMonoGazeData instance from raw data.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>data</code></b>
+              (<code><a class="autorefs autorefs-internal" title="            RTSPData (pupil_labs.realtime_api.streaming.base.RTSPData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.base.RTSPData">RTSPData</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The raw data received from the RTSP stream.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<b><code>EyestateEyelidDualMonoGazeData</code></b> (              <code><a class="autorefs autorefs-internal" title="            EyestateEyelidDualMonoGazeData (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData">EyestateEyelidDualMonoGazeData</a></code>
+)          –
+          <div class="doc-md-description">
+            <p>An instance of EyestateEyelidDualMonoGazeData</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            EyestateEyelidDualMonoGazeData (pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData)" href="../../../../api/async/#pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData">EyestateEyelidDualMonoGazeData</a></code>
+          –
+          <div class="doc-md-description">
+            <p>with the parsed values.</p>
+          </div>
+        </li>
+    </ul>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/pupil_labs/realtime_api/streaming/gaze.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_raw</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">RTSPData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;EyestateEyelidDualMonoGazeData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an EyestateEyelidDualMonoGazeData instance from raw data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (RTSPData): The raw data received from the RTSP stream.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        EyestateEyelidDualMonoGazeData:An instance of EyestateEyelidDualMonoGazeData</span>
+<span class="sd">        with the parsed values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">worn</span><span class="p">,</span>
+        <span class="n">pupil_diameter_left</span><span class="p">,</span>
+        <span class="n">eyeball_center_left_x</span><span class="p">,</span>
+        <span class="n">eyeball_center_left_y</span><span class="p">,</span>
+        <span class="n">eyeball_center_left_z</span><span class="p">,</span>
+        <span class="n">optical_axis_left_x</span><span class="p">,</span>
+        <span class="n">optical_axis_left_y</span><span class="p">,</span>
+        <span class="n">optical_axis_left_z</span><span class="p">,</span>
+        <span class="n">pupil_diam_right</span><span class="p">,</span>
+        <span class="n">eyeball_center_right_x</span><span class="p">,</span>
+        <span class="n">eyeball_center_right_y</span><span class="p">,</span>
+        <span class="n">eyeball_center_right_z</span><span class="p">,</span>
+        <span class="n">optical_axis_right_x</span><span class="p">,</span>
+        <span class="n">optical_axis_right_y</span><span class="p">,</span>
+        <span class="n">optical_axis_right_z</span><span class="p">,</span>
+        <span class="n">eyelid_angle_top_left</span><span class="p">,</span>
+        <span class="n">eyelid_angle_bottom_left</span><span class="p">,</span>
+        <span class="n">eyelid_aperture_left</span><span class="p">,</span>
+        <span class="n">eyelid_angle_top_right</span><span class="p">,</span>
+        <span class="n">eyelid_angle_bottom_right</span><span class="p">,</span>
+        <span class="n">eyelid_aperture_right</span><span class="p">,</span>
+        <span class="n">gaze_mono_left_x</span><span class="p">,</span>
+        <span class="n">gaze_mono_left_y</span><span class="p">,</span>
+        <span class="n">gaze_mono_right_x</span><span class="p">,</span>
+        <span class="n">gaze_mono_right_y</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;!ffBffffffffffffffffffffffff&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">worn</span> <span class="o">==</span> <span class="mi">255</span><span class="p">,</span>
+        <span class="n">pupil_diameter_left</span><span class="p">,</span>
+        <span class="n">eyeball_center_left_x</span><span class="p">,</span>
+        <span class="n">eyeball_center_left_y</span><span class="p">,</span>
+        <span class="n">eyeball_center_left_z</span><span class="p">,</span>
+        <span class="n">optical_axis_left_x</span><span class="p">,</span>
+        <span class="n">optical_axis_left_y</span><span class="p">,</span>
+        <span class="n">optical_axis_left_z</span><span class="p">,</span>
+        <span class="n">pupil_diam_right</span><span class="p">,</span>
+        <span class="n">eyeball_center_right_x</span><span class="p">,</span>
+        <span class="n">eyeball_center_right_y</span><span class="p">,</span>
+        <span class="n">eyeball_center_right_z</span><span class="p">,</span>
+        <span class="n">optical_axis_right_x</span><span class="p">,</span>
+        <span class="n">optical_axis_right_y</span><span class="p">,</span>
+        <span class="n">optical_axis_right_z</span><span class="p">,</span>
+        <span class="n">eyelid_angle_top_left</span><span class="p">,</span>
+        <span class="n">eyelid_angle_bottom_left</span><span class="p">,</span>
+        <span class="n">eyelid_aperture_left</span><span class="p">,</span>
+        <span class="n">eyelid_angle_top_right</span><span class="p">,</span>
+        <span class="n">eyelid_angle_bottom_right</span><span class="p">,</span>
+        <span class="n">eyelid_aperture_right</span><span class="p">,</span>
+        <span class="n">gaze_mono_left_x</span><span class="p">,</span>
+        <span class="n">gaze_mono_left_y</span><span class="p">,</span>
+        <span class="n">gaze_mono_right_x</span><span class="p">,</span>
+        <span class="n">gaze_mono_right_y</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">timestamp_unix_seconds</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div></details>
 </div>
 </div>
 </div>
