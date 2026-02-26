@@ -15,6 +15,16 @@ from pupil_labs.realtime_api import (  # noqa: E402
     receive_gaze_data,
     receive_video_frames,
 )
+from pupil_labs.realtime_api.streaming.gaze import (  # noqa: E402
+    BinoAndDualMonoGazeData,
+    EyestateEyelidDualMonoGazeData,
+)
+
+LEGEND = {
+    "mono_right": (255, 0, 0),  # right eye monocular gaze
+    "mono_left": (0, 255, 0),  # left eye monocular gaze
+    "bino": (0, 0, 255),  # binocular gaze
+}
 
 
 async def main():
@@ -80,10 +90,45 @@ async def match_and_draw(queue_video, queue_gaze):
         cv2.circle(
             bgr_buffer,
             (int(gaze_datum.x), int(gaze_datum.y)),
-            radius=80,
+            radius=40,
             color=(0, 0, 255),
-            thickness=15,
+            thickness=5,
         )
+        if isinstance(
+            gaze_datum, (BinoAndDualMonoGazeData, EyestateEyelidDualMonoGazeData)
+        ):
+            cv2.circle(
+                bgr_buffer,
+                (int(gaze_datum.mono_right_x), int(gaze_datum.mono_right_y)),
+                radius=40,
+                color=(255, 0, 0),
+                thickness=5,
+            )
+            cv2.circle(
+                bgr_buffer,
+                (int(gaze_datum.mono_left_x), int(gaze_datum.mono_left_y)),
+                radius=40,
+                color=(0, 255, 0),
+                thickness=5,
+            )
+            for eye, color in LEGEND.items():
+                cv2.rectangle(
+                    bgr_buffer,
+                    (10, 10 + 30 * list(LEGEND.keys()).index(eye)),
+                    (30, 30 + 30 * list(LEGEND.keys()).index(eye)),
+                    color,
+                    -1,
+                )
+                cv2.putText(
+                    bgr_buffer,
+                    eye,
+                    (40, 30 + 30 * list(LEGEND.keys()).index(eye)),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5,
+                    color,
+                    1,
+                    cv2.LINE_AA,
+                )
 
         cv2.imshow("Scene camera with gaze overlay", bgr_buffer)
         cv2.waitKey(1)
