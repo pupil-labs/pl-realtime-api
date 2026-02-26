@@ -23,6 +23,8 @@ class GazeData(NamedTuple):
     nanoseconds unix epoch and an indicator of whether the glasses are being worn.
     """
 
+    EXPECTED_BYTE_COUNT = 9
+
     x: float
     """"X coordinate of the gaze point"""
     y: float
@@ -43,7 +45,7 @@ class GazeData(NamedTuple):
             GazeData: An instance of GazeData with the parsed values.
 
         """
-        x, y, worn = struct.unpack("!ffB", data.raw)
+        x, y, worn = struct.unpack("!ffB", data.raw[: cls.EXPECTED_BYTE_COUNT])
         return cls(x, y, worn == 255, data.timestamp_unix_seconds)
 
     @property
@@ -62,6 +64,8 @@ class DualMonocularGazeData(NamedTuple):
 
     Contains separate gaze points for left and right eyes.
     """
+
+    EXPECTED_BYTE_COUNT = 17
 
     left: Point
     """Gaze point for the left eye."""
@@ -84,7 +88,9 @@ class DualMonocularGazeData(NamedTuple):
                 values.
 
         """
-        x1, y1, worn, x2, y2 = struct.unpack("!ffBff", data.raw)
+        x1, y1, worn, x2, y2 = struct.unpack(
+            "!ffBff", data.raw[: cls.EXPECTED_BYTE_COUNT]
+        )
         return cls(
             Point(x1, y1), Point(x2, y2), worn == 255, data.timestamp_unix_seconds
         )
@@ -106,6 +112,8 @@ class EyestateGazeData(NamedTuple):
     Contains gaze point, pupil diameter, eyeball center coordinates, and optical axis
     coordinates for both left and right eyes.
     """
+
+    EXPECTED_BYTE_COUNT = 65
 
     x: float
     """X coordinate of the gaze point."""
@@ -173,7 +181,7 @@ class EyestateGazeData(NamedTuple):
             optical_axis_right_x,
             optical_axis_right_y,
             optical_axis_right_z,
-        ) = struct.unpack("!ffBffffffffffffff", data.raw)
+        ) = struct.unpack("!ffBffffffffffffff", data.raw[: cls.EXPECTED_BYTE_COUNT])
         return cls(
             x,
             y,
@@ -212,6 +220,8 @@ class EyestateEyelidGazeData(NamedTuple):
     Contains gaze point, pupil diameter, eyeball center coordinates, optical axis
     coordinates, as well as eyelid angles and aperture for both left and right eyes.
     """
+
+    EXPECTED_BYTE_COUNT = 89
 
     x: float
     """X coordinate of the gaze point."""
@@ -298,7 +308,9 @@ class EyestateEyelidGazeData(NamedTuple):
             eyelid_angle_top_right,
             eyelid_angle_bottom_right,
             eyelid_aperture_right,
-        ) = struct.unpack("!ffBffffffffffffffffffff", data.raw)
+        ) = struct.unpack(
+            "!ffBffffffffffffffffffff", data.raw[: cls.EXPECTED_BYTE_COUNT]
+        )
         return cls(
             x,
             y,
@@ -344,6 +356,8 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
     pupil diameter, eyeball center coordinates, optical axis coordinates, as well as
     eyelid angles and aperture for both left and right eyes.
     """
+
+    EXPECTED_BYTE_COUNT = 105
 
     x: float
     """X coordinate of the gaze point."""
@@ -442,7 +456,9 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
             gaze_mono_left_y,
             gaze_mono_right_x,
             gaze_mono_right_y,
-        ) = struct.unpack("!ffBffffffffffffffffffffffff", data.raw)
+        ) = struct.unpack(
+            "!ffBffffffffffffffffffffffff", data.raw[: cls.EXPECTED_BYTE_COUNT]
+        )
         return cls(
             x,
             y,
@@ -492,6 +508,8 @@ class BinoAndDualMonoGazeData(NamedTuple):
 
     """
 
+    EXPECTED_BYTE_COUNT = 25
+
     x: float
     """X coordinate of the gaze point."""
     y: float
@@ -521,7 +539,7 @@ class BinoAndDualMonoGazeData(NamedTuple):
 
         """
         x, y, worn, mono_left_x, mono_left_y, mono_right_x, mono_right_y = (
-            struct.unpack("!ffBffff", data.raw)
+            struct.unpack("!ffBffff", data.raw[: cls.EXPECTED_BYTE_COUNT])
         )
         return cls(
             x,
@@ -620,16 +638,29 @@ class RTSPGazeStreamer(RTSPRawStreamer):
 
         """
         data_class_by_raw_len = {
-            9: GazeData,
-            17: DualMonocularGazeData,
-            65: EyestateGazeData,
-            89: EyestateEyelidGazeData,
-            105: EyestateEyelidDualMonoGazeData,
-            25: BinoAndDualMonoGazeData,
+            cls.EXPECTED_BYTE_COUNT: cls
+            for cls in [
+                GazeData,
+                DualMonocularGazeData,
+                BinoAndDualMonoGazeData,
+                EyestateGazeData,
+                EyestateEyelidGazeData,
+                EyestateEyelidDualMonoGazeData,
+            ]
+            # Note: new values should be added in order of their expected byte count
         }
         async for data in super().receive():
             try:
-                cls = data_class_by_raw_len[len(data.raw)]
+                data_length = len(data.raw)
+                if data_length not in data_class_by_raw_len:
+                    for key in reversed(data_class_by_raw_len.keys()):
+                        if key <= data_length:
+                            cls = data_class_by_raw_len[key]
+                            break
+                    logger.warning(f"Unexpected data length ({data_length}).")
+                else:
+                    cls = data_class_by_raw_len[data_length]
+
                 yield cls.from_raw(data)  # type: ignore[attr-defined]
             except KeyError:
                 logger.exception(f"Raw gaze data has unexpected length: {data}")
