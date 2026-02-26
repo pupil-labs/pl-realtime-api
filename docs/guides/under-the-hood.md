@@ -204,6 +204,14 @@ Gaze data is encoded in network byte order (big-endian) and consists of:
 3. `worn` - Boolean indicating whether the user is wearing the device. The value is
    encoded as an unsigned 8-bit integer as either `255` (device is being worn) or `0` (device is _not_ being worn).
 
+**Dual Monocular Gaze Data in Neon**
+Starting from Neon Companion app version +2.9.31, both binocular and monocular gaze data are estimated simultaneously in Neon. In this case, the following additional parameters are included:
+
+4. `mono_left_x` - Horizontal component of the left eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.
+5. `mono_left_y` - Vertical component of the left eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.
+6. `mono_right_x` - Horizontal component of the right eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.
+7. `mono_right_y` - Vertical component of the right eye's monocular gaze location in pixels within the scene camera’s coordinate system. The value is encoded as a 32-bit float.
+
 **Eye State Data (Optional)**
 
 If eye state computation is enabled (not available for Pupil Invisible), additional parameters are included(all encoded as a 32-bit float):
@@ -225,6 +233,9 @@ If eye state computation is enabled (not available for Pupil Invisible), additio
 18. **`timestamp_unix_seconds`**: Unix timestamp representing the time of data capture.
 
 Each RTP packet contains one gaze datum. The payload length varies:
+
+??? quote "Have a look at RTSPGazeStreamer.receive for payload unpacking details"
+::: pupil_labs.realtime_api.streaming.gaze.RTSPGazeStreamer.receive
 
 -   **21 bytes**: When only gaze data is included. To unpack - (!ffB)
 -   **77 bytes**: When both gaze and eye state data are included. To unpack - (!ffBffffffffffffff)
