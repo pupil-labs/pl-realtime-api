@@ -43,7 +43,7 @@ class GazeData(NamedTuple):
             GazeData: An instance of GazeData with the parsed values.
 
         """
-        x, y, worn = struct.unpack("!ffB", data.raw)
+        x, y, worn = struct.unpack("!ffB", data.raw[:9])
         return cls(x, y, worn == 255, data.timestamp_unix_seconds)
 
     @property
@@ -84,7 +84,7 @@ class DualMonocularGazeData(NamedTuple):
                 values.
 
         """
-        x1, y1, worn, x2, y2 = struct.unpack("!ffBff", data.raw)
+        x1, y1, worn, x2, y2 = struct.unpack("!ffBff", data.raw[:17])
         return cls(
             Point(x1, y1), Point(x2, y2), worn == 255, data.timestamp_unix_seconds
         )
@@ -173,7 +173,7 @@ class EyestateGazeData(NamedTuple):
             optical_axis_right_x,
             optical_axis_right_y,
             optical_axis_right_z,
-        ) = struct.unpack("!ffBffffffffffffff", data.raw)
+        ) = struct.unpack("!ffBffffffffffffff", data.raw[:65])
         return cls(
             x,
             y,
@@ -298,7 +298,7 @@ class EyestateEyelidGazeData(NamedTuple):
             eyelid_angle_top_right,
             eyelid_angle_bottom_right,
             eyelid_aperture_right,
-        ) = struct.unpack("!ffBffffffffffffffffffff", data.raw)
+        ) = struct.unpack("!ffBffffffffffffffffffff", data.raw[:89])
         return cls(
             x,
             y,
@@ -442,7 +442,7 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
             gaze_mono_left_y,
             gaze_mono_right_x,
             gaze_mono_right_y,
-        ) = struct.unpack("!ffBffffffffffffffffffffffff", data.raw)
+        ) = struct.unpack("!ffBffffffffffffffffffffffff", data.raw[:105])
         return cls(
             x,
             y,
@@ -622,14 +622,23 @@ class RTSPGazeStreamer(RTSPRawStreamer):
         data_class_by_raw_len = {
             9: GazeData,
             17: DualMonocularGazeData,
+            25: BinoAndDualMonoGazeData,
             65: EyestateGazeData,
             89: EyestateEyelidGazeData,
             105: EyestateEyelidDualMonoGazeData,
-            25: BinoAndDualMonoGazeData,
         }
         async for data in super().receive():
             try:
-                cls = data_class_by_raw_len[len(data.raw)]
+                data_length = len(data.raw)
+                if data_length not in data_class_by_raw_len:
+                    for key in reversed(data_class_by_raw_len.keys()):
+                        if key < data_length:
+                            cls = data_class_by_raw_len[key]
+                            break
+                    logger.warning(f"Unexpected data length ({data_length}).")
+                else:
+                    cls = data_class_by_raw_len[data_length]
+
                 yield cls.from_raw(data)  # type: ignore[attr-defined]
             except KeyError:
                 logger.exception(f"Raw gaze data has unexpected length: {data}")
