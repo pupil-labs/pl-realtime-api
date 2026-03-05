@@ -159,10 +159,10 @@ See below samples for each type of gaze data.
     	eyelid_angle_top_right=-0.06329345703125,
     	eyelid_angle_bottom_right=0.1409912109375,
     	eyelid_aperture_right=2.228158473968506,
-    	gaze_mono_left_x=864.9857177734375,
-    	gaze_mono_left_y=526.5974731445312,
-    	gaze_mono_right_x=834.6492309570312,
-    	gaze_mono_right_y=481.4454040527344,
+    	mono_left_x=864.9857177734375,
+    	mono_left_y=526.5974731445312,
+    	mono_right_x=834.6492309570312,
+    	mono_right_y=481.4454040527344,
     	timestamp_unix_seconds=1772108289.6118817
     )
     ```

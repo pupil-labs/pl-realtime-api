@@ -391,13 +391,13 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
     """Angle of the bottom eyelid for the right eye (rad)."""
     eyelid_aperture_right: float
     """Aperture of the eyelid for the right eye (mm)."""
-    gaze_mono_left_x: float
+    mono_left_x: float
     """X coordinate of the left monocular gaze point."""
-    gaze_mono_left_y: float
+    mono_left_y: float
     """Y coordinate of the left monocular gaze point."""
-    gaze_mono_right_x: float
+    mono_right_x: float
     """X coordinate of the right monocular gaze point."""
-    gaze_mono_right_y: float
+    mono_right_y: float
     """Y coordinate of the right monocular gaze point."""
     timestamp_unix_seconds: float
     """Timestamp in seconds since Unix epoch."""
@@ -438,10 +438,10 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
             eyelid_angle_top_right,
             eyelid_angle_bottom_right,
             eyelid_aperture_right,
-            gaze_mono_left_x,
-            gaze_mono_left_y,
-            gaze_mono_right_x,
-            gaze_mono_right_y,
+            mono_left_x,
+            mono_left_y,
+            mono_right_x,
+            mono_right_y,
         ) = struct.unpack("!ffBffffffffffffffffffffffff", data.raw)
         return cls(
             x,
@@ -467,10 +467,10 @@ class EyestateEyelidDualMonoGazeData(NamedTuple):
             eyelid_angle_top_right,
             eyelid_angle_bottom_right,
             eyelid_aperture_right,
-            gaze_mono_left_x,
-            gaze_mono_left_y,
-            gaze_mono_right_x,
-            gaze_mono_right_y,
+            mono_left_x,
+            mono_left_y,
+            mono_right_x,
+            mono_right_y,
             data.timestamp_unix_seconds,
         )
 
