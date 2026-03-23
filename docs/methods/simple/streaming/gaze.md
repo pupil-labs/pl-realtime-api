@@ -8,9 +8,9 @@ gaze = device.receive_gaze_datum()
 
 This function can return different types of gaze data ([GazeDataType][pupil_labs.realtime_api.streaming.gaze.GazeDataType]) depending on the device and its configuration:
 
--   [GazeData][pupil_labs.realtime_api.streaming.gaze.GazeData] object for Pupil Invisible or Neon without "Compute eye state" enabled.
--   [EyestateGazeData][pupil_labs.realtime_api.streaming.gaze.EyestateGazeData] or [EyestateEyelidGazeData][pupil_labs.realtime_api.streaming.gaze.EyestateEyelidGazeData] for Neon with "Compute eye state" enabled, depending on the version of the Neon Companion app.
--   Starting from Neon Companion app version +2.9.31, both binocular and monocular gaze data are exposed, it can return [BinoAndDualMonoGazeData][pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData] or [EyestateEyelidDualMonoGazeData][pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData].
+- [GazeData][pupil_labs.realtime_api.streaming.gaze.GazeData] object for Pupil Invisible or Neon without "Compute eye state" enabled.
+- [EyestateGazeData][pupil_labs.realtime_api.streaming.gaze.EyestateGazeData] or [EyestateEyelidGazeData][pupil_labs.realtime_api.streaming.gaze.EyestateEyelidGazeData] for Neon with "Compute eye state" enabled, depending on the version of the Neon Companion app.
+- Starting from Neon Companion app version +2.9.31, both binocular and monocular gaze data are exposed, it can return [BinoAndDualMonoGazeData][pupil_labs.realtime_api.streaming.gaze.BinoAndDualMonoGazeData] or [EyestateEyelidDualMonoGazeData][pupil_labs.realtime_api.streaming.gaze.EyestateEyelidDualMonoGazeData].
 
 See below samples for each type of gaze data.
 
