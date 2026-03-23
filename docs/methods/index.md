@@ -1,4 +1,4 @@
 # Code Examples
 
--   [Simple API Examples](simple.md)
--   [Async API Examples](async.md)
+- [Simple API Examples](simple.md)
+- [Async API Examples](async.md)
