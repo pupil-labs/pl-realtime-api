@@ -72,7 +72,18 @@ class TCPTransport(RTPTransport):
 
         fields = self.parse_transport_fields(headers['transport'])
 
-        assert fields.get('interleaved') == f'{self.rtp_idx}-{self.rtcp_idx}', 'invalid returned interleaved header'
+        interleaved = fields.get('interleaved')
+        if interleaved is None:
+            self.logger.debug(
+                "server did not echo interleaved channels, keeping requested %s-%s",
+                self.rtp_idx,
+                self.rtcp_idx,
+            )
+            return
+        else:
+            assert interleaved == f"{self.rtp_idx}-{self.rtcp_idx}", (
+                f"server returned invalid interleaved header '{interleaved}'"
+            )
 
     async def send_rtcp_report(self, rtcp: RTCP):
         self.connection.send_binary(self.rtcp_idx, bytes(rtcp))
