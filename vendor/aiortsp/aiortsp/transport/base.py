@@ -138,7 +138,10 @@ class RTPTransport:
 
             try:
                 self.logger.debug('sending RTCP report: %s', rtcp)
-                await self.send_rtcp_report(rtcp)
+                # ! Workaround for Neon Companion RTSP Server: it can respond with
+                # ! "RTSP/1.0 400 Bad Request ..." inside the interleaved RTP
+                # ! byte stream after client RTCP reports, corrupting framing.
+                # await self.send_rtcp_report(rtcp)
             except asyncio.CancelledError:
                 break
             except Exception as ex:  # pylint: disable=broad-except
