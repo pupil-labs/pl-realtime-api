@@ -33,6 +33,10 @@ dependencies = [
     "zeroconf>=0.146.1",
 ]
 
+[project.optional-dependencies]
+examples = ["opencv-python", "rich", "librosa", "speechrecognition", "openai-whisper", "rich"]
+
+
 [project.urls]
 Homepage = "https://pupil-labs.github.io/pl-realtime-api"
 Documentation = "https://pupil-labs.github.io/pl-realtime-api"
@@ -69,7 +73,6 @@ dev = [
     "tomli>=2.0; python_version < '3.11'",
     "types-deprecated>=1.2.15.20250304",
 ]
-examples = ["opencv-python", "rich", "librosa", "speechrecognition", "openai-whisper"]
 
 [build-system]
 requires = ["hatchling", "uv-dynamic-versioning"]

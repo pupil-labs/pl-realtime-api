@@ -43,6 +43,7 @@ class APIPath(enum.Enum):
     CALIBRATION = "/../calibration.bin"
     TEMPLATE_DEFINITION = "/template_def"
     TEMPLATE_DATA = "/template_data"
+    CAMERA_CONTROL = "/camera_control"
 
     def full_address(
         self, address: str, port: int, protocol: str = "http", prefix: str = "/api"
@@ -294,8 +295,6 @@ def _init_cls_with_annotated_fields_only(
 
 class UnknownComponentError(ValueError):
     """Exception raised when a component cannot be parsed."""
-
-    pass
 
 
 def parse_component(raw: ComponentRaw) -> Component:
