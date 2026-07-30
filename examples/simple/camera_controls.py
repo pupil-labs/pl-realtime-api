@@ -39,6 +39,9 @@ def main():
         print("No device found.")
         raise SystemExit(-1)
 
+    # Initiate video stream before querying camera state
+    device.receive_scene_video_frame()
+
     print("Retrieving camera state...")
     camera_state = device.get_camera_state()
     print(f"Current camera state: {camera_state}")
