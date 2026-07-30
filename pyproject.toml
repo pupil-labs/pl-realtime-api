@@ -34,7 +34,14 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-examples = ["opencv-python", "rich", "librosa", "speechrecognition", "openai-whisper", "rich"]
+examples = [
+    "opencv-python",
+ "rich",
+ "librosa",
+ "speechrecognition",
+ "openai-whisper",
+ "rich",
+]
 
 
 [project.urls]

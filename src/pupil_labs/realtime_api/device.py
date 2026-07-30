@@ -416,10 +416,25 @@ class Device(DeviceBase):
         camera: Literal["world"] = "world",
         validate_with_state: CameraState | None = None,
     ) -> None:
-        """EXPERIMENTAL - Set camera control state, e.g. manual exposure time
+        """Set the camera control state, e.g. manual exposure time.
 
-        :raises pupil_labs.realtime_api.device.DeviceError:
-        :raises aiohttp.ServerDisconnectedError:
+        Args:
+            ae_mode: Auto exposure mode. "auto" or "manual". If None, the current value
+                will be used.
+            man_exp: Manual exposure time in microseconds. If None, the current value
+                will be used.
+            gain: Gain value. If None, the current value will be used.
+            brightness: Brightness value. If None, the current value will be used.
+            contrast: Contrast value. If None, the current value will be used.
+            gamma: Gamma value. If None, the current value will be used.
+            camera: Camera to set the state for. Currently only "world" is supported.
+            validate_with_state: Optional CameraState to validate against. If provided,
+                the current camera state will be compared to this state before applying
+                changes. If they differ, a DeviceError will be raised.
+
+        Raises:
+            DeviceError: If the camera state could not be set.
+
         """
         params: ChangeRequestParameters = {"camera": camera}
 
@@ -471,10 +486,17 @@ class Device(DeviceBase):
         self,
         camera: Literal["world"] = "world",
     ) -> CameraState:
-        """EXPERIMENTAL - Get camera control state, e.g. manual exposure time
+        """Get the current camera control state.
 
-        :raises pupil_labs.realtime_api.device.DeviceError:
-        :raises aiohttp.ServerDisconnectedError:
+        Args:
+            camera: Camera to get the state for. Currently only "world" is supported.
+
+        Returns:
+            CameraState: The current camera control state.
+
+        Raises:
+            DeviceError: If the camera state could not be fetched.
+
         """
         return CameraState(
             ae_mode=await self._get_control_state(
