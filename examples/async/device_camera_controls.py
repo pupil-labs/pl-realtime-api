@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from rich import print
+from rich import print  # noqa: A004
 
 from pupil_labs.realtime_api import Device, DeviceError, discover_devices
 

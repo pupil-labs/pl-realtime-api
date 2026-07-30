@@ -1,3 +1,4 @@
+import typing as T
 from collections.abc import Sequence
 from dataclasses import dataclass, fields
 from enum import Enum
@@ -21,7 +22,7 @@ class ControlStateEnum:
     current_value: str
     allowed_values: Sequence[str]
 
-    def validate(self, value: str):
+    def validate(self, value: str) -> None:
         if value not in self.allowed_values:
             raise ValueError(f"`{value}` not in allowed_values={self.allowed_values}")
 
@@ -39,7 +40,7 @@ class ControlStateInteger:
     value_min: int
     value_max: int
 
-    def validate(self, value: int):
+    def validate(self, value: int) -> None:
         if not (self.value_min <= value <= self.value_max):
             raise ValueError(
                 f"`{value!r}` not in range [{self.value_min!r}, {self.value_max!r}]"
@@ -69,7 +70,7 @@ class CameraState:
     gamma: ControlStateInteger
 
     @classmethod
-    def state_class_by_attr(cls, name: str):
+    def state_class_by_attr(cls, name: str) -> type[T.Any] | str | T.Any:
         return {f.name: f.type for f in fields(cls)}[name]
 
 

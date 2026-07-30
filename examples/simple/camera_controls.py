@@ -1,7 +1,7 @@
 import time
 
 import cv2
-from rich import print
+from rich import print  # noqa: A004
 
 from pupil_labs.realtime_api.simple import discover_one_device
 

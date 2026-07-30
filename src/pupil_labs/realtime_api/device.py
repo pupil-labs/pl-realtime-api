@@ -57,7 +57,7 @@ UpdateCallback = UpdateCallbackSync | UpdateCallbackAsync
 ControlStateClass = T.TypeVar(
     "ControlStateClass", ControlStateEnum, ControlStateInteger
 )
-"""Type annotation for control state classes, either ControlStateEnum or ControlStateInteger"""
+"""Type annotation for control state classes, either ControlStateEnum or ControlStateInteger"""  # noqa: E501
 
 
 class DeviceError(Exception):
@@ -475,8 +475,12 @@ class Device(DeviceBase):
             validate_with_state.gamma if validate_with_state else None,
         )
 
+        if not self.session:
+            raise DeviceError("Device not connected")
+
         async with self.session.post(
-            self.api_url(APIPath.CAMERA_CONTROL), params=params
+            self.api_url(APIPath.CAMERA_CONTROL),
+            params=params,  # type: ignore[arg-type]
         ) as response:
             confirmation = await response.json()
             if response.status != 200:
@@ -525,9 +529,14 @@ class Device(DeviceBase):
         state_cls: type[ControlStateClass],
         camera: Literal["world"] = "world",
     ) -> ControlStateClass:
-        params: ChangeRequestParameters = {"camera": camera, control.value: ""}
+        if not self.session:
+            raise DeviceError("Device not connected")
+
+        params: ChangeRequestParameters = {"camera": camera, control.value: ""}  # type: ignore[misc]
+
         async with self.session.get(
-            self.api_url(APIPath.CAMERA_CONTROL), params=params
+            self.api_url(APIPath.CAMERA_CONTROL),
+            params=params,  # type: ignore[arg-type]
         ) as response:
             if response.status == 404:
                 raise DeviceError(
@@ -539,7 +548,9 @@ class Device(DeviceBase):
 
             field_names = tuple(f.name for f in fields(state_cls))
             return state_cls(**{
-                k: v for k, v in envelope["result"].items() if k in field_names
+                k: v
+                for k, v in envelope["result"].items()
+                if k in field_names  # type: ignore[arg-type]
             })
 
     @staticmethod
@@ -570,7 +581,8 @@ class Device(DeviceBase):
         if value is not None:
             if state is not None:
                 state.validate(value)
-            params[ctrl.value] = value
+
+            params[ctrl.value] = value  # type: ignore[literal-required]
 
 
 class StatusUpdateNotifier:
