@@ -480,7 +480,7 @@ class Device(DeviceBase):
 
         async with self.session.post(
             self.api_url(APIPath.CAMERA_CONTROL),
-            params=params,  # type: ignore[arg-type]
+            params=cast("dict[str, str]", params),
         ) as response:
             confirmation = await response.json()
             if response.status != 200:
@@ -536,7 +536,7 @@ class Device(DeviceBase):
 
         async with self.session.get(
             self.api_url(APIPath.CAMERA_CONTROL),
-            params=params,  # type: ignore[arg-type]
+            params=cast("dict[str, str]", params),
         ) as response:
             if response.status == 404:
                 raise DeviceError(
