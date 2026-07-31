@@ -7,6 +7,8 @@ from typing import Any, Literal, TypeAlias, cast
 
 from pupil_labs.neon_recording.calib import Calibration
 
+from pupil_labs.realtime_api.camera_control import CameraState
+
 from ..base import DeviceBase
 from ..device import Device as _DeviceAsync
 from ..device import StatusUpdateNotifier
@@ -1021,3 +1023,71 @@ class Device(DeviceBase):
         }
 
         return asyncio.run(_auto_update_until_closed())
+
+    def get_camera_state(self) -> CameraState:
+        """Get the current state of the camera.
+
+        Wraps [pupil_labs.realtime_api.device.Device.get_camera_state][]
+
+        Returns:
+            CameraState: State of the camera.
+
+        Raises:
+            DeviceError: If the camera state could not be retrieved.
+
+        """
+
+        async def _get_camera_state() -> CameraState:
+            async with _DeviceAsync.convert_from(self) as control:
+                return await control.get_camera_state()
+
+        return asyncio.run(_get_camera_state())
+
+    def set_camera_state(
+        self,
+        ae_mode: Literal["auto", "manual"] | None = None,
+        man_exp: int | None = None,
+        gain: int | None = None,
+        brightness: int | None = None,
+        contrast: int | None = None,
+        gamma: int | None = None,
+        camera: Literal["world"] = "world",
+        validate_with_state: CameraState | None = None,
+    ) -> None:
+        """Set the state of the camera.
+
+        Wraps [pupil_labs.realtime_api.device.Device.set_camera_state][]
+
+        Args:
+            ae_mode: Auto exposure mode. "auto" or "manual". If None, the current value
+                will be used.
+            man_exp: Manual exposure time in microseconds. If None, the current value
+                will be used.
+            gain: Gain value. If None, the current value will be used.
+            brightness: Brightness value. If None, the current value will be used.
+            contrast: Contrast value. If None, the current value will be used.
+            gamma: Gamma value. If None, the current value will be used.
+            camera: Camera to set the state for. Currently only "world" is supported.
+            validate_with_state: Optional CameraState to validate against. If provided,
+                the current camera state will be compared to this state before applying
+                changes. If they differ, a DeviceError will be raised.
+
+        Raises:
+            DeviceError: If the camera state could not be set.
+
+        """
+
+        async def _set_camera_state() -> None:
+            async with _DeviceAsync.convert_from(self) as control:
+                await control.set_camera_state(
+                    ae_mode=ae_mode,
+                    man_exp=man_exp,
+                    gain=gain,
+                    brightness=brightness,
+                    contrast=contrast,
+                    gamma=gamma,
+                    camera=camera,
+                    validate_with_state=validate_with_state,
+                )
+
+        return asyncio.run(_set_camera_state())
