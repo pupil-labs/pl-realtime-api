@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import importlib.metadata
 
+from .camera_control import CameraState
 from .device import APIPath, Device, DeviceError, StatusUpdateNotifier
 from .discovery import Network, discover_devices
 from .streaming import (
@@ -42,6 +43,7 @@ __all__ = [
     "APIPath",
     "AudioFrame",
     "BlinkEventData",
+    "CameraState",
     "Device",
     "DeviceError",
     "DualMonocularGazeData",
