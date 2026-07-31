@@ -39,7 +39,8 @@ def main():
         print("No device found.")
         raise SystemExit(-1)
 
-    # Initiate video stream before querying camera state
+    # Initiate video stream before querying camera state to ensure camera is active
+    # You could instead simply open the scene video preview in the companion app
     device.receive_scene_video_frame()
 
     print("Retrieving camera state...")
