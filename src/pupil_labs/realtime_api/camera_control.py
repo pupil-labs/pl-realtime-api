@@ -1,8 +1,7 @@
-import typing as T
 from collections.abc import Sequence
 from dataclasses import dataclass, fields
 from enum import Enum
-from typing import Literal
+from typing import Literal, cast
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,8 +69,13 @@ class CameraState:
     gamma: ControlStateInteger
 
     @classmethod
-    def state_class_by_attr(cls, name: str) -> type[T.Any] | str | T.Any:
-        return {f.name: f.type for f in fields(cls)}[name]
+    def state_class_by_attr(
+        cls, name: str
+    ) -> type[ControlStateEnum] | type[ControlStateInteger]:
+        return cast(
+            type[ControlStateEnum] | type[ControlStateInteger],
+            {f.name: f.type for f in fields(cls)}[name],
+        )
 
 
 class Control(Enum):
