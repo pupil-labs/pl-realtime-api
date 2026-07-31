@@ -69,13 +69,13 @@ def main():
     device.close()
 
 
-def draw_time(frame, time):
+def draw_time(frame, timestamp):
     frame_txt_font_name = cv2.FONT_HERSHEY_SIMPLEX
     frame_txt_font_scale = 1.0
     frame_txt_thickness = 1
 
     # first line: frame index
-    frame_txt = str(time)
+    frame_txt = str(timestamp)
 
     cv2.putText(
         frame,
