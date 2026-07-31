@@ -97,7 +97,7 @@ source = ["pupil_labs"]
 
 [tool.deptry.per_rule_ignores]
 DEP001 = ["pupil_labs", "cv2", "whisper", "speech_recognition", "pyaudio", "audio_player", "aiortsp", "dpkt"]
-DEP002 = ["opencv-python", "openai-whisper"]
+DEP002 = ["opencv-python", "openai-whisper", "speechrecognition"]
 DEP003 = ["pupil_labs", "typing_extensions", "pydantic_core", "aiortsp", "setuptools"]
 DEP004 = ["cv2", "mkdocs", "rich", "librosa", "whisper", "speech_recognition", "pytest"]
 
