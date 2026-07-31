@@ -2360,7 +2360,8 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/models.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">755</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">754</span>
+<span class="normal">755</span>
 <span class="normal">756</span>
 <span class="normal">757</span>
 <span class="normal">758</span>
@@ -2403,8 +2404,7 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 <span class="normal">795</span>
 <span class="normal">796</span>
 <span class="normal">797</span>
-<span class="normal">798</span>
-<span class="normal">799</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_from_api_to_simple_format</span><span class="p">(</span>
+<span class="normal">798</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_from_api_to_simple_format</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert data from API format to simple format.</span>
@@ -2498,7 +2498,8 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/models.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">733</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">732</span>
+<span class="normal">733</span>
 <span class="normal">734</span>
 <span class="normal">735</span>
 <span class="normal">736</span>
@@ -2517,8 +2518,7 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 <span class="normal">749</span>
 <span class="normal">750</span>
 <span class="normal">751</span>
-<span class="normal">752</span>
-<span class="normal">753</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_from_simple_to_api_format</span><span class="p">(</span>
+<span class="normal">752</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convert_from_simple_to_api_format</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert data from simple format to API format.</span>
@@ -2588,7 +2588,8 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/models.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">801</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">800</span>
+<span class="normal">801</span>
 <span class="normal">802</span>
 <span class="normal">803</span>
 <span class="normal">804</span>
@@ -2600,8 +2601,7 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 <span class="normal">810</span>
 <span class="normal">811</span>
 <span class="normal">812</span>
-<span class="normal">813</span>
-<span class="normal">814</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_question_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TemplateItem</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">813</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_question_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TemplateItem</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a template item by ID.</span>
 
 <span class="sd">    Args:</span>
@@ -2704,7 +2704,8 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/models.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">844</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">843</span>
+<span class="normal">844</span>
 <span class="normal">845</span>
 <span class="normal">846</span>
 <span class="normal">847</span>
@@ -2739,8 +2740,7 @@ If the template is <a href="https://docs.pupil-labs.com/neon/data-collection/tem
 <span class="normal">876</span>
 <span class="normal">877</span>
 <span class="normal">878</span>
-<span class="normal">879</span>
-<span class="normal">880</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate_answers</span><span class="p">(</span>
+<span class="normal">879</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate_answers</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">answers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
     <span class="n">template_format</span><span class="p">:</span> <span class="n">TemplateDataFormat</span><span class="p">,</span>

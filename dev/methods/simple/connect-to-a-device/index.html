@@ -2063,6 +2063,13 @@ See the <a href="../../methods/simple/connect-to-a-device/#discover-multiple-dev
             </div>
           </li>
           <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            get_camera_state (pupil_labs.realtime_api.simple.Device.get_camera_state)" href="../../../api/simple/#pupil_labs.realtime_api.simple.Device.get_camera_state">get_camera_state</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Get the current state of the camera.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
             <b><code><a class="autorefs autorefs-internal" title="            get_errors (pupil_labs.realtime_api.simple.Device.get_errors)" href="../../../api/simple/#pupil_labs.realtime_api.simple.Device.get_errors">get_errors</a></code></b>
             –
             <div class="doc-md-description">
@@ -2179,6 +2186,13 @@ See the <a href="../../methods/simple/connect-to-a-device/#discover-multiple-dev
             –
             <div class="doc-md-description">
               <p>Send an event to the device.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            set_camera_state (pupil_labs.realtime_api.simple.Device.set_camera_state)" href="../../../api/simple/#pupil_labs.realtime_api.simple.Device.set_camera_state">set_camera_state</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Set the state of the camera.</p>
             </div>
           </li>
           <li class="doc-section-item field-body">
@@ -2428,9 +2442,7 @@ See the <a href="../../methods/simple/connect-to-a-device/#discover-multiple-dev
 
                   <details class="quote">
                     <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 76</span>
 <span class="normal"> 77</span>
 <span class="normal"> 78</span>
 <span class="normal"> 79</span>
@@ -2476,7 +2488,9 @@ See the <a href="../../methods/simple/connect-to-a-device/#discover-multiple-dev
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
-<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -3087,9 +3101,7 @@ to free up resources.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">731</span>
-<span class="normal">732</span>
-<span class="normal">733</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">733</span>
 <span class="normal">734</span>
 <span class="normal">735</span>
 <span class="normal">736</span>
@@ -3097,7 +3109,9 @@ to free up resources.</p>
 <span class="normal">738</span>
 <span class="normal">739</span>
 <span class="normal">740</span>
-<span class="normal">741</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">741</span>
+<span class="normal">742</span>
+<span class="normal">743</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Close the device connection and stop all background threads.</span>
 
 <span class="sd">    This method should be called when the device is no longer needed</span>
@@ -3273,9 +3287,7 @@ or None if estimation failed or device doesn't support the protocol.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">693</span>
-<span class="normal">694</span>
-<span class="normal">695</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">695</span>
 <span class="normal">696</span>
 <span class="normal">697</span>
 <span class="normal">698</span>
@@ -3309,7 +3321,9 @@ or None if estimation failed or device doesn't support the protocol.</p>
 <span class="normal">726</span>
 <span class="normal">727</span>
 <span class="normal">728</span>
-<span class="normal">729</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">estimate_time_offset</span><span class="p">(</span>
+<span class="normal">729</span>
+<span class="normal">730</span>
+<span class="normal">731</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">estimate_time_offset</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">number_of_measurements</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">sleep_between_measurements_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3370,9 +3384,9 @@ or None if estimation failed or device doesn't support the protocol.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">eye_events_sensor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">eye_events_sensor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the eye events sensor.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span><span class="o">.</span><span class="n">direct_eye_events_sensor</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -3499,9 +3513,9 @@ or None if estimation failed or device doesn't support the protocol.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaze_sensor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaze_sensor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the gaze sensor.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span><span class="o">.</span><span class="n">direct_gaze_sensor</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -3554,9 +3568,7 @@ the intrinsincs and extrinsics of the cameras.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">228</span>
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
@@ -3572,7 +3584,9 @@ the intrinsincs and extrinsics of the cameras.</p>
 <span class="normal">241</span>
 <span class="normal">242</span>
 <span class="normal">243</span>
-<span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Calibration</span><span class="p">:</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Calibration</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the current cameras calibration data.</span>
 
 <span class="sd">    Note that Pupil Invisible and Neon are calibration free systems, this refers to</span>
@@ -3591,6 +3605,95 @@ the intrinsincs and extrinsics of the cameras.</p>
             <span class="k">return</span> <span class="k">await</span> <span class="n">control</span><span class="o">.</span><span class="n">get_calibration</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">_get_calibration</span><span class="p">())</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="pupil_labs.realtime_api.simple.Device.get_camera_state" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_camera_state</span>
+
+
+<a href="#pupil_labs.realtime_api.simple.Device.get_camera_state" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_camera_state</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="pupil_labs.realtime_api.camera_control.CameraState">CameraState</span></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Get the current state of the camera.</p>
+<p>Wraps <a class="autorefs autorefs-internal" title="            get_camera_state
+
+
+  
+      async
+  " href="../../../api/async/#pupil_labs.realtime_api.device.Device.get_camera_state">pupil_labs.realtime_api.device.Device.get_camera_state</a></p>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<b><code>CameraState</code></b> (              <code><span title="pupil_labs.realtime_api.camera_control.CameraState">CameraState</span></code>
+)          –
+          <div class="doc-md-description">
+            <p>State of the camera.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            DeviceError (pupil_labs.realtime_api.device.DeviceError)" href="../../../api/async/#pupil_labs.realtime_api.device.DeviceError">DeviceError</a></code>
+            –
+          <div class="doc-md-description">
+            <p>If the camera state could not be retrieved.</p>
+          </div>
+        </li>
+    </ul>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1027</span>
+<span class="normal">1028</span>
+<span class="normal">1029</span>
+<span class="normal">1030</span>
+<span class="normal">1031</span>
+<span class="normal">1032</span>
+<span class="normal">1033</span>
+<span class="normal">1034</span>
+<span class="normal">1035</span>
+<span class="normal">1036</span>
+<span class="normal">1037</span>
+<span class="normal">1038</span>
+<span class="normal">1039</span>
+<span class="normal">1040</span>
+<span class="normal">1041</span>
+<span class="normal">1042</span>
+<span class="normal">1043</span>
+<span class="normal">1044</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_camera_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CameraState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the current state of the camera.</span>
+
+<span class="sd">    Wraps [pupil_labs.realtime_api.device.Device.get_camera_state][]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        CameraState: State of the camera.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        DeviceError: If the camera state could not be retrieved.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_get_camera_state</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">CameraState</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">_DeviceAsync</span><span class="o">.</span><span class="n">convert_from</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">as</span> <span class="n">control</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="n">control</span><span class="o">.</span><span class="n">get_camera_state</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">_get_camera_state</span><span class="p">())</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3627,9 +3730,7 @@ the intrinsincs and extrinsics of the cameras.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">204</span>
 <span class="normal">205</span>
 <span class="normal">206</span>
 <span class="normal">207</span>
@@ -3637,7 +3738,9 @@ the intrinsincs and extrinsics of the cameras.</p>
 <span class="normal">209</span>
 <span class="normal">210</span>
 <span class="normal">211</span>
-<span class="normal">212</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a list of errors from the device.</span>
 
 <span class="sd">    Returns:</span>
@@ -3702,9 +3805,7 @@ the intrinsincs and extrinsics of the cameras.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">336</span>
 <span class="normal">337</span>
 <span class="normal">338</span>
 <span class="normal">339</span>
@@ -3719,7 +3820,9 @@ the intrinsincs and extrinsics of the cameras.</p>
 <span class="normal">348</span>
 <span class="normal">349</span>
 <span class="normal">350</span>
-<span class="normal">351</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_template</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Template</span><span class="p">:</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_template</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Template</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the template currently selected on the device.</span>
 
 <span class="sd">    Wraps [pupil_labs.realtime_api.device.Device.get_template][]</span>
@@ -3818,9 +3921,7 @@ the intrinsincs and extrinsics of the cameras.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">353</span>
-<span class="normal">354</span>
-<span class="normal">355</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">355</span>
 <span class="normal">356</span>
 <span class="normal">357</span>
 <span class="normal">358</span>
@@ -3840,7 +3941,9 @@ the intrinsincs and extrinsics of the cameras.</p>
 <span class="normal">372</span>
 <span class="normal">373</span>
 <span class="normal">374</span>
-<span class="normal">375</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_template_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_format</span><span class="p">:</span> <span class="n">TemplateDataFormat</span> <span class="o">=</span> <span class="s2">&quot;simple&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_template_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_format</span><span class="p">:</span> <span class="n">TemplateDataFormat</span> <span class="o">=</span> <span class="s2">&quot;simple&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the template data entered on the device.</span>
 
 <span class="sd">    Wraps [pupil_labs.realtime_api.device.Device.get_template_data][]</span>
@@ -3960,9 +4063,7 @@ the intrinsincs and extrinsics of the cameras.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">377</span>
-<span class="normal">378</span>
-<span class="normal">379</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">379</span>
 <span class="normal">380</span>
 <span class="normal">381</span>
 <span class="normal">382</span>
@@ -3991,7 +4092,9 @@ the intrinsincs and extrinsics of the cameras.</p>
 <span class="normal">405</span>
 <span class="normal">406</span>
 <span class="normal">407</span>
-<span class="normal">408</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">post_template_data</span><span class="p">(</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">post_template_data</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">template_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
     <span class="n">template_format</span><span class="p">:</span> <span class="n">TemplateDataFormat</span> <span class="o">=</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
@@ -4082,9 +4185,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">498</span>
-<span class="normal">499</span>
-<span class="normal">500</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">500</span>
 <span class="normal">501</span>
 <span class="normal">502</span>
 <span class="normal">503</span>
@@ -4099,7 +4200,9 @@ If None, wait indefinitely.</p>
 <span class="normal">512</span>
 <span class="normal">513</span>
 <span class="normal">514</span>
-<span class="normal">515</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_audio_frame</span><span class="p">(</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_audio_frame</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AudioFrame</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive an Audio frame.</span>
@@ -4176,9 +4279,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">479</span>
-<span class="normal">480</span>
-<span class="normal">481</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">481</span>
 <span class="normal">482</span>
 <span class="normal">483</span>
 <span class="normal">484</span>
@@ -4193,7 +4294,9 @@ If None, wait indefinitely.</p>
 <span class="normal">493</span>
 <span class="normal">494</span>
 <span class="normal">495</span>
-<span class="normal">496</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_eye_events</span><span class="p">(</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_eye_events</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FixationEventData</span> <span class="o">|</span> <span class="n">BlinkEventData</span> <span class="o">|</span> <span class="n">FixationOnsetEventData</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive an eye event.</span>
@@ -4270,9 +4373,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">447</span>
-<span class="normal">448</span>
-<span class="normal">449</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">449</span>
 <span class="normal">450</span>
 <span class="normal">451</span>
 <span class="normal">452</span>
@@ -4287,7 +4388,9 @@ If None, wait indefinitely.</p>
 <span class="normal">461</span>
 <span class="normal">462</span>
 <span class="normal">463</span>
-<span class="normal">464</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_eyes_video_frame</span><span class="p">(</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_eyes_video_frame</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimpleVideoFrame</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive an eye camera video frame.</span>
@@ -4379,9 +4482,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">429</span>
-<span class="normal">430</span>
-<span class="normal">431</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">431</span>
 <span class="normal">432</span>
 <span class="normal">433</span>
 <span class="normal">434</span>
@@ -4395,7 +4496,9 @@ If None, wait indefinitely.</p>
 <span class="normal">442</span>
 <span class="normal">443</span>
 <span class="normal">444</span>
-<span class="normal">445</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_gaze_datum</span><span class="p">(</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_gaze_datum</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GazeDataType</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive a gaze data point.</span>
@@ -4464,9 +4567,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">466</span>
-<span class="normal">467</span>
-<span class="normal">468</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">468</span>
 <span class="normal">469</span>
 <span class="normal">470</span>
 <span class="normal">471</span>
@@ -4475,7 +4576,9 @@ If None, wait indefinitely.</p>
 <span class="normal">474</span>
 <span class="normal">475</span>
 <span class="normal">476</span>
-<span class="normal">477</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_imu_datum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IMUData</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_imu_datum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IMUData</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive an IMU data point.</span>
 
 <span class="sd">    Args:</span>
@@ -4546,9 +4649,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">534</span>
-<span class="normal">535</span>
-<span class="normal">536</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">536</span>
 <span class="normal">537</span>
 <span class="normal">538</span>
 <span class="normal">539</span>
@@ -4563,7 +4664,9 @@ If None, wait indefinitely.</p>
 <span class="normal">548</span>
 <span class="normal">549</span>
 <span class="normal">550</span>
-<span class="normal">551</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_matched_scene_and_eyes_video_frames_and_gaze</span><span class="p">(</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_matched_scene_and_eyes_video_frames_and_gaze</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatchedGazeEyesSceneItem</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive a matched triplet of scene video frame, eye video frame, and gaze.</span>
@@ -4640,9 +4743,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">553</span>
-<span class="normal">554</span>
-<span class="normal">555</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">555</span>
 <span class="normal">556</span>
 <span class="normal">557</span>
 <span class="normal">558</span>
@@ -4657,7 +4758,9 @@ If None, wait indefinitely.</p>
 <span class="normal">567</span>
 <span class="normal">568</span>
 <span class="normal">569</span>
-<span class="normal">570</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_matched_scene_video_frame_and_audio</span><span class="p">(</span>
+<span class="normal">570</span>
+<span class="normal">571</span>
+<span class="normal">572</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_matched_scene_video_frame_and_audio</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatchedSceneAudioItem</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive a matched pair of scene video frame and audio data.</span>
@@ -4727,9 +4830,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">517</span>
-<span class="normal">518</span>
-<span class="normal">519</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">519</span>
 <span class="normal">520</span>
 <span class="normal">521</span>
 <span class="normal">522</span>
@@ -4742,7 +4843,9 @@ If None, wait indefinitely.</p>
 <span class="normal">529</span>
 <span class="normal">530</span>
 <span class="normal">531</span>
-<span class="normal">532</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_matched_scene_video_frame_and_gaze</span><span class="p">(</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_matched_scene_video_frame_and_gaze</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatchedItem</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive a matched pair of scene video frame and gaze data.</span>
@@ -4817,9 +4920,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">412</span>
 <span class="normal">413</span>
 <span class="normal">414</span>
 <span class="normal">415</span>
@@ -4834,7 +4935,9 @@ If None, wait indefinitely.</p>
 <span class="normal">424</span>
 <span class="normal">425</span>
 <span class="normal">426</span>
-<span class="normal">427</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_scene_video_frame</span><span class="p">(</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">receive_scene_video_frame</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimpleVideoFrame</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Receive a scene (world) video frame.</span>
@@ -4903,9 +5006,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span>
 <span class="normal">297</span>
@@ -4919,7 +5020,9 @@ If None, wait indefinitely.</p>
 <span class="normal">305</span>
 <span class="normal">306</span>
 <span class="normal">307</span>
-<span class="normal">308</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recording_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recording_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cancel the current recording without saving it.</span>
 
 <span class="sd">    Wraps [pupil_labs.realtime_api.device.Device.recording_cancel][]</span>
@@ -5005,9 +5108,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
 <span class="normal">249</span>
 <span class="normal">250</span>
 <span class="normal">251</span>
@@ -5030,7 +5131,9 @@ If None, wait indefinitely.</p>
 <span class="normal">268</span>
 <span class="normal">269</span>
 <span class="normal">270</span>
-<span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recording_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recording_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Start a recording on the device.</span>
 
 <span class="sd">    Wraps [pupil_labs.realtime_api.device.Device.recording_start][]</span>
@@ -5108,9 +5211,7 @@ If None, wait indefinitely.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">275</span>
 <span class="normal">276</span>
 <span class="normal">277</span>
 <span class="normal">278</span>
@@ -5125,7 +5226,9 @@ If None, wait indefinitely.</p>
 <span class="normal">287</span>
 <span class="normal">288</span>
 <span class="normal">289</span>
-<span class="normal">290</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recording_stop_and_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">recording_stop_and_save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop and save the current recording.</span>
 
 <span class="sd">    Wraps [pupil_labs.realtime_api.device.Device.recording_stop_and_save][]</span>
@@ -5215,9 +5318,7 @@ If None, the current time will be used.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">312</span>
 <span class="normal">313</span>
 <span class="normal">314</span>
 <span class="normal">315</span>
@@ -5237,7 +5338,9 @@ If None, the current time will be used.</p>
 <span class="normal">329</span>
 <span class="normal">330</span>
 <span class="normal">331</span>
-<span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">send_event</span><span class="p">(</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">send_event</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">event_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">event_timestamp_unix_ns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Send an event to the device.</span>
@@ -5260,6 +5363,232 @@ If None, the current time will be used.</p>
             <span class="k">return</span> <span class="k">await</span> <span class="n">control</span><span class="o">.</span><span class="n">send_event</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="n">event_timestamp_unix_ns</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">_send_event</span><span class="p">())</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="pupil_labs.realtime_api.simple.Device.set_camera_state" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_camera_state</span>
+
+
+<a href="#pupil_labs.realtime_api.simple.Device.set_camera_state" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_camera_state</span><span class="p">(</span><span class="n">ae_mode</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;manual&#39;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">man_exp</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gain</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">brightness</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">contrast</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gamma</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="s1">&#39;world&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span><span class="p">,</span> <span class="n">validate_with_state</span><span class="p">:</span> <span class="n"><span title="pupil_labs.realtime_api.camera_control.CameraState">CameraState</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Set the state of the camera.</p>
+<p>Wraps <a class="autorefs autorefs-internal" title="            set_camera_state
+
+
+  
+      async
+  " href="../../../api/async/#pupil_labs.realtime_api.device.Device.set_camera_state">pupil_labs.realtime_api.device.Device.set_camera_state</a></p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>ae_mode</code></b>
+              (<code><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a>[&#39;auto&#39;, &#39;manual&#39;] | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Auto exposure mode. "auto" or "manual". If None, the current value
+will be used.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>man_exp</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Manual exposure time in microseconds. If None, the current value
+will be used.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>gain</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Gain value. If None, the current value will be used.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>brightness</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Brightness value. If None, the current value will be used.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>contrast</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Contrast value. If None, the current value will be used.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>gamma</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Gamma value. If None, the current value will be used.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>camera</code></b>
+              (<code><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a>[&#39;world&#39;]</code>, default:
+                  <code>&#39;world&#39;</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Camera to set the state for. Currently only "world" is supported.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>validate_with_state</code></b>
+              (<code><span title="pupil_labs.realtime_api.camera_control.CameraState">CameraState</span> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Optional CameraState to validate against. If provided,
+the current camera state will be compared to this state before applying
+changes. If they differ, a DeviceError will be raised.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            DeviceError (pupil_labs.realtime_api.device.DeviceError)" href="../../../api/async/#pupil_labs.realtime_api.device.DeviceError">DeviceError</a></code>
+            –
+          <div class="doc-md-description">
+            <p>If the camera state could not be set.</p>
+          </div>
+        </li>
+    </ul>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1046</span>
+<span class="normal">1047</span>
+<span class="normal">1048</span>
+<span class="normal">1049</span>
+<span class="normal">1050</span>
+<span class="normal">1051</span>
+<span class="normal">1052</span>
+<span class="normal">1053</span>
+<span class="normal">1054</span>
+<span class="normal">1055</span>
+<span class="normal">1056</span>
+<span class="normal">1057</span>
+<span class="normal">1058</span>
+<span class="normal">1059</span>
+<span class="normal">1060</span>
+<span class="normal">1061</span>
+<span class="normal">1062</span>
+<span class="normal">1063</span>
+<span class="normal">1064</span>
+<span class="normal">1065</span>
+<span class="normal">1066</span>
+<span class="normal">1067</span>
+<span class="normal">1068</span>
+<span class="normal">1069</span>
+<span class="normal">1070</span>
+<span class="normal">1071</span>
+<span class="normal">1072</span>
+<span class="normal">1073</span>
+<span class="normal">1074</span>
+<span class="normal">1075</span>
+<span class="normal">1076</span>
+<span class="normal">1077</span>
+<span class="normal">1078</span>
+<span class="normal">1079</span>
+<span class="normal">1080</span>
+<span class="normal">1081</span>
+<span class="normal">1082</span>
+<span class="normal">1083</span>
+<span class="normal">1084</span>
+<span class="normal">1085</span>
+<span class="normal">1086</span>
+<span class="normal">1087</span>
+<span class="normal">1088</span>
+<span class="normal">1089</span>
+<span class="normal">1090</span>
+<span class="normal">1091</span>
+<span class="normal">1092</span>
+<span class="normal">1093</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_camera_state</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">ae_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;manual&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">man_exp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gain</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">brightness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">contrast</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">camera</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;world&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">,</span>
+    <span class="n">validate_with_state</span><span class="p">:</span> <span class="n">CameraState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set the state of the camera.</span>
+
+<span class="sd">    Wraps [pupil_labs.realtime_api.device.Device.set_camera_state][]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ae_mode: Auto exposure mode. &quot;auto&quot; or &quot;manual&quot;. If None, the current value</span>
+<span class="sd">            will be used.</span>
+<span class="sd">        man_exp: Manual exposure time in microseconds. If None, the current value</span>
+<span class="sd">            will be used.</span>
+<span class="sd">        gain: Gain value. If None, the current value will be used.</span>
+<span class="sd">        brightness: Brightness value. If None, the current value will be used.</span>
+<span class="sd">        contrast: Contrast value. If None, the current value will be used.</span>
+<span class="sd">        gamma: Gamma value. If None, the current value will be used.</span>
+<span class="sd">        camera: Camera to set the state for. Currently only &quot;world&quot; is supported.</span>
+<span class="sd">        validate_with_state: Optional CameraState to validate against. If provided,</span>
+<span class="sd">            the current camera state will be compared to this state before applying</span>
+<span class="sd">            changes. If they differ, a DeviceError will be raised.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        DeviceError: If the camera state could not be set.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_set_camera_state</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">_DeviceAsync</span><span class="o">.</span><span class="n">convert_from</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">as</span> <span class="n">control</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">control</span><span class="o">.</span><span class="n">set_camera_state</span><span class="p">(</span>
+                <span class="n">ae_mode</span><span class="o">=</span><span class="n">ae_mode</span><span class="p">,</span>
+                <span class="n">man_exp</span><span class="o">=</span><span class="n">man_exp</span><span class="p">,</span>
+                <span class="n">gain</span><span class="o">=</span><span class="n">gain</span><span class="p">,</span>
+                <span class="n">brightness</span><span class="o">=</span><span class="n">brightness</span><span class="p">,</span>
+                <span class="n">contrast</span><span class="o">=</span><span class="n">contrast</span><span class="p">,</span>
+                <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+                <span class="n">camera</span><span class="o">=</span><span class="n">camera</span><span class="p">,</span>
+                <span class="n">validate_with_state</span><span class="o">=</span><span class="n">validate_with_state</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">_set_camera_state</span><span class="p">())</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -5297,16 +5626,16 @@ If None, the current time will be used.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">612</span>
-<span class="normal">613</span>
-<span class="normal">614</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">614</span>
 <span class="normal">615</span>
 <span class="normal">616</span>
 <span class="normal">617</span>
 <span class="normal">618</span>
 <span class="normal">619</span>
 <span class="normal">620</span>
-<span class="normal">621</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">start_stream_if_needed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">621</span>
+<span class="normal">622</span>
+<span class="normal">623</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">start_stream_if_needed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Start streaming if not already streaming.</span>
 
 <span class="sd">    Args:</span>
@@ -5372,9 +5701,7 @@ If None, the current time will be used.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">623</span>
-<span class="normal">624</span>
-<span class="normal">625</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">625</span>
 <span class="normal">626</span>
 <span class="normal">627</span>
 <span class="normal">628</span>
@@ -5396,7 +5723,9 @@ If None, the current time will be used.</p>
 <span class="normal">644</span>
 <span class="normal">645</span>
 <span class="normal">646</span>
-<span class="normal">647</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">streaming_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">647</span>
+<span class="normal">648</span>
+<span class="normal">649</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">streaming_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Start streaming data from the specified sensor.</span>
 
 <span class="sd">    Args:</span>
@@ -5479,9 +5808,7 @@ If None, the current time will be used.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">649</span>
-<span class="normal">650</span>
-<span class="normal">651</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">651</span>
 <span class="normal">652</span>
 <span class="normal">653</span>
 <span class="normal">654</span>
@@ -5503,7 +5830,9 @@ If None, the current time will be used.</p>
 <span class="normal">670</span>
 <span class="normal">671</span>
 <span class="normal">672</span>
-<span class="normal">673</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">streaming_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">673</span>
+<span class="normal">674</span>
+<span class="normal">675</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">streaming_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop streaming data from the specified sensor.</span>
 
 <span class="sd">    Args:</span>
@@ -5552,9 +5881,9 @@ If None, the current time will be used.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/pupil_labs/realtime_api/simple/device.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">world_sensor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">world_sensor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sensor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the world sensor.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span><span class="o">.</span><span class="n">direct_world_sensor</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
