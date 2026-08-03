@@ -30,13 +30,13 @@ Once connected, the [`Device`][pupil_labs.realtime_api.device.Device] object, al
 
 This [`Status`][pupil_labs.realtime_api.models.Status] represents the full Companion's Device state, including sub-classes representing:
 
--   [Phone][pupil_labs.realtime_api.models.Phone]
+- [Phone][pupil_labs.realtime_api.models.Phone]
 
--   [Hardware][pupil_labs.realtime_api.models.Hardware]
+- [Hardware][pupil_labs.realtime_api.models.Hardware]
 
--   [Sensors][pupil_labs.realtime_api.models.Sensor]
+- [Sensors][pupil_labs.realtime_api.models.Sensor]
 
--   [Recording][pupil_labs.realtime_api.models.Recording]
+- [Recording][pupil_labs.realtime_api.models.Recording]
 
 === "Get Current Status"
 

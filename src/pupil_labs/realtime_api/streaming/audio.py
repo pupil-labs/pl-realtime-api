@@ -23,8 +23,6 @@ class AudioNotAvailableError(Exception):
     Could happen if the microphone is not enabled in the Companion App.
     """
 
-    pass
-
 
 class AudioFrame(NamedTuple):
     """An audio frame with timestamp information.

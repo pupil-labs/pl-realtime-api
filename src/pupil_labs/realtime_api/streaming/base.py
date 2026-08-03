@@ -21,8 +21,6 @@ class SDPDataNotAvailableError(Exception):
     fields.
     """
 
-    pass
-
 
 class RTSPData(NamedTuple):
     """Container for RTSP data with timestamp information."""
@@ -130,7 +128,7 @@ class RTSPRawStreamer:
         await self.reader.__aenter__(*args, **kwargs)
         return self
 
-    async def __aexit__(self, *args: Any, **kwargs: Any) -> Any:
+    async def __aexit__(self, *args: object, **kwargs: Any) -> Any:
         """Exit the async context manager."""
         return await self.reader.__aexit__(*args, **kwargs)
 
@@ -142,8 +140,6 @@ class _UnknownClockoffsetError(Exception):
     before receiving the first RTCP SR packet that provides the necessary clock
     synchronization information.
     """
-
-    pass
 
 
 class _WallclockRTSPReader(AiortspRTSPReader):
