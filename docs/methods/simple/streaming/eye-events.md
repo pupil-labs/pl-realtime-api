@@ -18,20 +18,20 @@ Defines a complete [fixation or saccade](https://docs.pupil-labs.com/neon/data-c
 
     ```py linenums="0"
     FixationEventData(
-    	event_type=0,
-    	start_time_ns=1744625900502677306,
-    	end_time_ns=1744625900562676306,
-    	start_gaze_x=768.2272338867188,
-    	start_gaze_y=685.6964721679688,
-    	end_gaze_x=716.1095581054688,
-    	end_gaze_y=493.5322570800781,
-    	mean_gaze_x=747.7811279296875,
-    	mean_gaze_y=597.7672119140625,
-    	amplitude_pixels=199.10633850097656,
-    	amplitude_angle_deg=12.716423988342285,
-    	mean_velocity=3318.313232421875,
-    	max_velocity=7444.6396484375,
-    	rtp_ts_unix_seconds=1744626471.955861
+        event_type=0,
+        start_time_ns=1744625900502677306,
+        end_time_ns=1744625900562676306,
+        start_gaze_x=768.2272338867188,
+        start_gaze_y=685.6964721679688,
+        end_gaze_x=716.1095581054688,
+        end_gaze_y=493.5322570800781,
+        mean_gaze_x=747.7811279296875,
+        mean_gaze_y=597.7672119140625,
+        amplitude_pixels=199.10633850097656,
+        amplitude_angle_deg=12.716423988342285,
+        mean_velocity=3318.313232421875,
+        max_velocity=7444.6396484375,
+        rtp_ts_unix_seconds=1744626471.955861,
     )
     ```
 
@@ -39,20 +39,20 @@ Defines a complete [fixation or saccade](https://docs.pupil-labs.com/neon/data-c
 
     ```py linenums="0"
     FixationEventData(
-    	event_type=1,
-    	start_time_ns=1744625967695094306,
-    	end_time_ns=1744625968135465306,
-    	start_gaze_x=870.0199584960938,
-    	start_gaze_y=311.0625,
-    	end_gaze_x=730.7664794921875,
-    	end_gaze_y=264.4870300292969,
-    	mean_gaze_x=839.43115234375,
-    	mean_gaze_y=280.5098876953125,
-    	amplitude_pixels=146.83596801757812,
-    	amplitude_angle_deg=9.18490982055664,
-    	mean_velocity=272.82110595703125,
-    	max_velocity=1415.25048828125,
-    	rtp_ts_unix_seconds=1744626539.528702
+        event_type=1,
+        start_time_ns=1744625967695094306,
+        end_time_ns=1744625968135465306,
+        start_gaze_x=870.0199584960938,
+        start_gaze_y=311.0625,
+        end_gaze_x=730.7664794921875,
+        end_gaze_y=264.4870300292969,
+        mean_gaze_x=839.43115234375,
+        mean_gaze_y=280.5098876953125,
+        amplitude_pixels=146.83596801757812,
+        amplitude_angle_deg=9.18490982055664,
+        mean_velocity=272.82110595703125,
+        max_velocity=1415.25048828125,
+        rtp_ts_unix_seconds=1744626539.528702,
     )
     ```
 
@@ -67,13 +67,21 @@ This defines a [fixation or saccade](https://docs.pupil-labs.com/neon/data-colle
 === "Saccade Onset"
 
     ```py linenums="0"
-    FixationOnsetEventData(event_type=2, start_time_ns=1744626187872119306, rtp_ts_unix_seconds=1744626759.2655792)
+    FixationOnsetEventData(
+        event_type=2,
+        start_time_ns=1744626187872119306,
+        rtp_ts_unix_seconds=1744626759.2655792,
+    )
     ```
 
 === "Fixation Onset"
 
     ```py linenums="0"
-    FixationOnsetEventData(event_type=3, start_time_ns=1744626187872119306, rtp_ts_unix_seconds=1744626759.2655792)
+    FixationOnsetEventData(
+        event_type=3,
+        start_time_ns=1744626187872119306,
+        rtp_ts_unix_seconds=1744626759.2655792,
+    )
     ```
 
 ??? quote "FixationOnsetEventData"
@@ -86,10 +94,10 @@ Finally, BlinkEventData determines a [blink](https://docs.pupil-labs.com/neon/da
 
 ```py linenums="0"
 BlinkEventData(
-	event_type=4,
-	start_time_ns=1744626029708811306,
-	end_time_ns=1744626029919061306,
-	rtp_ts_unix_seconds=1744626601.1020627
+    event_type=4,
+    start_time_ns=1744626029708811306,
+    end_time_ns=1744626029919061306,
+    rtp_ts_unix_seconds=1744626601.1020627,
 )
 ```
 
@@ -110,5 +118,5 @@ If you run the example you will get an output like this:
 ??? example "Check the whole example code here"
 
     ```py title="stream_eye_events" linenums="1"
-    --8<-- "examples/simple/stream_eye_events.py"
+    --8 < --"examples/simple/stream_eye_events.py"
     ```
