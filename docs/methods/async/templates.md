@@ -12,7 +12,7 @@ If the template is [properly configured](https://docs.pupil-labs.com/neon/data-c
 Using the [`device.get_template`][pupil_labs.realtime_api.device.Device.get_template] method, you can receive the definition of the template containing all questions and sections.
 
 ```py linenums="0"
---8<-- "examples/async/templates.py:60:60"
+--8 < --"examples/async/templates.py:60:60"
 ```
 
 ??? quote "Template"
@@ -24,7 +24,7 @@ Using the [`device.get_template`][pupil_labs.realtime_api.device.Device.get_temp
 Using the [`device.get_template_data`][pupil_labs.realtime_api.device.Device.get_template_data] method, you can receive the responses currently saved in the template.
 
 ```py linenums="0"
---8<-- "examples/async/templates.py:62:62"
+--8 < --"examples/async/templates.py:62:62"
 ```
 
 ### Set Template Data
@@ -32,7 +32,7 @@ Using the [`device.get_template_data`][pupil_labs.realtime_api.device.Device.get
 Using the [`device.post_template_data`][pupil_labs.realtime_api.device.Device.post_template_data] method, you can set the template responses remotely.
 
 ```py linenums="0"
---8<-- "examples/async/templates.py:111:111"
+--8 < --"examples/async/templates.py:111:111"
 ```
 
 ### Get Template Questions & Validate them
@@ -48,5 +48,5 @@ You can also retrieve individual questions by their ID using the [`template.get_
 ??? example "Check the whole example code here"
 
     ```py title="templates.py" linenums="1"
-    --8<-- "examples/async/templates.py"
+    --8 < --"examples/async/templates.py"
     ```

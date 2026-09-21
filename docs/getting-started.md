@@ -65,8 +65,8 @@ You will see a continuous stream of timestamps, gaze coordinates, and worn statu
 This script uses the [simple][pupil_labs.realtime_api.simple] interface, which is the easiest way to use the API
 and is recommended for most applications.
 
--   `discover_one_device()`: Scans the local network and connects to the first available device.
--   `receive_gaze_datum()`: Fetches the next available gaze data point from the device.
+- `discover_one_device()`: Scans the local network and connects to the first available device.
+- `receive_gaze_datum()`: Fetches the next available gaze data point from the device.
 
 ## Simple vs. Async API
 
@@ -81,6 +81,6 @@ For a deeper dive, read the [Simple vs Async guide](./guides/simple-vs-async-api
 You can stream much more than just gaze! For example, fixations, blinks, pupil data, and scene video with a live gaze
 overlay. Remotely controlling recordings is also possible:
 
--   Explore more features and examples in the [Simple](./methods/simple.md) and [Async](./methods/async.md) methods sections.
--   Find advanced examples in the [Cookbook](./cookbook/index.md).
--   See all methods in the [API Reference](./modules.md).
+- Explore more features and examples in the [Simple](./methods/simple.md) and [Async](./methods/async.md) methods sections.
+- Find advanced examples in the [Cookbook](./cookbook/index.md).
+- See all methods in the [API Reference](./modules.md).
