@@ -7,7 +7,7 @@ Use [`device.recording_start`][pupil_labs.realtime_api.simple.Device.recording_s
 and return the recording ID.
 
 ```py linenums="0" title="start_stop_recordings.py"
---8<-- "examples/simple/start_stop_recordings.py:12:13"
+--8 < --"examples/simple/start_stop_recordings.py:12:13"
 ```
 
 ```linenums="0"
@@ -20,7 +20,7 @@ You can stop and save a recording using [`device.recording_stop_and_save`][pupil
 Note that if you have a mandatory question that is not filled, the recording will not be saved until that question is answered.
 
 ```py linenums="0" title="start_stop_recordings.py"
---8<-- "examples/simple/start_stop_recordings.py:24:24"
+--8 < --"examples/simple/start_stop_recordings.py:24:24"
 ```
 
 ```linenums="0"
@@ -44,7 +44,7 @@ This is made possible using the [`device.send_event`][pupil_labs.realtime_api.si
 === "Timestamped on Arrival (Host/Companion Device)"
 
     ```py linenums="0" title="send_event.py"
-    --8<-- "examples/simple/send_event.py:12:12"
+    --8 < --"examples/simple/send_event.py:12:12"
     ```
     ```py linenums="0"
     Event(name=test event; timestamped at arrival recording_id=None timestamp_unix_ns=1744271292116000000 datetime=2025-04-10 09:48:12.116000)
@@ -53,7 +53,7 @@ This is made possible using the [`device.send_event`][pupil_labs.realtime_api.si
 === "With Explicit Timestamp"
 
     ```py linenums="0" title="send_event.py"
-    --8<-- "examples/simple/send_event.py:14:19"
+    --8 < --"examples/simple/send_event.py:14:19"
     ```
     ```py linenums="0"
     Event(name=test event; timestamped by the client, relying on NTP for sync recording_id=None timestamp_unix_ns=1744271291692745000 datetime=2025-04-10 09:48:11.692745)
@@ -62,7 +62,7 @@ This is made possible using the [`device.send_event`][pupil_labs.realtime_api.si
 === "With Manual Clock Offset Correction"
 
     ```py linenums="0" title="send_event.py"
-    --8<-- "examples/simple/send_event.py:22:36"
+    --8 < --"examples/simple/send_event.py:22:36"
     ```
     ```py linenums="0"
     Clock offset: -437_790_000 ns
@@ -80,7 +80,7 @@ You can also monitor the recording for potential errors. Add the [`device.get_er
 <!-- badge:version +1.5.0 -->
 
 ```py linenums="0" title="start_stop_recordings.py"
---8<-- "examples/simple/start_stop_recordings.py:16:20"
+--8 < --"examples/simple/start_stop_recordings.py:16:20"
 ```
 
 ```linenums="0"
@@ -92,9 +92,9 @@ Error: Recording Watchdog failure
 ??? example "Check the whole example code here"
 
     ```py title="start_stop_recordings.py" linenums="1"
-    --8<-- "examples/simple/start_stop_recordings.py"
+    --8 < --"examples/simple/start_stop_recordings.py"
     ```
 
     ```py title="send_event.py" linenums="1"
-    --8<-- "examples/simple/send_event.py"
+    --8 < --"examples/simple/send_event.py"
     ```

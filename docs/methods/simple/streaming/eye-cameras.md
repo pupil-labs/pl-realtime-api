@@ -20,5 +20,5 @@ bgr_pixels, frame_datetime = device.receive_eyes_video_frame()
 ??? example "Check the whole example code here"
 
     ```py title="stream_eyes_camera_video.py" linenums="1"
-    --8<-- "examples/simple/stream_eyes_camera_video.py"
+    --8 < --"examples/simple/stream_eyes_camera_video.py"
     ```

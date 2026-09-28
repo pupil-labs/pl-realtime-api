@@ -31,7 +31,7 @@ You can easily receive audio frames and convert them to NumPy arrays using the [
 ??? example "Check the whole example code here"
 
     ```py title="stream_audio.py" linenums="1"
-    --8<-- "examples/async/stream_audio.py"
+    --8 < --"examples/async/stream_audio.py"
     ```
 
 For completeness, we have also included an example that shows how plot audio using librosa and rich on the terminal.
@@ -43,7 +43,7 @@ For completeness, we have also included an example that shows how plot audio usi
 ??? example "Check the whole example code here"
 
     ```py title="stream_audio_spectrum.py" linenums="1"
-    --8<-- "examples/async/stream_audio_spectrum.py"
+    --8 < --"examples/async/stream_audio_spectrum.py"
     ```
 
 ## Playing Audio
@@ -61,7 +61,7 @@ We also bundle an additional [`AudioPlayer`][pupil_labs.realtime_api.audio_playe
 ??? example "Check the whole example code here"
 
     ```py title="stream_audio_and_play.py" linenums="1"
-    --8<-- "examples/async/stream_audio_and_play.py"
+    --8 < --"examples/async/stream_audio_and_play.py"
     ```
 
 ## Playing Video and Audio
@@ -71,7 +71,7 @@ Here you can find an example that shows how to play both video with gaze overlay
 ??? example "Check the whole example code here"
 
     ```py title="stream_video_gaze_and_audio.py" linenums="1"
-    --8<-- "examples/async/stream_video_gaze_and_audio.py"
+    --8 < --"examples/async/stream_video_gaze_and_audio.py"
     ```
 
 ??? quote "AudioPlayer"
