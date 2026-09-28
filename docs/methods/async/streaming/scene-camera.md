@@ -4,9 +4,9 @@ You can receive the scene camera video stream with timestamps, using the [`recei
 
 ```py linenums="0"
 async for frame in receive_video_frames(
-	sensor_world.url, run_loop=restart_on_disconnect
+    sensor_world.url, run_loop=restart_on_disconnect
 ):
-	bgr_buffer = frame.bgr_buffer()
+    bgr_buffer = frame.bgr_buffer()
 ```
 
 <figure markdown="span">
@@ -20,7 +20,7 @@ async for frame in receive_video_frames(
 ??? example "Check the whole example code here"
 
     ```py title="stream_scene_camera_video.py" linenums="1"
-    --8<-- "examples/async/stream_scene_camera_video.py"
+    --8 < --"examples/async/stream_scene_camera_video.py"
     ```
 
 ## Scene Camera Video with Overlayed Gaze
@@ -34,7 +34,7 @@ The following example shows how you can match multiple sensors streams by qeuein
 ??? example "Check the whole example code here"
 
     ```py title="stream_video_with_overlayed_gaze.py" linenums="0"
-    --8<-- "examples/async/stream_video_with_overlayed_gaze.py"
+    --8 < --"examples/async/stream_video_with_overlayed_gaze.py"
     ```
 
 ## Scene Camera Video with Overlayed Fixations or Other Streams
@@ -52,5 +52,5 @@ You can do this with any streams, eye cameras or including eye events (blinks, o
 ??? example "Check the whole example code here"
 
     ```py title="stream_video_with_overlayed_fixations.py" linenums="1"
-    --8<-- "examples/async/stream_video_with_overlayed_fixations.py"
+    --8 < --"examples/async/stream_video_with_overlayed_fixations.py"
     ```

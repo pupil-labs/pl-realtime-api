@@ -28,9 +28,11 @@ import cv2
 
 image_names = ["owl", "fox", "deer"]
 
+
 def prepare_stimulus_presentation():
     cv2.namedWindow("Stimulus", cv2.WINDOW_NORMAL)
     cv2.setWindowProperty("Stimulus", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
 
 def present_stimulus(img):
     presentation_time = 5
@@ -39,9 +41,9 @@ def present_stimulus(img):
         cv2.imshow("Stimulus", img)
         cv2.waitKey(1)
 
+
 def cleanup_stimulus_presentation():
     cv2.destroyAllWindows()
-
 ```
 
 Using the real-time API, we now have to connect to a Neon device for recording. We can remotely start the recording and save events before and after the stimulus presentation. The names of the events are chosen as `<animal name>_start` and `<animal name>_end` depending on the animal that is shown.
@@ -52,6 +54,7 @@ Once all images have been shown, the recording is stopped remotely.
 # The 2 lines below are only needed when accessing
 # the real-time API from a Jupyter notebook
 import nest_asyncio
+
 nest_asyncio.apply()
 
 from pupil_labs.realtime_api.simple import discover_one_device
@@ -80,6 +83,7 @@ That is all we have to do during data collection. Once the recordings have been 
 
 ```py
 import pandas as pd
+
 events = pd.read_csv("raw-data-export/george-49e4a972/events.csv")
 events
 ```
@@ -142,7 +146,9 @@ for f in os.listdir(export_folder):
         end_event = events[events["name"] == name + "_end"]
         end_timestamp = end_event["timestamp [ns]"].values[0]
 
-        condition = (fixations["start timestamp [ns]"] >= start_timestamp) & (fixations["end timestamp [ns]"] <= end_timestamp)
+        condition = (fixations["start timestamp [ns]"] >= start_timestamp) & (
+            fixations["end timestamp [ns]"] <= end_timestamp
+        )
         image_fixations = fixations[condition]
 
         results.loc[rec_name, name] = len(image_fixations["duration [ms]"])

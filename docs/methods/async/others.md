@@ -7,7 +7,7 @@ Additionally, we offer you a convenient function to estimate the time offset bet
 See [`time_echo`][pupil_labs.realtime_api.time_echo] for details.
 
 ```py linenums="0"
---8<-- "examples/async/device_time_offset.py:27:29"
+--8 < --"examples/async/device_time_offset.py:27:29"
 ```
 
 ```py linenums="0"
@@ -18,7 +18,7 @@ Mean roundtrip duration: 12.91 ms
 ??? example "Check the whole example code here"
 
     ```py title="device_time_offset.py" linenums="1"
-    --8<-- "examples/async/device_time_offset.py"
+    --8 < --"examples/async/device_time_offset.py"
     ```
 
 !!! question "Wanna get super precise time sync?"
