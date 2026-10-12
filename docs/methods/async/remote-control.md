@@ -5,7 +5,7 @@ With the device connected, you can remotely control your [device][pupil_labs.rea
 Use [`device.recording_start`][pupil_labs.realtime_api.device.Device.recording_start] to start a recording on the device and return the recording ID.
 
 ```py linenums="1" title="start_stop_recordings.py" hl_lines="5"
---8<-- "examples/async/start_stop_recordings.py:23:34"
+--8 < --"examples/async/start_stop_recordings.py:23:34"
 ```
 
 ```linenums="0"
@@ -85,9 +85,9 @@ await device.recording_cancel()
 ??? example "Check the whole example code here"
 
     ```py title="start_stop_recordings.py" linenums="1"
-    --8<-- "examples/async/start_stop_recordings.py"
+    --8 < --"examples/async/start_stop_recordings.py"
     ```
 
     ```py title="send_event.py" linenums="1"
-    --8<-- "examples/async/send_event.py"
+    --8 < --"examples/async/send_event.py"
     ```
