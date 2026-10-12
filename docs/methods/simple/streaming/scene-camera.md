@@ -17,7 +17,7 @@ bgr_pixels, frame_datetime = device.receive_scene_video_frame()
 ??? example "Check the whole example code here"
 
     ```py title="stream_scene_camera_video.py" linenums="1"
-    --8<-- "examples/simple/stream_scene_camera_video.py"
+    --8 < --"examples/simple/stream_scene_camera_video.py"
     ```
 
 ### Scene Camera Video with Overlayed Gaze
@@ -40,7 +40,7 @@ frame, gaze = device.receive_matched_scene_video_frame_and_gaze()
 ??? example "Check the whole example code here"
 
     ```py title="stream_video_with_overlayed_gaze.py" linenums="1"
-    --8<-- "examples/simple/stream_video_with_overlayed_gaze.py"
+    --8 < --"examples/simple/stream_video_with_overlayed_gaze.py"
     ```
 
 ### Scene Camera Video with Overlayed Eyes Video and Gaze Circle
@@ -64,7 +64,7 @@ matched = device.receive_matched_scene_and_eyes_video_frames_and_gaze()
 ??? example "Check the whole example code here"
 
     ```py title="stream_scene_eyes_and_gaze.py" linenums="1"
-    --8<-- "examples/simple/stream_scene_eyes_and_gaze.py"
+    --8 < --"examples/simple/stream_scene_eyes_and_gaze.py"
     ```
 
 <!-- ### Scene Camera Video with Overlayed Fixations
@@ -79,6 +79,6 @@ how you can implement it yourself.
 ??? example "Check the whole example code here"
 
     ```py title="stream_video_with_overlayed_fixations.py" linenums="1"
-    #--8<-- "examples/simple/stream_video_with_overlayed_fixations.py"
+    # --8<-- "examples/simple/stream_video_with_overlayed_fixations.py"
     ```
     -->
