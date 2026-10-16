@@ -99,4 +99,3 @@ await device.set_camera_state(
     ```py title="device_camera_controls.py" linenums="1"
     --8<-- "examples/async/device_camera_controls.py"
     ```
-
