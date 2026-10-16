@@ -67,6 +67,51 @@ matched = device.receive_matched_scene_and_eyes_video_frames_and_gaze()
     --8<-- "examples/simple/stream_scene_eyes_and_gaze.py"
     ```
 
+### Camera Controls
+
+<!-- badge:product Neon -->
+<!-- badge:version +1.9.0 -->
+
+You can get and set scene camera parameters, such as auto exposure mode, manual exposure time, gain, brightness, contrast, and gamma, using [`device.get_camera_state`][pupil_labs.realtime_api.simple.Device.get_camera_state] and [`device.set_camera_state`][pupil_labs.realtime_api.simple.Device.set_camera_state].
+
+!!! note
+
+    Initiate the video stream (e.g. by calling `device.receive_scene_video_frame()`) or open the scene video preview in the Companion app before querying or setting camera controls to ensure the camera is active.
+
+```py linenums="0"
+# Retrieve current camera state
+camera_state = device.get_camera_state()
+
+# Update camera controls
+device.set_camera_state(
+    ae_mode="manual",
+    man_exp=500,
+    gain=64,
+    brightness=0,
+    contrast=32,
+    gamma=300,
+    validate_with_state=camera_state,
+)
+```
+
+??? quote "CameraState"
+
+    ::: pupil_labs.realtime_api.camera_control.CameraState
+
+??? quote "ControlStateEnum"
+
+    ::: pupil_labs.realtime_api.camera_control.ControlStateEnum
+
+??? quote "ControlStateInteger"
+
+    ::: pupil_labs.realtime_api.camera_control.ControlStateInteger
+
+??? example "Check the whole example code here"
+
+    ```py title="camera_controls.py" linenums="1"
+    --8<-- "examples/simple/camera_controls.py"
+    ```
+
 <!-- ### Scene Camera Video with Overlayed Fixations
 
 <!-- badge:product Neon -->
