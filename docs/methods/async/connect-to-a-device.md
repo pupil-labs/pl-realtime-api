@@ -7,7 +7,7 @@ One of the first steps you need to carry to leverage the API is to connect to on
     Using the [`discover_devices`][pupil_labs.realtime_api.discovery.discover_devices]:
 
     ```py title="discover_devices.py" linenums="1" hl_lines="10 15"
-    --8<-- "examples/async/discover_devices.py"
+    --8 < --"examples/async/discover_devices.py"
     ```
 
 === "Connect Directly via IP Address"
@@ -30,18 +30,18 @@ Once connected, the [`Device`][pupil_labs.realtime_api.device.Device] object, al
 
 This [`Status`][pupil_labs.realtime_api.models.Status] represents the full Companion's Device state, including sub-classes representing:
 
--   [Phone][pupil_labs.realtime_api.models.Phone]
+- [Phone][pupil_labs.realtime_api.models.Phone]
 
--   [Hardware][pupil_labs.realtime_api.models.Hardware]
+- [Hardware][pupil_labs.realtime_api.models.Hardware]
 
--   [Sensors][pupil_labs.realtime_api.models.Sensor]
+- [Sensors][pupil_labs.realtime_api.models.Sensor]
 
--   [Recording][pupil_labs.realtime_api.models.Recording]
+- [Recording][pupil_labs.realtime_api.models.Recording]
 
 === "Get Current Status"
 
     ```py title="get_status.py" linenums="0" hl_lines="2"
-    --8<-- "examples/async/device_status_get_current.py:13:26"
+    --8 < --"examples/async/device_status_get_current.py:13:26"
     ```
     ```py linenums="0"
     Device IP address: 192.168.1.60
@@ -55,7 +55,7 @@ This [`Status`][pupil_labs.realtime_api.models.Status] represents the full Compa
 === "Update via Callback"
 
     ```py linenums="0" hl_lines="5"
-    --8<-- "examples/async/device_status_update_via_callback.py:17:25"
+    --8 < --"examples/async/device_status_update_via_callback.py:17:25"
     ```
     ```py linenums="0"
     Starting auto-update for 20 seconds
@@ -85,12 +85,12 @@ Refer to the [Device API documentation](../../../api/async/#pupil_labs.realtime_
 ??? example "Check the whole example code here"
 
     ```py title="discover_devices.py" linenums="1"
-    --8<-- "examples/async/discover_devices.py"
+    --8 < --"examples/async/discover_devices.py"
     ```
     ```py title="device_status_get_current.py" linenums="1"
-    --8<-- "examples/async/device_status_get_current.py"
+    --8 < --"examples/async/device_status_get_current.py"
     ```
 
     ```py title="device_status_update_via_callback.py" linenums="1"
-    --8<-- "examples/async/device_status_update_via_callback.py"
+    --8 < --"examples/async/device_status_update_via_callback.py"
     ```
