@@ -19,6 +19,7 @@ how to use them.
 -   [Scene Camera Video](simple/streaming/scene-camera.md)
 -   [Scene Camera Video with Overlayed Gaze](simple/streaming/scene-camera.md#scene-camera-video-with-overlayed-gaze)
 -   [Scene Camera Video with Overlayed Eyes Video and Gaze Circle](simple/streaming/scene-camera.md#scene-camera-video-with-overlayed-eyes-video-and-gaze-circle)
+-   [Camera Controls](simple/streaming/scene-camera.md#camera-controls)
 -   [Eyes Camera Video](simple/streaming/eye-cameras.md)
 -   [IMU Data](simple/streaming/imu-data.md)
 -   [Blinks, Fixations & Saccades](simple/streaming/eye-events.md)

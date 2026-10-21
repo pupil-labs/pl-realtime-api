@@ -20,6 +20,7 @@ how to use them.
 -   [Scene Camera Video](async/streaming/scene-camera.md)
 -   [Scene Camera Video with Overlayed Gaze](async/streaming/scene-camera.md#scene-camera-video-with-overlayed-gaze)
 -   [Scene Camera Video with Overlayed Fixations or Other Streams](async/streaming/scene-camera.md#scene-camera-video-with-overlayed-fixations-or-other-streams)
+-   [Camera Controls](async/streaming/scene-camera.md#camera-controls)
 -   [Eyes Camera Video](async/streaming/eye-cameras.md)
 -   [IMU Data](async/streaming/imu-data.md)
 -   [Blinks, Fixations & Saccades](async/streaming/eye-events.md)
