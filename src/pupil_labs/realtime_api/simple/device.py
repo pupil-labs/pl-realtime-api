@@ -736,7 +736,7 @@ class Device(DeviceBase):
         This method should be called when the device is no longer needed
         to free up resources.
         """
-        if self._event_manager:
+        if getattr(self, "_event_manager", None):
             if self.is_currently_streaming:
                 self.streaming_stop()
             self._event_manager.trigger_threadsafe(self._EVENT.SHOULD_WORKER_CLOSE)
