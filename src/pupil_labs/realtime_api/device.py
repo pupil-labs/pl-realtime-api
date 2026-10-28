@@ -421,7 +421,7 @@ class Device(DeviceBase):
         Args:
             ae_mode: Auto exposure mode. "auto" or "manual". If None, the current value
                 will be used.
-            man_exp: Manual exposure time in 100 microseconds(μs) ticks. If None, the 
+            man_exp: Manual exposure time in 100 microseconds(μs) ticks. If None, the
                 current value will be used. (50 -> 5ms).
             gain: Gain value. If None, the current value will be used.
             brightness: Brightness value. If None, the current value will be used.
