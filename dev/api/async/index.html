@@ -4677,8 +4677,8 @@ will be used.</p>
 )
           –
           <div class="doc-md-description">
-            <p>Manual exposure time in microseconds. If None, the current value
-will be used.</p>
+            <p>Manual exposure time in 100 microseconds(μs) ticks. If None, the
+current value will be used. (50 -&gt; 5ms).</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -4860,8 +4860,8 @@ changes. If they differ, a DeviceError will be raised.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        ae_mode: Auto exposure mode. &quot;auto&quot; or &quot;manual&quot;. If None, the current value</span>
 <span class="sd">            will be used.</span>
-<span class="sd">        man_exp: Manual exposure time in microseconds. If None, the current value</span>
-<span class="sd">            will be used.</span>
+<span class="sd">        man_exp: Manual exposure time in 100 microseconds(μs) ticks. If None, the</span>
+<span class="sd">            current value will be used. (50 -&gt; 5ms).</span>
 <span class="sd">        gain: Gain value. If None, the current value will be used.</span>
 <span class="sd">        brightness: Brightness value. If None, the current value will be used.</span>
 <span class="sd">        contrast: Contrast value. If None, the current value will be used.</span>
