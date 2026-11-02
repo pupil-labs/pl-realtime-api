@@ -13,7 +13,7 @@ If no device can be found, please refer to the [troubleshooting section](../../t
     Using the [`discover_one_device()`][pupil_labs.realtime_api.simple.discover_one_device], you will get access to the first device it detects.
 
     ```py title="discover_devices.py" linenums="0" hl_lines="4"
-    --8<-- "examples/simple/discover_devices.py:1:2,4:5"
+    --8 < --"examples/simple/discover_devices.py:1:2,4:5"
     ```
 
 === "Discover Multiple Devices"
@@ -21,7 +21,7 @@ If no device can be found, please refer to the [troubleshooting section](../../t
     Using the [`discover_devices()`][pupil_labs.realtime_api.simple.discover_devices], you can connect to more than one device.
 
     ```py title="discover_devices.py" linenums="0" hl_lines="4"
-    --8<-- "examples/simple/discover_devices.py:1:2,8:9"
+    --8 < --"examples/simple/discover_devices.py:1:2,8:9"
     ```
 
 === "Connect Directly via IP Address"
@@ -51,7 +51,7 @@ This class automatically monitors the Companion device in the background and mir
 === "Get a snap of Status"
 
     ```python title="get_status.py" linenums="0"
-    --8<-- "examples/simple/get_status.py"
+    --8 < --"examples/simple/get_status.py"
     ```
     ```py title="Output" linenums="0"
     Phone IP address: 192.168.1.168
@@ -64,7 +64,7 @@ This class automatically monitors the Companion device in the background and mir
 === "Continuously monitor Status Updates"
 
     ```python linenums="0"
-    --8<-- "examples/simple/status_auto_update.py"
+    --8 < --"examples/simple/status_auto_update.py"
     ```
 
     ```title="Output" linenums="0"
@@ -83,13 +83,13 @@ This class automatically monitors the Companion device in the background and mir
 ??? example "Check the whole example code here"
 
     ```py title="discover_devices.py" linenums="1"
-    --8<-- "examples/simple/discover_devices.py"
+    --8 < --"examples/simple/discover_devices.py"
     ```
 
     ```py title="get_status.py" linenums="1"
-    --8<-- "examples/simple/get_status.py"
+    --8 < --"examples/simple/get_status.py"
     ```
 
     ```python title="status_auto_update.py" linenums="0"
-    --8<-- "examples/simple/status_auto_update.py"
+    --8 < --"examples/simple/status_auto_update.py"
     ```
