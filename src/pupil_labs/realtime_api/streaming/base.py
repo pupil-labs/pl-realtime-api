@@ -136,7 +136,7 @@ class RTSPRawStreamer:
 
 
 class _UnknownClockoffsetError(Exception):
-    """Exception raised when the clock offset is not yet known.
+    """Exception raised when clock synchronization is not yet known.
 
     This internal exception is raised when attempting to get an absolute timestamp
     before receiving the first RTCP SR packet that provides the necessary clock
@@ -155,7 +155,7 @@ class _WallclockRTSPReader(AiortspRTSPReader):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self._relative_to_ntp_clock_offset = None
+        self._sender_report: tuple[int, float] | None = None
         self._media_type = kwargs.get("media_type")
 
     def handle_rtcp(self, rtcp: Any) -> None:
@@ -163,7 +163,8 @@ class _WallclockRTSPReader(AiortspRTSPReader):
 
         This method processes RTCP packets, looking for SR (Sender Report) packets
         that contain the information needed to synchronize the RTP timestamps with
-        the NTP clock.
+        the NTP clock. The NTP timestamp in SR packets is in seconds since 1900,
+        but the aiortsp library converts it to seconds since 1970 (Unix epoch).
 
         Args:
             rtcp: RTCP packet to handle.
@@ -171,13 +172,12 @@ class _WallclockRTSPReader(AiortspRTSPReader):
         """
         for pkt in rtcp.packets:
             if isinstance(pkt, SR):
-                self._calculate_clock_offset(pkt)
+                self._sender_report = (pkt.ts, pkt.ntp)
 
     def absolute_timestamp_from_packet(self, packet: Any) -> float:
         """Get the Unix epoch timestamp for the input packet
 
-        Uses the cached clock offset between the NTP and relative timestamp provided
-        by the RTCP packets.
+        Uses the latest RTCP sender report's RTP counter and Unix timestamp.
 
         Args:
             packet: RTP packet.
@@ -186,31 +186,30 @@ class _WallclockRTSPReader(AiortspRTSPReader):
             float: Absolute timestamp in seconds since the Unix epoch.
 
         Raises:
-            _UnknownClockoffsetError: If the clock offset is not yet known.
+            _UnknownClockoffsetError: If no sender report has been received yet.
 
         """
-        if self._relative_to_ntp_clock_offset is None:
+        if self._sender_report is None:
             raise _UnknownClockoffsetError(
                 "Clock offset between relative and NTP clock is still unknown. "
                 "Waiting for first RTCP SR packet..."
             )
-        try:
-            return (
-                self.relative_timestamp_from_packet(packet)
-                + self._relative_to_ntp_clock_offset
-            )
-        except TypeError:
-            # self._relative_to_ntp_clock_offset is still None
-            raise _UnknownClockoffsetError(
-                "Clock offset between relative and NTP clock is still unknown. "
-                "Waiting for first RTCP SR packet..."
-            ) from None
+
+        sender_report_counter, sender_report_unix_seconds = self._sender_report
+        clock_rate = self.get_clock_rate()
+
+        # NOTE: Signed 32-bit modular difference accounts for integer wraparound,
+        # assuming that the true packet/report separation is less than half a
+        # counter cycle (~6.6 hours for a 90kHz stream).
+        delta_ticks = ((packet.ts - sender_report_counter + 2**31) % 2**32) - 2**31
+        return cast(float, sender_report_unix_seconds + delta_ticks / clock_rate)
 
     def relative_timestamp_from_packet(self, packet: Any) -> float:
         """Get the relative timestamp for an RTP packet.
 
         This method converts the RTP timestamp to seconds based on the media's
-        clock rate.
+        clock rate. Unlike [`absolute_timestamp_from_packet`], this method does
+        not account for the wraparound of the 32-bit RTP timestamp.
 
         Args:
             packet: RTP packet.
@@ -219,28 +218,8 @@ class _WallclockRTSPReader(AiortspRTSPReader):
             float: Relative timestamp in seconds.
 
         """
-        rtpmap = self.get_rtpmap()
-        clock_rate = rtpmap["clockRate"]
+        clock_rate = self.get_clock_rate()
         return cast(float, packet.ts / clock_rate)
-
-    def _calculate_clock_offset(self, sr_pkt: Any) -> None:
-        """Calculate the offset between RTP and NTP clocks from an SR packet.
-
-        This method calculates and stores the offset between the relative RTP
-        timestamp and the NTP timestamp from a Sender Report packet.
-
-        The NTP timestamp in SR packets is in seconds since 1900, but the aiortsp
-        library converts it to seconds since 1970 (Unix epoch).
-
-        Args:
-            sr_pkt (aiortsp.rtcp.parser.SR):  packet which converts the raw NTP
-                timestamp [1] from seconds since 1900 to seconds since 1970 (unix epoch)
-                [1] see https://datatracker.ietf.org/doc/html/rfc3550#section-6.4.1
-
-        """
-        self._relative_to_ntp_clock_offset = (
-            sr_pkt.ntp - self.relative_timestamp_from_packet(sr_pkt)
-        )
 
     def get_rtpmap(self) -> dict[str, Any]:
         """Get the RTP map from the SDP data.
@@ -251,6 +230,16 @@ class _WallclockRTSPReader(AiortspRTSPReader):
         """
         media: dict[str, Any] = self.get_primary_media()
         return media["attributes"]["rtpmap"]  # type: ignore[no-any-return]
+
+    def get_clock_rate(self) -> float:
+        """Get the clock rate attribute of the RTP stream.
+
+        Returns:
+            clock_rate: The amount of ticks per second used by the RTP timestamp.
+
+        """
+        rtpmap = self.get_rtpmap()
+        return cast(float, rtpmap["clockRate"])
 
     def get_primary_media(self) -> Any:
         """Get the primary media description from the SDP data.
