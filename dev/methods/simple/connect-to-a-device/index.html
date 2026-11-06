@@ -3117,7 +3117,7 @@ to free up resources.</p>
 <span class="sd">    This method should be called when the device is no longer needed</span>
 <span class="sd">    to free up resources.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_event_manager&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_event_manager&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_manager</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_currently_streaming</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">streaming_stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_event_manager</span><span class="o">.</span><span class="n">trigger_threadsafe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_EVENT</span><span class="o">.</span><span class="n">SHOULD_WORKER_CLOSE</span><span class="p">)</span>
