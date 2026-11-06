@@ -198,7 +198,7 @@ class _WallclockRTSPReader(AiortspRTSPReader):
         sender_report_counter, sender_report_unix_seconds = self._sender_report
         clock_rate = self.get_clock_rate()
 
-        # NOTE: Signed 32-bit modular difference accounts for integer overflow,
+        # NOTE: Signed 32-bit modular difference accounts for integer wraparound,
         # assuming that the true packet/report separation is less than half a
         # counter cycle (~6.6 hours for a 90kHz stream).
         delta_ticks = ((packet.ts - sender_report_counter + 2**31) % 2**32) - 2**31
@@ -208,7 +208,8 @@ class _WallclockRTSPReader(AiortspRTSPReader):
         """Get the relative timestamp for an RTP packet.
 
         This method converts the RTP timestamp to seconds based on the media's
-        clock rate.
+        clock rate. Unlike [`absolute_timestamp_from_packet`], this method does
+        not account for the wraparound of the 32-bit RTP timestamp.
 
         Args:
             packet: RTP packet.
@@ -231,6 +232,12 @@ class _WallclockRTSPReader(AiortspRTSPReader):
         return media["attributes"]["rtpmap"]  # type: ignore[no-any-return]
 
     def get_clock_rate(self) -> float:
+        """Get the clock rate attribute of the RTP stream.
+
+        Returns:
+            clock_rate: The amount of ticks per second used by the RTP timestamp.
+
+        """
         rtpmap = self.get_rtpmap()
         return cast(float, rtpmap["clockRate"])
 
