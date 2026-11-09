@@ -2,6 +2,8 @@ import abc
 import logging
 from typing import TypeVar
 
+from typing_extensions import Self
+
 from .models import APIPath, DiscoveredDeviceInfo
 
 DeviceType = TypeVar("DeviceType", bound="DeviceBase")
@@ -90,9 +92,7 @@ class DeviceBase(abc.ABC):  # noqa: B024
         return f"Device(ip={self.address}, port={self.port}, dns={self.dns_name})"
 
     @classmethod
-    def from_discovered_device(
-        cls: type[DeviceType], device: DiscoveredDeviceInfo
-    ) -> DeviceType:
+    def from_discovered_device(cls, device: DiscoveredDeviceInfo) -> Self:
         """Create a device instance from discovery information.
 
         Args:
@@ -110,7 +110,7 @@ class DeviceBase(abc.ABC):  # noqa: B024
         )
 
     @classmethod
-    def convert_from(cls: type[DeviceType], other: T) -> DeviceType:
+    def convert_from(cls, other: T) -> Self:
         """Convert another device instance to this type.
 
         Args:
