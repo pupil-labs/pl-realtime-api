@@ -7,7 +7,7 @@ Additionally, we offer you a convenient function to estimate the time offset bet
 See [`time_echo`][pupil_labs.realtime_api.time_echo] for details.
 
 ```py linenums="1" hl_lines="1 6 7"
---8<-- "examples/simple/device_time_offset.py:9:15"
+--8 < --"examples/simple/device_time_offset.py:9:15"
 ```
 
 ```py linenums="0"
@@ -18,7 +18,7 @@ Mean roundtrip duration: 12.91 ms
 ??? example "Check the whole example code here"
 
     ```py title="device_time_offset.py" linenums="1"
-    --8<-- "examples/simple/device_time_offset.py"
+    --8 < --"examples/simple/device_time_offset.py"
     ```
 
 !!! question "Wanna get super precise time sync?"
@@ -32,7 +32,7 @@ Mean roundtrip duration: 12.91 ms
 Getting the camera calibration coefficients can be extremely useful for undistorting the video. You can receive camera calibration parameters using the [get_calibration][pupil_labs.realtime_api.simple.Device.get_calibration] method.
 
 ```py linenums="0"
---8<-- "examples/simple/camera_calibration.py:12:12"
+--8 < --"examples/simple/camera_calibration.py:12:12"
 ```
 
 Returns a `pupil_labs.neon_recording.calib.Calibration` object.
@@ -79,5 +79,5 @@ Calibration(
 ??? example "Check the whole example code here"
 
     ```py title="camera_calibration.py" linenums="1"
-    --8<-- "examples/simple/camera_calibration.py"
+    --8 < --"examples/simple/camera_calibration.py"
     ```

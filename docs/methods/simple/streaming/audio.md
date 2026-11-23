@@ -31,7 +31,7 @@ You can easily receive audio frames and convert them to NumPy arrays using the [
 ??? example "Check the whole example code here"
 
     ```py title="stream_audio.py" linenums="1"
-    --8<-- "examples/simple/stream_audio.py"
+    --8 < --"examples/simple/stream_audio.py"
     ```
 
 ## Playing Audio
@@ -49,7 +49,7 @@ You can find a simple example below that streams audio and plays it back using t
 ??? example "Check the whole example code here"
 
     ```py title="stream_audio_and_play.py" linenums="1"
-    --8<-- "examples/simple/stream_audio_and_play.py"
+    --8 < --"examples/simple/stream_audio_and_play.py"
     ```
 
 !!! abstract "Note"
@@ -63,7 +63,7 @@ Here you can find an example that shows how to play both video with gaze overlay
 ??? example "Check the whole example code here"
 
     ```py title="stream_video_gaze_and_audio.py" linenums="1"
-    --8<-- "examples/simple/stream_video_gaze_and_audio.py"
+    --8 < --"examples/simple/stream_video_gaze_and_audio.py"
     ```
 
 !!! tip "Bonus"

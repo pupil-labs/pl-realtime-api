@@ -9,9 +9,9 @@ Neon allows you to receive the eye cameras video stream with timestamps. Using t
 status = await device.get_status()
 sensor_eyes = status.direct_eyes_sensor()
 async for frame in receive_video_frames(
-	sensor_eyes.url, run_loop=restart_on_disconnect
-	):
-	bgr_buffer = frame.bgr_buffer()
+    sensor_eyes.url, run_loop=restart_on_disconnect
+):
+    bgr_buffer = frame.bgr_buffer()
 ```
 
 <figure markdown="span">
@@ -25,5 +25,5 @@ async for frame in receive_video_frames(
 ??? example "Check the whole example code here"
 
     ```py title="stream_eyes_camera_video.py" linenums="1"
-    --8<-- "examples/async/stream_eyes_camera_video.py"
+    --8 < --"examples/async/stream_eyes_camera_video.py"
     ```
